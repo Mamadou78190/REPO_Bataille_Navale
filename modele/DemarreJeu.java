@@ -29,22 +29,42 @@ public class DemarreJeu {
         String j = g1.placerNavire(p9);
         String k = g1.placerNavire(p10);
 
+        grille g2 = new grille(15, 15);
+
+        personnage p11 = new personnage("KK"); 
+        personnage p12 = new personnage("LL");
+        personnage p13 = new personnage("MM");
+        personnage p14 = new personnage("NN");
+        personnage p15 = new personnage("OO");
+        personnage p16 = new personnage("PP");
+        personnage p17 = new personnage("QQ");
+        personnage p18 = new personnage("RR");
+        personnage p19 = new personnage("SS");
+        personnage p20 = new personnage("TT");
+
+        String l = g2.placerNavire(p11);
+        String m = g2.placerNavire(p12);
+        String n = g2.placerNavire(p13);
+        String o = g2.placerNavire(p14);
+        String p = g2.placerNavire(p15);
+        String q = g2.placerNavire(p16);
+        String r = g2.placerNavire(p17);
+        String s = g2.placerNavire(p18);
+        String t = g2.placerNavire(p19);
+        String u = g2.placerNavire(p20);
+
         public void jouer(){
 
             g1.afficher();
 
-        System.out.println("A -> |"+b);
-        System.out.println("B -> |" +c);
-        System.out.println("C -> |"+d);
-        System.out.println("D -> |"+e);
-        System.out.println("E -> |"+f);
-        System.out.println("F -> |"+g);
-        System.out.println("G -> |"+h);
-        System.out.println("H -> |"+i);
-        System.out.println("I -> |"+j);
-        System.out.println("J -> |"+k);
+            System.out.println("//////////////////////////////////////////////////////////////");
+
+            g2.afficher();
+
         }
 
+        
+        
     
 
 
