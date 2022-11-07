@@ -94,7 +94,7 @@ public class Coordonnees {
             break;
 
             default:
-            System.out.print("\n\nLa puissance d'impact est atomique, vous avez detruit nos radars !!");
+            
             for (int i=0; i<grille.getTailleOrdonnees(); i++)
             {
                 for (int j=0; j<grille.getTailleAbscisse(); j++)
@@ -103,6 +103,7 @@ public class Coordonnees {
                 }
             }
             grille.afficherGrille();
+            System.out.println("\n\nLa puissance d'impact est atomique, vous avez detruit nos radars !!");
             System.out.println("\nRetablissement du signal dans 5");
             for (int i=4; i>=0; i--)
             {
