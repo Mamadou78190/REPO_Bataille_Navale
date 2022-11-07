@@ -86,7 +86,7 @@ public class DeplacementNavire {
 
                     case "gauche" : 
 
-                    if (ApparitionFlotte.balayageGauche(n1, n1.getOrdonnees(), (n1.getAbscisse() - (n1.taille +1)), g1) >= 1){
+                    if (ApparitionFlotte.balayageGauche(n1, n1.getOrdonnees(), (n1.getAbscisse() - (n1.taille -1)), g1) >= 1){
                         g1.cacherCaseGrille(n1.getAbscisse(), n1.getOrdonnees());
                         g1.grilleJeu[n1.getAbscisse()-n1.taille][n1.getOrdonnees()] = n1.caractere;
                     }else{System.out.println("Impossibilité d'aller à gauche");}
