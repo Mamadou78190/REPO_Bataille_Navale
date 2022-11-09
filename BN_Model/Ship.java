@@ -5,9 +5,19 @@ public class Ship extends Coordonnees {
     private caracteristiquesBateaux bateau;
     private int orientation;
 
-    public Ship(int x, int y, caracteristiquesBateaux objet ) {
-        super(x, y);
-        this.bateau = objet;
+    
+
+    public Ship(caracteristiquesBateaux bateau) {
+        
+        this.bateau = bateau;
+    }
+
+    public int getTaille(){
+        return bateau.getTaille();
+    }
+
+    public String getVisuel(){
+        return bateau.getVisuel();
     }
 
     // public int getAbscisse() {
