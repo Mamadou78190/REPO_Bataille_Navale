@@ -1,8 +1,7 @@
 package BN_Model;
-
-
 public class Grille {
-    private String grilleJeu [][]; 
+
+    public String grilleJeu [][]; 
     private int taille_abscisse;
     private int taille_ordonnees;
     
@@ -17,12 +16,10 @@ public class Grille {
                 cacherCaseGrille(i, j); 
             }
         }
-        // System.out.println(grilleJeu[4][2].length()); 
+       
     }
 
-    // public Grille ()
-    // {}
-
+   
     public int getTailleAbscisse()
     {
         return taille_abscisse;
@@ -165,6 +162,5 @@ public class Grille {
         grilleJeu[x][y] = " ~~ ";
         
     }
-
     
 }
