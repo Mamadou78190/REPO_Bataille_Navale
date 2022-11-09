@@ -6,6 +6,9 @@ public class Coordonnees {
     protected int x;
     protected int y;
 
+
+    public Coordonnees()
+    {}
     public Coordonnees (int x, int y)
     {
         // super();
