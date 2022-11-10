@@ -19,7 +19,9 @@ public class DeplacementNavire {
                             g1.cacherCaseGrille(n1.getX(), (n1.getY()-n1.getTaille())+1);
                             g1.grilleJeu[n1.getX()][(n1.getY() + 1)] = n1.getVisuel();
                             n1.setY((n1.getY() + 1));
-                         }else{System.out.println("Impossibilité d'aller plus bas");} 
+                            System.out.println("Bateau déplacé en bas");
+                            g1.afficherGrille();
+                          }else{System.out.println("Impossibilité d'aller plus bas");} 
 
                     break;
 
@@ -29,6 +31,8 @@ public class DeplacementNavire {
                             g1.cacherCaseGrille(n1.getX(), n1.getY());
                             g1.grilleJeu[n1.getX()][(n1.getY() - n1.getTaille())] = n1.getVisuel();
                             n1.setY(n1.getY() -1);
+                            System.out.println("Bateau déplacé en haut");
+                            g1.afficherGrille();
                         }else {System.out.println("Impossibilité d'aller plus haut");}   
 
                     break;
@@ -46,6 +50,8 @@ public class DeplacementNavire {
                             g1.cacherCaseGrille(n1.getX(), n1.getY());
                             g1.grilleJeu[n1.getX()][(n1.getY() + n1.getTaille())] = n1.getVisuel();
                             n1.setY(n1.getY() + 1);
+                            System.out.println("Bateau déplacé en bas");
+                            g1.afficherGrille();
                         }else {System.out.println("Impossibilité d'aller plus bas");}
                     
                     break; 
@@ -56,6 +62,8 @@ public class DeplacementNavire {
                             g1.cacherCaseGrille(n1.getX(),(n1.getY()+n1.getTaille()) -1);
                             g1.grilleJeu[n1.getX()][n1.getY() - 1] = n1.getVisuel();
                             n1.setY(n1.getY() - 1);
+                            System.out.println("Bateau déplacé en haut");
+                            g1.afficherGrille();
                         }else {System.out.println("Impossibilité d'aller plus haut");}
 
                     break; 
@@ -72,6 +80,8 @@ public class DeplacementNavire {
                         g1.cacherCaseGrille((n1.getX() + (n1.getTaille()-1)), n1.getY());
                         g1.grilleJeu[n1.getX() - 1][n1.getY()] = n1.getVisuel();
                         n1.setX(n1.getX() - 1);
+                        System.out.println("Bateau déplacé à gauche");
+                        g1.afficherGrille();
                     }else{System.out.println("Impossibilité d'aller à gauche");}
 
                     break;
@@ -82,6 +92,8 @@ public class DeplacementNavire {
                         g1.cacherCaseGrille(n1.getX(), n1.getY());
                         g1.grilleJeu[n1.getX() + n1.getTaille()][n1.getY()] = n1.getVisuel();
                         n1.setX(n1.getX() + 1);
+                        System.out.println("Bateau déplacé à droite");
+                        g1.afficherGrille();
                     }else {System.out.println("Impossibilité d'aller à droite");}
 
                     break;
@@ -99,6 +111,8 @@ public class DeplacementNavire {
                         g1.cacherCaseGrille(n1.getX(), n1.getY());
                         g1.grilleJeu[n1.getX()-n1.getTaille()][n1.getY()] = n1.getVisuel();
                         n1.setX(n1.getX() - 1);
+                        System.out.println("Bateau déplacé à gauche");
+                        g1.afficherGrille();
                     }else{System.out.println("Impossibilité d'aller à gauche");}
 
                     break;
@@ -109,6 +123,8 @@ public class DeplacementNavire {
                         g1.cacherCaseGrille((n1.getX()-n1.getTaille())+1, n1.getY());
                         g1.grilleJeu[n1.getX() + 1][n1.getY()] = n1.getVisuel();
                         n1.setX(n1.getX() + 1);
+                        System.out.println("Bateau déplacé à droite");
+                        g1.afficherGrille();
                     }else{System.out.println("Impossibilité d'aller à droite");}
 
                     break;
