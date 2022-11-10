@@ -53,11 +53,11 @@ public class ApparitionFlotte{
     public String flotteGrille(Grille g1, Ship p1){
 
         //Coordonnées aléatoires
-		Random random = new Random();
-		Random random2 = new Random();
+		Random randomAbscisse = new Random();
+		Random randomOrdonnee = new Random();
 		int abscisses;
 		int ordonnees;
-        boolean z = false; 
+        boolean disponibilite = false; 
         boolean jetonBas = false;
         boolean jetonHaut = false;
         boolean jetonGauche = false;
@@ -67,33 +67,33 @@ public class ApparitionFlotte{
     
             do {
 
-              abscisses = random.nextInt(g1.getTailleAbscisse());
-		      ordonnees = random2.nextInt(g1.getTailleOrdonnees());
+              abscisses = randomAbscisse.nextInt(g1.getTailleAbscisse());
+		      ordonnees = randomOrdonnee.nextInt(g1.getTailleOrdonnees());
 
                 if (balayageBas(p1, ordonnees, abscisses, g1) == p1.getTaille()){
                     jetonBas = true;
-                    z = true;
+                    disponibilite = true;
                 } if (balayageDroite(p1, ordonnees, abscisses, g1) == p1.getTaille()){
                     jetonDroit = true;
-                    z = true;
+                    disponibilite = true;
                 } if (balayageGauche(p1, ordonnees, abscisses, g1) == p1.getTaille()){
                     jetonGauche = true;
-                    z = true;
+                    disponibilite = true;
                 } if (balayageHaut(p1, ordonnees, abscisses, g1) == p1.getTaille()){
                     jetonHaut = true;
-                    z = true;
+                    disponibilite = true;
                 }
-            }while(z == false);
+            }while(disponibilite == false);
 
 
             Random random3 = new Random();
-            int position = random3.nextInt(3);
+            int position = 0;//random3.nextInt(3);
 
         switch (position) {
 
             case 0 : 
                 //haut
-                if (jetonHaut == true){
+                if (jetonHaut){
                     for (int i = 0; i<p1.getTaille(); i++){
                         g1.grilleJeu[abscisses][ordonnees - i] = p1.getVisuel();
                         position = 0;
@@ -156,7 +156,7 @@ public class ApparitionFlotte{
                     }
                 }else if (jetonHaut){
                     for (int i = 0; i<p1.getTaille(); i++){
-                        g1.grilleJeu[p1.getX()][p1.getY() - i] = p1.getVisuel();
+                        g1.grilleJeu[abscisses][ordonnees - i] = p1.getVisuel();
                         position = 0;
                     }
                 }else if (jetonBas){
@@ -181,7 +181,7 @@ public class ApparitionFlotte{
                     }
                 }else if (jetonHaut){
                     for (int i = 0; i<p1.getTaille(); i++){
-                        g1.grilleJeu[p1.getX()][p1.getY() - i] = p1.getVisuel();
+                        g1.grilleJeu[abscisses][ordonnees - i] = p1.getVisuel();
                         position = 0;
                     }
                 }else if (jetonBas){
