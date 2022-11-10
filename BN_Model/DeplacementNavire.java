@@ -18,6 +18,7 @@ public class DeplacementNavire {
                         if (ApparitionFlotte.balayageBas(n1, n1.getY(), n1.getX() , g1) >= 1 ){ 
                             g1.cacherCaseGrille(n1.getX(), (n1.getY()-n1.getTaille())+1);
                             g1.grilleJeu[n1.getX()][(n1.getY() + 1)] = n1.getVisuel();
+                            n1.setY((n1.getY() + 1));
                          }else{System.out.println("Impossibilité d'aller plus bas");} 
 
                     break;
@@ -27,6 +28,7 @@ public class DeplacementNavire {
                         if (ApparitionFlotte.balayageHaut(n1, (n1.getY()- (n1.getTaille() - 1)), n1.getX(), g1) >= 1){
                             g1.cacherCaseGrille(n1.getX(), n1.getY());
                             g1.grilleJeu[n1.getX()][(n1.getY() - n1.getTaille())] = n1.getVisuel();
+                            n1.setY(n1.getY() -1);
                         }else {System.out.println("Impossibilité d'aller plus haut");}   
 
                     break;
@@ -43,6 +45,7 @@ public class DeplacementNavire {
                          if (ApparitionFlotte.balayageBas(n1, (n1.getY() + (n1.getTaille()-1)) , n1.getX(), g1) >= 1){
                             g1.cacherCaseGrille(n1.getX(), n1.getY());
                             g1.grilleJeu[n1.getX()][(n1.getY() + n1.getTaille())] = n1.getVisuel();
+                            n1.setY(n1.getY() + 1);
                         }else {System.out.println("Impossibilité d'aller plus bas");}
                     
                     break; 
@@ -52,6 +55,7 @@ public class DeplacementNavire {
                         if(ApparitionFlotte.balayageHaut(n1, n1.getY(), n1.getX(), g1) >= 1){
                             g1.cacherCaseGrille(n1.getX(),(n1.getY()+n1.getTaille()) -1);
                             g1.grilleJeu[n1.getX()][n1.getY() - 1] = n1.getVisuel();
+                            n1.setY(n1.getY() - 1);
                         }else {System.out.println("Impossibilité d'aller plus haut");}
 
                     break; 
@@ -67,6 +71,7 @@ public class DeplacementNavire {
                     if (ApparitionFlotte.balayageGauche(n1, n1.getY(), n1.getX(), g1) >= 1){
                         g1.cacherCaseGrille((n1.getX() + (n1.getTaille()-1)), n1.getY());
                         g1.grilleJeu[n1.getX() - 1][n1.getY()] = n1.getVisuel();
+                        n1.setX(n1.getX() - 1);
                     }else{System.out.println("Impossibilité d'aller à gauche");}
 
                     break;
@@ -76,6 +81,7 @@ public class DeplacementNavire {
                     if(ApparitionFlotte.balayageDroite(n1, n1.getY(), n1.getX() +(n1.getTaille() -1), g1) >= 1){
                         g1.cacherCaseGrille(n1.getX(), n1.getY());
                         g1.grilleJeu[n1.getX() + n1.getTaille()][n1.getY()] = n1.getVisuel();
+                        n1.setX(n1.getX() + 1);
                     }else {System.out.println("Impossibilité d'aller à droite");}
 
                     break;
@@ -92,6 +98,7 @@ public class DeplacementNavire {
                     if (ApparitionFlotte.balayageGauche(n1, n1.getY(), (n1.getX() - (n1.getTaille() +1)), g1) >= 1){
                         g1.cacherCaseGrille(n1.getX(), n1.getY());
                         g1.grilleJeu[n1.getX()-n1.getTaille()][n1.getY()] = n1.getVisuel();
+                        n1.setX(n1.getX() - 1);
                     }else{System.out.println("Impossibilité d'aller à gauche");}
 
                     break;
@@ -101,6 +108,7 @@ public class DeplacementNavire {
                     if(ApparitionFlotte.balayageDroite(n1, n1.getY(), n1.getX(), g1) >= 1){
                         g1.cacherCaseGrille((n1.getX()-n1.getTaille())+1, n1.getY());
                         g1.grilleJeu[n1.getX() + 1][n1.getY()] = n1.getVisuel();
+                        n1.setX(n1.getX() + 1);
                     }else{System.out.println("Impossibilité d'aller à droite");}
 
                     break;
