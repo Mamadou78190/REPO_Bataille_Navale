@@ -12,6 +12,10 @@ public class Ship extends Coordonnees {
         this.bateau = bateau;
     }
 
+    public int getPuissance(){
+       return  bateau.getpuissance();
+    }
+
     public int getTaille(){
         return bateau.getTaille();
     }
