@@ -1,5 +1,4 @@
 package BN_Model;
-import java.io.*;;
 public class Grille {
     
     public String grilleJeu [][]; 
