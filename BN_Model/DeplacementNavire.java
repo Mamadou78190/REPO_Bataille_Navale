@@ -143,6 +143,7 @@ public class DeplacementNavire {
                     g1.cacherCaseGrille(n1.getX(), n1.getY());
                     g1.grilleJeu[n1.getX()-1][n1.getY()] = n1.getVisuel();
                     System.out.println("Sous-Marin déplacé à gauche");
+                    n1.setX(n1.getX()-1);
                     g1.afficherGrille();
                 }else{System.out.println("Impossibilité d'aller à gauche");}
 
@@ -155,6 +156,7 @@ public class DeplacementNavire {
                     g1.cacherCaseGrille(n1.getX(), n1.getY());
                     g1.grilleJeu[n1.getX()+1][n1.getY()] = n1.getVisuel();
                     System.out.println("Sous-Marin déplacé à droite");
+                    n1.setX(n1.getX()+1);
                     g1.afficherGrille();
                 }else{System.out.println("Impossibilité d'aller à droite");}
 
@@ -166,6 +168,7 @@ public class DeplacementNavire {
                     g1.cacherCaseGrille(n1.getX(), n1.getY());
                     g1.grilleJeu[n1.getX()][n1.getY()-1] = n1.getVisuel();
                     System.out.println("Sous-Marin déplacé en haut");
+                    n1.setY(n1.getY()-1);
                     g1.afficherGrille();
                 }else{System.out.println("Impossibilité d'aller plus haut");}
 
@@ -177,6 +180,7 @@ public class DeplacementNavire {
                     g1.cacherCaseGrille(n1.getX(), n1.getY());
                     g1.grilleJeu[n1.getX()][n1.getY()+1] = n1.getVisuel();
                     System.out.println("Sous-Marin déplacé en bas");
+                    n1.setY(n1.getY()+1);
                     g1.afficherGrille();
                 }else{System.out.println("Impossibilité d'aller plus bas");}
             }    
