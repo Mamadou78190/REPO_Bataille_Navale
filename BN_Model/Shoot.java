@@ -51,7 +51,7 @@ public class Shoot extends Coordonnees {
             {
                 for (int j=shootX-1; j<=shootX+1; j++)
                 {
-                    grille.afficherCaseGrille(j, i, "BOOM");
+                    grille.afficherCaseGrille(j, i,-1, "BOOM");
                 }
             }
             break;
@@ -61,13 +61,13 @@ public class Shoot extends Coordonnees {
             {
                 for (int j=shootX; j<=shootX+1; j++)
                 {
-                    grille.afficherCaseGrille(j, i, "BOOM");
+                    grille.afficherCaseGrille(j, i,-1, "BOOM");
                 }
             }
             break;
 
             case 1:
-            grille.afficherCaseGrille(x, y, "BOOM");
+            grille.afficherCaseGrille(x, y,-1, "BOOM");
             break;
 
             default:
@@ -76,7 +76,7 @@ public class Shoot extends Coordonnees {
             {
                 for (int j=0; j<grille.getTailleAbscisse(); j++)
                 {
-                    grille.afficherCaseGrille(j, i, "XXXX");
+                    grille.afficherCaseGrille(j, i,-1, "XXXX");
                 }
             }
             grille.afficherGrille();

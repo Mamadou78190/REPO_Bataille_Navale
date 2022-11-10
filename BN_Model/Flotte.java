@@ -26,8 +26,12 @@ public class Flotte {
 
     }
 
-    public Ship[] getFlotte() {
-        return flotte;
+    public int getFlotteSize() {
+        return flotte.length;
+    }
+
+    public Ship getShipFromFlotte(int index) {
+        return flotte[index];
     }
 
     public void afficherFlotte()

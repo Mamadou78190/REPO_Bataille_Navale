@@ -1,6 +1,7 @@
 package BN_Model;
+import java.io.*;;
 public class Grille {
-
+    
     public String grilleJeu [][]; 
     private int taille_abscisse;
     private int taille_ordonnees;
@@ -151,9 +152,16 @@ public class Grille {
 
 
 
-    public void afficherCaseGrille(int x,int y, String quoiAfficher)
+    public void afficherCaseGrille(int x,int y, int index, String quoiAfficher)
     {
-        grilleJeu[x][y] = quoiAfficher;
+        if (index>=0){
+            String quoiAfficherFinal = index+quoiAfficher; 
+            grilleJeu[x][y] = quoiAfficherFinal;
+
+        }
+        else{
+            grilleJeu[x][y] = quoiAfficher;
+        }
         
     }
 
