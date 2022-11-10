@@ -20,13 +20,22 @@ public class Flotte {
             flotte[i] = new Ship(caracteristiquesBateaux.croiseur);
         }
 
+        for (int i=9;i<10;i++){//creation de 1 cuirasse
+            flotte[i] = new Ship(caracteristiquesBateaux.cuirasse);
+        }
+
+    }
+
+    public Ship[] getFlotte() {
+        return flotte;
     }
 
     public void afficherFlotte()
     {
         for (int i=0;i<10;i++)
         {
-            System.out.println(flotte[i]);
+            System.out.println("Numero du bateau : "+i + "  " +flotte[i]);
+            
         }
     }
 
