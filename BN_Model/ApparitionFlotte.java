@@ -121,22 +121,22 @@ public class ApparitionFlotte{
                 //bas
                 if (jetonBas){
                     for (int i = 0; i<p1.getTaille(); i++){
-                        g1.grilleJeu[abscisses][ordonnees + i] = p1.getVisuel();
+                        g1.afficherCaseGrille(abscisses,ordonnees+i,index, p1.getVisuel());
                         position = 1;
                     }
                 }else if (jetonHaut){
                     for (int i = 0; i<p1.getTaille(); i++){
-                        g1.grilleJeu[abscisses][ordonnees - i] = p1.getVisuel();
+                        g1.afficherCaseGrille(abscisses,ordonnees-i,index, p1.getVisuel());
                         position = 0;
                     }
                 }else if (jetonDroit){
                     for (int i = 0; i<p1.getTaille(); i++){
-                        g1.grilleJeu[abscisses + i][ordonnees] = p1.getVisuel();
+                        g1.afficherCaseGrille(abscisses+i,ordonnees,index, p1.getVisuel());
                         position = 2;
                     }
                 }else if (jetonGauche){
                     for (int i = 0; i<p1.getTaille(); i++){
-                        g1.grilleJeu[abscisses - i][ordonnees] = p1.getVisuel();
+                        g1.afficherCaseGrille(abscisses-i,ordonnees,index, p1.getVisuel());
                         position = 3;
                     }
                 }
@@ -146,22 +146,22 @@ public class ApparitionFlotte{
                 //droit
                 if (jetonDroit){
                     for (int i = 0; i<p1.getTaille(); i++){
-                        g1.grilleJeu[abscisses + i][ordonnees] = p1.getVisuel();
+                        g1.afficherCaseGrille(abscisses+i,ordonnees,index, p1.getVisuel());
                         position = 2;
                     }
                 }else if (jetonGauche){
                     for (int i = 0; i<p1.getTaille(); i++){
-                        g1.grilleJeu[abscisses - i][ordonnees] = p1.getVisuel();
+                        g1.afficherCaseGrille(abscisses-i,ordonnees,index, p1.getVisuel());
                         position = 3;
                     }
                 }else if (jetonHaut){
                     for (int i = 0; i<p1.getTaille(); i++){
-                        g1.grilleJeu[abscisses][ordonnees - i] = p1.getVisuel();
+                        g1.afficherCaseGrille(abscisses,ordonnees-i,index, p1.getVisuel());
                         position = 0;
                     }
                 }else if (jetonBas){
                     for (int i = 0; i<p1.getTaille(); i++){
-                        g1.grilleJeu[abscisses][ordonnees + i] = p1.getVisuel();
+                        g1.afficherCaseGrille(abscisses,ordonnees+i,index, p1.getVisuel());
                         position = 1;
                     }
                 }
@@ -171,22 +171,22 @@ public class ApparitionFlotte{
                 //gauche
                 if (jetonGauche){
                     for (int i = 0; i<p1.getTaille(); i++){
-                        g1.grilleJeu[abscisses - i][ordonnees] = p1.getVisuel();
+                        g1.afficherCaseGrille(abscisses-i,ordonnees,index, p1.getVisuel());
                         position = 3;
                     }
                 }else if (jetonDroit){
                     for (int i = 0; i<p1.getTaille(); i++){
-                        g1.grilleJeu[abscisses + i][ordonnees] = p1.getVisuel();
+                        g1.afficherCaseGrille(abscisses+i,ordonnees,index, p1.getVisuel());
                         position = 2;
                     }
                 }else if (jetonHaut){
                     for (int i = 0; i<p1.getTaille(); i++){
-                        g1.grilleJeu[abscisses][ordonnees - i] = p1.getVisuel();
+                        g1.afficherCaseGrille(abscisses,ordonnees-i,index, p1.getVisuel());
                         position = 0;
                     }
                 }else if (jetonBas){
                     for (int i = 0; i<p1.getTaille(); i++){
-                        g1.grilleJeu[abscisses][ordonnees + i] = p1.getVisuel();
+                        g1.afficherCaseGrille(abscisses,ordonnees+i,index, p1.getVisuel());
                         position = 1;
                     }
                 }
