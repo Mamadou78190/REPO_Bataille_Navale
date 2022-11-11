@@ -6,7 +6,7 @@ public class Ship extends Coordonnees {
     private int orientation;
 
     
-
+    public Ship() {}
     public Ship(caracteristiquesBateaux bateau) {
         
         this.bateau = bateau;

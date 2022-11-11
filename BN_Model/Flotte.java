@@ -1,5 +1,5 @@
 package BN_Model;
-public class Flotte {
+public class Flotte extends Ship {
 
     private Ship flotte[] = new Ship[10];//Flotte ami
 
@@ -7,7 +7,7 @@ public class Flotte {
     public Flotte()
 
     {
-
+        super();
         for (int i=0;i<4;i++){//creation de 4 sous-marin
             flotte[i] = new Ship(caracteristiquesBateaux.sousMarin);
         }
