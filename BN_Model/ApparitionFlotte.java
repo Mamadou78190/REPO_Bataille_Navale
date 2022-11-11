@@ -87,7 +87,7 @@ public class ApparitionFlotte{
 
 
             Random random3 = new Random();
-            int position = 0;//random3.nextInt(3);
+            int position = random3.nextInt(3);
 
         switch (position) {
 
