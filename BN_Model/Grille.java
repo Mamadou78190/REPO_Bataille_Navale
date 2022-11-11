@@ -169,5 +169,10 @@ public class Grille {
         grilleJeu[x][y] = " ~~ ";
         
     }
+
+    public String getContenuGrille(int x, int y){
+        String contenuGrille = grilleJeu[x][y];
+        return contenuGrille;
+    }
     
 }
