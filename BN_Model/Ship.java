@@ -1,10 +1,11 @@
 package BN_Model;
 
+import java.util.ArrayList;
 
 public class Ship extends Coordonnees {
     private caracteristiquesBateaux bateau;
     private int orientation;
-
+    ArrayList<Coordonnees> navires = new ArrayList();
     
 
     public Ship(caracteristiquesBateaux bateau) {
@@ -63,5 +64,30 @@ public class Ship extends Coordonnees {
          //       "taille=" + bateau.getTaille() +
            //     ", puissanceDeTire=" + bateau.getpuissance() +
             //    '}';
+
+    public ArrayList getCoordonneesNavire(){
+
+        ArrayList<Coordonnees> navires = new ArrayList();
+        return navires;
+
     }
+
+
+    public void setNavires(int x, int y, Ship bateau) {
+
+        Coordonnees coordonnees = new Coordonnees(x, y);
+        navires.add(coordonnees);
+
+    }
+
+    public Coordonnees getCaseNavire (int index){
+
+        return navires.get(index);
+
+    }
+
+    
+
+    
+}
 
