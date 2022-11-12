@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
-import javax.swing.text.FlowView;
 
 public class Window extends JFrame {
     
