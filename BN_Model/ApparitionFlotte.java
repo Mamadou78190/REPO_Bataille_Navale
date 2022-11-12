@@ -97,21 +97,25 @@ public class ApparitionFlotte{
                     for (int i = 0; i<p1.getTaille(); i++){
                         g1.afficherCaseGrille(abscisses,ordonnees-i,index , p1.getVisuel());
                         position = 0;
+                        p1.setNavires(abscisses, ordonnees-i, p1);
                     }
                 }else if (jetonBas){
                     for (int i = 0; i<p1.getTaille(); i++){
                         g1.afficherCaseGrille(abscisses,ordonnees+i,index , p1.getVisuel());
                         position = 1;
+                        p1.setNavires(abscisses, ordonnees+i, p1);
                     }
                 }else if (jetonGauche){
                     for (int i = 0; i<p1.getTaille(); i++){
                         g1.afficherCaseGrille(abscisses-i,ordonnees,index , p1.getVisuel());
                         position = 3;
+                        p1.setNavires(abscisses-i, ordonnees, p1);
                     }
                 }else if (jetonDroit){
                     for (int i = 0; i<p1.getTaille(); i++){
                         g1.afficherCaseGrille(abscisses+i,ordonnees,index, p1.getVisuel());
                         position = 2;
+                        p1.setNavires(abscisses+i, ordonnees, p1);
                     }
                 }
 
@@ -123,21 +127,25 @@ public class ApparitionFlotte{
                     for (int i = 0; i<p1.getTaille(); i++){
                         g1.afficherCaseGrille(abscisses,ordonnees+i,index, p1.getVisuel());
                         position = 1;
+                        p1.setNavires(abscisses, ordonnees+i, p1);
                     }
                 }else if (jetonHaut){
                     for (int i = 0; i<p1.getTaille(); i++){
                         g1.afficherCaseGrille(abscisses,ordonnees-i,index, p1.getVisuel());
                         position = 0;
+                        p1.setNavires(abscisses, ordonnees-i, p1);
                     }
                 }else if (jetonDroit){
                     for (int i = 0; i<p1.getTaille(); i++){
                         g1.afficherCaseGrille(abscisses+i,ordonnees,index, p1.getVisuel());
                         position = 2;
+                        p1.setNavires(abscisses+i, ordonnees, p1);
                     }
                 }else if (jetonGauche){
                     for (int i = 0; i<p1.getTaille(); i++){
                         g1.afficherCaseGrille(abscisses-i,ordonnees,index, p1.getVisuel());
                         position = 3;
+                        p1.setNavires(abscisses-i, ordonnees, p1);
                     }
                 }
             break; 
@@ -148,21 +156,25 @@ public class ApparitionFlotte{
                     for (int i = 0; i<p1.getTaille(); i++){
                         g1.afficherCaseGrille(abscisses+i,ordonnees,index, p1.getVisuel());
                         position = 2;
+                        p1.setNavires(abscisses+i, ordonnees, p1);
                     }
                 }else if (jetonGauche){
                     for (int i = 0; i<p1.getTaille(); i++){
                         g1.afficherCaseGrille(abscisses-i,ordonnees,index, p1.getVisuel());
                         position = 3;
+                        p1.setNavires(abscisses-i, ordonnees, p1);
                     }
                 }else if (jetonHaut){
                     for (int i = 0; i<p1.getTaille(); i++){
                         g1.afficherCaseGrille(abscisses,ordonnees-i,index, p1.getVisuel());
                         position = 0;
+                        p1.setNavires(abscisses, ordonnees-i, p1);
                     }
                 }else if (jetonBas){
                     for (int i = 0; i<p1.getTaille(); i++){
                         g1.afficherCaseGrille(abscisses,ordonnees+i,index, p1.getVisuel());
                         position = 1;
+                        p1.setNavires(abscisses, ordonnees+i, p1);
                     }
                 }
             break; 
@@ -173,21 +185,25 @@ public class ApparitionFlotte{
                     for (int i = 0; i<p1.getTaille(); i++){
                         g1.afficherCaseGrille(abscisses-i,ordonnees,index, p1.getVisuel());
                         position = 3;
+                        p1.setNavires(abscisses-i, ordonnees, p1);
                     }
                 }else if (jetonDroit){
                     for (int i = 0; i<p1.getTaille(); i++){
                         g1.afficherCaseGrille(abscisses+i,ordonnees,index, p1.getVisuel());
                         position = 2;
+                        p1.setNavires(abscisses+i, ordonnees, p1);
                     }
                 }else if (jetonHaut){
                     for (int i = 0; i<p1.getTaille(); i++){
                         g1.afficherCaseGrille(abscisses,ordonnees-i,index, p1.getVisuel());
                         position = 0;
+                        p1.setNavires(abscisses, ordonnees-i, p1);
                     }
                 }else if (jetonBas){
                     for (int i = 0; i<p1.getTaille(); i++){
                         g1.afficherCaseGrille(abscisses,ordonnees+i,index, p1.getVisuel());
                         position = 1;
+                        p1.setNavires(abscisses, ordonnees+i, p1);
                     }
                 }
 
@@ -204,6 +220,10 @@ public class ApparitionFlotte{
 
     } 
 
-    
+    public void apparitionFlottesurGrille (Flotte flotte, Grille grille, ApparitionFlotte AP){
+        for (int i = 0; i < flotte.getFlotteSize(); i++) {
+            AP.flotteGrille(grille,flotte.getShipFromFlotte(i),i);
+         }
+    }
     
 }
