@@ -1,7 +1,7 @@
 package BN_Model;
 import java.util.Random;
 
-public class ApparitionFlotte{
+public class ApparitionBateau{
 
     public static int balayageHaut(Ship p1, int ordonnees, int abscisses, Grille g1){
 
@@ -220,10 +220,12 @@ public class ApparitionFlotte{
 
     } 
 
-    public void apparitionFlottesurGrille (Flotte flotte, Grille grille, ApparitionFlotte AP){
+    public void apparitionFlottesurGrille (Flotte flotte, Grille grille, ApparitionBateau AP){
         for (int i = 0; i < flotte.getFlotteSize(); i++) {
             AP.flotteGrille(grille,flotte.getShipFromFlotte(i),i);
          }
     }
+
+    
     
 }
