@@ -59,6 +59,7 @@ public class Controller {
         switch (userChoice) {
             case 1:
             System.out.println("call Start a New Game");
+            startNewGame();
             break;
             case 2:
             System.out.println("call Load a New Game");
@@ -77,7 +78,28 @@ public class Controller {
 
     public void startNewGame () {
         gameState = GameState.TourJoueur;
-        
+        grilleJoueur.initializeGrille();
+        view.showGrilles();
     }
+
     
+    // les deux grilles dont la même taille que ce soit en abscisse ou en ordonnee, donc autant les généraliser à une grille
+    public int getGrilleTailleAbscisse()
+    {
+        return grilleJoueur.getTailleAbscisse();
+    }
+    public int getGrilleTailleOrdonnees()
+    {
+        return grilleJoueur.getTailleOrdonnees();
+    }
+    /////////////////////////////////////////////////
+    
+    // ce qui n'est pas le cas ici car le contenu de chaque grille n'est pas la même
+    public String getGrilleJoueurContent(int x, int y) {
+        return grilleJoueur.getContent(x,y);
+    }
+    public String getGrilleIAContent(int x, int y) {
+        return grilleIA.getContent(x,y);
+    }
+    /////////////////////////////////////////////////
 }

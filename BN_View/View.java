@@ -26,4 +26,101 @@ public class View {
                             "\n3 - Show help"+
                             "\n4 - Exit Game");
     }
+
+    public void showGrilles() { 
+        
+        System.out.print("\n\ny--x");
+
+        for (int j = 0; j < controller.getGrilleTailleAbscisse(); j++) {  
+            if (controller.getGrilleJoueurContent(0, 0).length()%2==0)
+            {
+                if (j<10)
+                {
+                    for (int i = 0; i < controller.getGrilleJoueurContent(0, 0).length()/2; i++) {
+                    System.out.print(" ");
+                    }
+                    System.out.print(j);
+                    for (int i = 0; i < controller.getGrilleJoueurContent(0, 0).length()/2; i++) {
+                        System.out.print(" ");
+                    }                        
+                }  
+                else 
+                {
+                    for (int i = 0; i < (controller.getGrilleJoueurContent(0, 0).length()/2)-1; i++) {
+                        System.out.print(" ");
+                        }
+                        System.out.print(j);
+                        for (int i = 0; i < (controller.getGrilleJoueurContent(0, 0).length()/2); i++) {
+                            System.out.print(" ");
+                        }
+                }
+            }
+            else 
+            {
+                if (j<10)
+                {
+                    for (int i = 0; i < controller.getGrilleJoueurContent(0, 0).length()/2; i++) {
+                    System.out.print(" ");
+                    }
+                    System.out.print(j);
+                    for (int i = 0; i < controller.getGrilleJoueurContent(0, 0).length()/2; i++) {
+                        System.out.print(" ");
+                    }   
+                    System.out.print(" ");                     
+                }  
+                else 
+                {
+                    for (int i = 0; i < (controller.getGrilleJoueurContent(0, 0).length()/2)-1; i++) {
+                        System.out.print(" ");
+                        }
+                        System.out.print(j);
+                        for (int i = 0; i < (controller.getGrilleJoueurContent(0, 0).length()/2); i++) {
+                            System.out.print(" ");
+                        }
+                        System.out.print(" ");
+                }
+            }   
+        }
+        
+        System.out.println();
+
+        for (int i = 0; i < controller.getGrilleTailleOrdonnees(); i++) {
+            //affichage du repere y 
+            if (i<10)
+            {
+                System.out.print(i+"  ");
+            }
+            else
+            {
+                System.out.print(i+" ");
+            }
+            ////////////////////////////////
+
+            //affichage grille
+            for (int j = 0; j < controller.getGrilleTailleAbscisse(); j++) {
+                
+                System.out.print("|");
+                System.out.print(controller.getGrilleJoueurContent(j, i));
+                
+            }
+            ////////////////////////////////
+
+            showSeparationLine();
+        }
+    }
+
+    public void showSeparationLine() {
+        System.out.println("|");
+            System.out.print("   ");
+                for (int k = 0; k < controller.getGrilleTailleAbscisse(); k++) {
+                    System.out.print("|");
+                    for (int i = 0; i < controller.getGrilleJoueurContent(0,0).length(); i++) {
+                        System.out.print("-");
+                    }
+                    
+                }
+                System.out.println("|");
+    }
+
+
 }

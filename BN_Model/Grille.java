@@ -1,7 +1,7 @@
 package BN_Model;
 public class Grille {
     
-    public String grilleJeu [][]; 
+    public String tableauJeu [][]; 
     private int taille_abscisse;
     private int taille_ordonnees;
     
@@ -10,12 +10,12 @@ public class Grille {
     {
         this.taille_abscisse=taille_abscisse;
         this.taille_ordonnees=taille_ordonnees;
-        this.grilleJeu = new String[taille_abscisse][taille_ordonnees];
-        for (int i = 0; i < taille_abscisse; i++) {
-            for (int j = 0; j < taille_ordonnees; j++) {
-                cacherCaseGrille(i, j); 
-            }
-        }
+        this.tableauJeu = new String[taille_abscisse][taille_ordonnees];
+        // for (int i = 0; i < taille_abscisse; i++) {
+        //     for (int j = 0; j < taille_ordonnees; j++) {
+        //         cacherCaseGrille(i, j); 
+        //     }
+        // }
        
     }
 
@@ -30,50 +30,39 @@ public class Grille {
         return taille_ordonnees;
     }
 
+    public String getContent(int x,int y) {
+        return tableauJeu[x][y];
+    }
 
-    public void reinitialisationGrille()
+    public void setContent(int x,int y, int index, String contenu)
+    {
+        if (index>=0){
+            contenu = index+contenu; 
+            tableauJeu[x][y] = contenu;
+
+        }
+        else{
+            tableauJeu[x][y] = contenu;
+        }
+        
+    }
+
+    public void hideContent(int x,int y)
+    {
+        tableauJeu[x][y] = " ~~ ";
+        
+    }
+
+    public void initializeGrille()
     {
         for (int i = 0; i < taille_abscisse; i++) {
             for (int j = 0; j < taille_ordonnees; j++) {
-                cacherCaseGrille(i, j); 
+                hideContent(i, j); 
             }
         }
     }
 
-    public void afficherGrille() 
-    {
-        
-        System.out.print("\n\ny--x");
-
-        calibrageGrilleSuivantNombreCaracteresDansCase("repereAbscisse");
-        
-        System.out.println();
-
-        for (int i = 0; i < taille_ordonnees; i++) {
-            //affichage du repere y 
-            if (i<10)
-            {
-                System.out.print(i+"  ");
-            }
-            else
-            {
-                System.out.print(i+" ");
-            }
-            ////////////////////////////////
-
-            //affichage grille
-            for (int j = 0; j < taille_abscisse; j++) {
-                
-                System.out.print("|");
-                System.out.print(grilleJeu[j][i]);
-                
-            }
-            ////////////////////////////////
-
-            calibrageGrilleSuivantNombreCaracteresDansCase("separationHorizontale");
-        }
-    }
-
+    
     public void calibrageGrilleSuivantNombreCaracteresDansCase (String situation)
     {
         switch (situation) 
@@ -83,7 +72,7 @@ public class Grille {
             System.out.print("   ");
                 for (int k = 0; k < taille_abscisse; k++) {
                     System.out.print("|");
-                    for (int i = 0; i < grilleJeu[0][0].length(); i++) {
+                    for (int i = 0; i < tableauJeu[0][0].length(); i++) {
                         System.out.print("-");
                     }
                     
@@ -94,25 +83,25 @@ public class Grille {
 
             case "repereAbscisse": //attention ce calibrage ne fonctionne que pour un repere d'abscisses entre 0 et 100 non inclus
                 for (int j = 0; j < taille_abscisse; j++) {  
-                    if (grilleJeu[0][0].length()%2==0)
+                    if (tableauJeu[0][0].length()%2==0)
                     {
                         if (j<10)
                         {
-                            for (int i = 0; i < grilleJeu[0][0].length()/2; i++) {
+                            for (int i = 0; i < tableauJeu[0][0].length()/2; i++) {
                             System.out.print(" ");
                             }
                             System.out.print(j);
-                            for (int i = 0; i < grilleJeu[0][0].length()/2; i++) {
+                            for (int i = 0; i < tableauJeu[0][0].length()/2; i++) {
                                 System.out.print(" ");
                             }                        
                         }  
                         else 
                         {
-                            for (int i = 0; i < (grilleJeu[0][0].length()/2)-1; i++) {
+                            for (int i = 0; i < (tableauJeu[0][0].length()/2)-1; i++) {
                                 System.out.print(" ");
                                 }
                                 System.out.print(j);
-                                for (int i = 0; i < (grilleJeu[0][0].length()/2); i++) {
+                                for (int i = 0; i < (tableauJeu[0][0].length()/2); i++) {
                                     System.out.print(" ");
                                 }
                         }
@@ -121,22 +110,22 @@ public class Grille {
                     {
                         if (j<10)
                         {
-                            for (int i = 0; i < grilleJeu[0][0].length()/2; i++) {
+                            for (int i = 0; i < tableauJeu[0][0].length()/2; i++) {
                             System.out.print(" ");
                             }
                             System.out.print(j);
-                            for (int i = 0; i < grilleJeu[0][0].length()/2; i++) {
+                            for (int i = 0; i < tableauJeu[0][0].length()/2; i++) {
                                 System.out.print(" ");
                             }   
                             System.out.print(" ");                     
                         }  
                         else 
                         {
-                            for (int i = 0; i < (grilleJeu[0][0].length()/2)-1; i++) {
+                            for (int i = 0; i < (tableauJeu[0][0].length()/2)-1; i++) {
                                 System.out.print(" ");
                                 }
                                 System.out.print(j);
-                                for (int i = 0; i < (grilleJeu[0][0].length()/2); i++) {
+                                for (int i = 0; i < (tableauJeu[0][0].length()/2); i++) {
                                     System.out.print(" ");
                                 }
                                 System.out.print(" ");
@@ -151,23 +140,8 @@ public class Grille {
 
 
 
-    public void afficherCaseGrille(int x,int y, int index, String quoiAfficher)
-    {
-        if (index>=0){
-            String quoiAfficherFinal = index+quoiAfficher; 
-            grilleJeu[x][y] = quoiAfficherFinal;
+    
 
-        }
-        else{
-            grilleJeu[x][y] = quoiAfficher;
-        }
-        
-    }
-
-    public void cacherCaseGrille(int x,int y)
-    {
-        grilleJeu[x][y] = " ~~ ";
-        
-    }
+    
     
 }
