@@ -1,15 +1,15 @@
 // package BN_Model;
 // import java.util.Random;
 
-// public class ApparitionFlotte{
+// public class ApparitionBateau{
 
 //     public static int balayageHaut(Ship p1, int ordonnees, int abscisses, Grille g1){
 
 //         int cmpt = 0;
 //                 for (int i= 0; i<p1.getTaille(); i++){
-//                     if (((ordonnees) - i) >= 0 && g1.tableauJeu [abscisses][ordonnees-i] == " ~~ "){
+//                     if (((ordonnees) - i) >= 0 && g1.grilleJeu [abscisses][ordonnees-i] == " ~~ "){
 //                       cmpt = cmpt +1;
-//                     } 
+//                     }else{cmpt = cmpt;} 
 //                 }
 //         return cmpt; 
 
@@ -19,9 +19,9 @@
 //         int cmpt = 0;
 
 //         for (int i= 0; i<p1.getTaille(); i++){
-//             if (((ordonnees)+i) <= (g1.getTailleAbscisse()-1) && g1.tableauJeu [abscisses][ordonnees+i] == " ~~ "){
+//             if (((ordonnees)+i) <= (g1.getTailleAbscisse()-1) && g1.grilleJeu [abscisses][ordonnees+i] == " ~~ "){
 //                 cmpt = cmpt+1;
-//             }
+//             }else {cmpt = cmpt;}
 //         }
 //         return cmpt;
 //     }
@@ -30,9 +30,9 @@
 //         int cmpt = 0;
 
 //         for (int i= 0; i<p1.getTaille(); i++){
-//             if (((abscisses)- i ) >= 0 && g1.tableauJeu [abscisses-i][ordonnees] == " ~~ "){
+//             if (((abscisses)- i ) >= 0 && g1.grilleJeu [abscisses-i][ordonnees] == " ~~ "){
 //                     cmpt = cmpt + 1;
-//             }
+//             }else {cmpt = cmpt;}
 //         }
 
 //         return cmpt;
@@ -42,15 +42,15 @@
 //         int cmpt = 0;
 
 //         for (int i= 0; i<p1.getTaille(); i++){
-//             if (((abscisses)+i) <= (g1.getTailleAbscisse()-1) && g1.tableauJeu [abscisses+i][ordonnees] == " ~~ "){
+//             if (((abscisses)+i) <= (g1.getTailleAbscisse()-1) && g1.grilleJeu [abscisses+i][ordonnees] == " ~~ "){
 //                 cmpt = cmpt + 1;
-//            }
+//            }else {cmpt = cmpt;}
 //        }
 
 //         return cmpt;
 //     }
      
-//     public String flotteGrille(Grille g1, Ship p1, int indexShipFromFlotte){
+//     public String flotteGrille(Grille g1, Ship p1, int index){
 
 //         //Coordonnées aléatoires
 // 		Random randomAbscisse = new Random();
@@ -86,8 +86,8 @@
 //             }while(disponibilite == false);
 
 
-//             // Random random3 = new Random();
-//             int position = 0;//random3.nextInt(3);
+//             Random random3 = new Random();
+//             int position = random3.nextInt(3);
 
 //         switch (position) {
 
@@ -95,23 +95,27 @@
 //                 //haut
 //                 if (jetonHaut){
 //                     for (int i = 0; i<p1.getTaille(); i++){
-//                         g1.contenuCaseGrille(abscisses,ordonnees-i,indexShipFromFlotte , p1.getVisuel());
+//                         g1.afficherCaseGrille(abscisses,ordonnees-i,index , p1.getVisuel());
 //                         position = 0;
+//                         p1.setNavires(abscisses, ordonnees-i, p1);
 //                     }
 //                 }else if (jetonBas){
 //                     for (int i = 0; i<p1.getTaille(); i++){
-//                         g1.contenuCaseGrille(abscisses,ordonnees+i,indexShipFromFlotte , p1.getVisuel());
+//                         g1.afficherCaseGrille(abscisses,ordonnees+i,index , p1.getVisuel());
 //                         position = 1;
+//                         p1.setNavires(abscisses, ordonnees+i, p1);
 //                     }
 //                 }else if (jetonGauche){
 //                     for (int i = 0; i<p1.getTaille(); i++){
-//                         g1.contenuCaseGrille(abscisses-i,ordonnees,indexShipFromFlotte , p1.getVisuel());
+//                         g1.afficherCaseGrille(abscisses-i,ordonnees,index , p1.getVisuel());
 //                         position = 3;
+//                         p1.setNavires(abscisses-i, ordonnees, p1);
 //                     }
 //                 }else if (jetonDroit){
 //                     for (int i = 0; i<p1.getTaille(); i++){
-//                         g1.contenuCaseGrille(abscisses+i,ordonnees,indexShipFromFlotte, p1.getVisuel());
+//                         g1.afficherCaseGrille(abscisses+i,ordonnees,index, p1.getVisuel());
 //                         position = 2;
+//                         p1.setNavires(abscisses+i, ordonnees, p1);
 //                     }
 //                 }
 
@@ -121,23 +125,27 @@
 //                 //bas
 //                 if (jetonBas){
 //                     for (int i = 0; i<p1.getTaille(); i++){
-//                         g1.tableauJeu[abscisses][ordonnees + i] = p1.getVisuel();
+//                         g1.afficherCaseGrille(abscisses,ordonnees+i,index, p1.getVisuel());
 //                         position = 1;
+//                         p1.setNavires(abscisses, ordonnees+i, p1);
 //                     }
 //                 }else if (jetonHaut){
 //                     for (int i = 0; i<p1.getTaille(); i++){
-//                         g1.tableauJeu[abscisses][ordonnees - i] = p1.getVisuel();
+//                         g1.afficherCaseGrille(abscisses,ordonnees-i,index, p1.getVisuel());
 //                         position = 0;
+//                         p1.setNavires(abscisses, ordonnees-i, p1);
 //                     }
 //                 }else if (jetonDroit){
 //                     for (int i = 0; i<p1.getTaille(); i++){
-//                         g1.tableauJeu[abscisses + i][ordonnees] = p1.getVisuel();
+//                         g1.afficherCaseGrille(abscisses+i,ordonnees,index, p1.getVisuel());
 //                         position = 2;
+//                         p1.setNavires(abscisses+i, ordonnees, p1);
 //                     }
 //                 }else if (jetonGauche){
 //                     for (int i = 0; i<p1.getTaille(); i++){
-//                         g1.tableauJeu[abscisses - i][ordonnees] = p1.getVisuel();
+//                         g1.afficherCaseGrille(abscisses-i,ordonnees,index, p1.getVisuel());
 //                         position = 3;
+//                         p1.setNavires(abscisses-i, ordonnees, p1);
 //                     }
 //                 }
 //             break; 
@@ -146,23 +154,27 @@
 //                 //droit
 //                 if (jetonDroit){
 //                     for (int i = 0; i<p1.getTaille(); i++){
-//                         g1.tableauJeu[abscisses + i][ordonnees] = p1.getVisuel();
+//                         g1.afficherCaseGrille(abscisses+i,ordonnees,index, p1.getVisuel());
 //                         position = 2;
+//                         p1.setNavires(abscisses+i, ordonnees, p1);
 //                     }
 //                 }else if (jetonGauche){
 //                     for (int i = 0; i<p1.getTaille(); i++){
-//                         g1.tableauJeu[abscisses - i][ordonnees] = p1.getVisuel();
+//                         g1.afficherCaseGrille(abscisses-i,ordonnees,index, p1.getVisuel());
 //                         position = 3;
+//                         p1.setNavires(abscisses-i, ordonnees, p1);
 //                     }
 //                 }else if (jetonHaut){
 //                     for (int i = 0; i<p1.getTaille(); i++){
-//                         g1.tableauJeu[abscisses][ordonnees - i] = p1.getVisuel();
+//                         g1.afficherCaseGrille(abscisses,ordonnees-i,index, p1.getVisuel());
 //                         position = 0;
+//                         p1.setNavires(abscisses, ordonnees-i, p1);
 //                     }
 //                 }else if (jetonBas){
 //                     for (int i = 0; i<p1.getTaille(); i++){
-//                         g1.tableauJeu[abscisses][ordonnees + i] = p1.getVisuel();
+//                         g1.afficherCaseGrille(abscisses,ordonnees+i,index, p1.getVisuel());
 //                         position = 1;
+//                         p1.setNavires(abscisses, ordonnees+i, p1);
 //                     }
 //                 }
 //             break; 
@@ -171,23 +183,27 @@
 //                 //gauche
 //                 if (jetonGauche){
 //                     for (int i = 0; i<p1.getTaille(); i++){
-//                         g1.tableauJeu[abscisses - i][ordonnees] = p1.getVisuel();
+//                         g1.afficherCaseGrille(abscisses-i,ordonnees,index, p1.getVisuel());
 //                         position = 3;
+//                         p1.setNavires(abscisses-i, ordonnees, p1);
 //                     }
 //                 }else if (jetonDroit){
 //                     for (int i = 0; i<p1.getTaille(); i++){
-//                         g1.tableauJeu[abscisses + i][ordonnees] = p1.getVisuel();
+//                         g1.afficherCaseGrille(abscisses+i,ordonnees,index, p1.getVisuel());
 //                         position = 2;
+//                         p1.setNavires(abscisses+i, ordonnees, p1);
 //                     }
 //                 }else if (jetonHaut){
 //                     for (int i = 0; i<p1.getTaille(); i++){
-//                         g1.tableauJeu[abscisses][ordonnees - i] = p1.getVisuel();
+//                         g1.afficherCaseGrille(abscisses,ordonnees-i,index, p1.getVisuel());
 //                         position = 0;
+//                         p1.setNavires(abscisses, ordonnees-i, p1);
 //                     }
 //                 }else if (jetonBas){
 //                     for (int i = 0; i<p1.getTaille(); i++){
-//                         g1.tableauJeu[abscisses][ordonnees + i] = p1.getVisuel();
+//                         g1.afficherCaseGrille(abscisses,ordonnees+i,index, p1.getVisuel());
 //                         position = 1;
+//                         p1.setNavires(abscisses, ordonnees+i, p1);
 //                     }
 //                 }
 
@@ -203,6 +219,12 @@
 //         return "position : " +position + " abscisses : " +abscisses + " ordonnées : " + ordonnees;
 
 //     } 
+
+//     public void apparitionFlottesurGrille (Flotte flotte, Grille grille, ApparitionBateau AP){
+//         for (int i = 0; i < flotte.getFlotteSize(); i++) {
+//             AP.flotteGrille(grille,flotte.getShipFromFlotte(i),i);
+//          }
+//     }
 
     
     
