@@ -86,8 +86,25 @@ public class Ship extends Coordonnees {
 
     }
 
-    
+    public boolean isDead(Ship navire, Grille grille){
 
+        int cmpt = 0;
+        boolean isDead = false;
+
+        for (int i = 0; i < navire.getTaille(); i++)
+        {
+            Coordonnees coordonnes = navire.getCaseNavire(i);
+            if (grille.grilleJeu[coordonnes.getX()][coordonnes.getY()]==" ## ")
+            {
+                cmpt++;
+            }
+        }
+        if (cmpt == navire.getTaille())
+        {
+            isDead = true;
+        }
+        return isDead;
+    }
     
 }
 
