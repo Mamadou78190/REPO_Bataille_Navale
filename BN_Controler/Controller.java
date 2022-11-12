@@ -1,29 +1,45 @@
 package BN_Controler;
+
 import BN_Model.*;
+import BN_View.View;
 
 
-
+class InputCustoms {
+    public void menuInput (int userChoice) throws BadInputException{
+        
+        if (userChoice < 1 || userChoice > 5) {
+            throw new BadInputException("Vous devez saisir un nombre entre 0 et 5");
+        }
+    } 
+}
 
 public class Controller {
     enum GameState {
         MenuGame, TourJoueur, TourIA, EndGame
     }
 
+    View view;
     Flotte flotteJoueur = new Flotte();
     Flotte flotteIA = new Flotte();
     Grille grilleJoueur = new Grille(15,15);
     Grille grilleIA = new Grille(15,15);
     GameState gameState;
+    InputCustoms inputCustoms = new InputCustoms();
 
-    public Controller () {
-        // super(); etait dans le tuto. valable, mais pourquoi ?
+    int userChoice;
+
+    public Controller (View view) {
+        // super(); //Cree un View null par le biais du constructeur Object. <==> View () {} 
         this.gameState = GameState.MenuGame;
+        this.view = view;
+        view.linkController(this);
     }
 
-    public void runGame () { //Fonction qui va appeller le controlleur depuis le main
+    public void runGame () throws BadInputException { //Fonction qui va appeller le controlleur depuis le main
         switch (gameState) {
             case MenuGame:
-            System.out.println("Call View for prompt MenuChoice");
+            view.showMenu();
+            view.askInputForMenu();
             break;
             case TourJoueur:
             System.out.println("Call View for player turn, input for what action to do");
@@ -31,12 +47,37 @@ public class Controller {
             case TourIA:
             System.out.println("Call View for IA turn, input for what action to do ");
             break;
+            case EndGame:
+            System.out.println("Go back to main menu");
+            break;
         }
 
+    }
+
+    public void menuInput (int userChoice) throws BadInputException {
+        
+        switch (userChoice) {
+            case 1:
+            System.out.println("call Start a New Game");
+            break;
+            case 2:
+            System.out.println("call Load a New Game");
+            break;
+            case 3:
+            System.out.println("call showHelp");
+            break;
+            case 4:
+            System.out.println("call exitGame");
+            break;
+            default:
+            try { inputCustoms.menuInput(userChoice); } 
+            catch (BadInputException e) { System.out.println(e.getMessage()); this.runGame();}
+        }
     }
 
     public void startNewGame () {
         gameState = GameState.TourJoueur;
         
     }
+    
 }
