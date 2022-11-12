@@ -1,6 +1,5 @@
 package BN_Model;
 
-import java.util.concurrent.TimeUnit;
 
 public class Coordonnees {
     protected int x;

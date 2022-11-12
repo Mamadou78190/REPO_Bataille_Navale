@@ -9,7 +9,7 @@ public class ApparitionFlotte{
                 for (int i= 0; i<p1.getTaille(); i++){
                     if (((ordonnees) - i) >= 0 && g1.grilleJeu [abscisses][ordonnees-i] == " ~~ "){
                       cmpt = cmpt +1;
-                    }else{cmpt = cmpt;} 
+                    } 
                 }
         return cmpt; 
 
@@ -21,7 +21,7 @@ public class ApparitionFlotte{
         for (int i= 0; i<p1.getTaille(); i++){
             if (((ordonnees)+i) <= (g1.getTailleAbscisse()-1) && g1.grilleJeu [abscisses][ordonnees+i] == " ~~ "){
                 cmpt = cmpt+1;
-            }else {cmpt = cmpt;}
+            }
         }
         return cmpt;
     }
@@ -32,7 +32,7 @@ public class ApparitionFlotte{
         for (int i= 0; i<p1.getTaille(); i++){
             if (((abscisses)- i ) >= 0 && g1.grilleJeu [abscisses-i][ordonnees] == " ~~ "){
                     cmpt = cmpt + 1;
-            }else {cmpt = cmpt;}
+            }
         }
 
         return cmpt;
@@ -44,13 +44,13 @@ public class ApparitionFlotte{
         for (int i= 0; i<p1.getTaille(); i++){
             if (((abscisses)+i) <= (g1.getTailleAbscisse()-1) && g1.grilleJeu [abscisses+i][ordonnees] == " ~~ "){
                 cmpt = cmpt + 1;
-           }else {cmpt = cmpt;}
+           }
        }
 
         return cmpt;
     }
      
-    public String flotteGrille(Grille g1, Ship p1, int index){
+    public String flotteGrille(Grille g1, Ship p1, int indexShipFromFlotte){
 
         //Coordonnées aléatoires
 		Random randomAbscisse = new Random();
@@ -86,7 +86,7 @@ public class ApparitionFlotte{
             }while(disponibilite == false);
 
 
-            Random random3 = new Random();
+            // Random random3 = new Random();
             int position = 0;//random3.nextInt(3);
 
         switch (position) {
@@ -95,22 +95,22 @@ public class ApparitionFlotte{
                 //haut
                 if (jetonHaut){
                     for (int i = 0; i<p1.getTaille(); i++){
-                        g1.afficherCaseGrille(abscisses,ordonnees-i,index , p1.getVisuel());
+                        g1.afficherCaseGrille(abscisses,ordonnees-i,indexShipFromFlotte , p1.getVisuel());
                         position = 0;
                     }
                 }else if (jetonBas){
                     for (int i = 0; i<p1.getTaille(); i++){
-                        g1.afficherCaseGrille(abscisses,ordonnees+i,index , p1.getVisuel());
+                        g1.afficherCaseGrille(abscisses,ordonnees+i,indexShipFromFlotte , p1.getVisuel());
                         position = 1;
                     }
                 }else if (jetonGauche){
                     for (int i = 0; i<p1.getTaille(); i++){
-                        g1.afficherCaseGrille(abscisses-i,ordonnees,index , p1.getVisuel());
+                        g1.afficherCaseGrille(abscisses-i,ordonnees,indexShipFromFlotte , p1.getVisuel());
                         position = 3;
                     }
                 }else if (jetonDroit){
                     for (int i = 0; i<p1.getTaille(); i++){
-                        g1.afficherCaseGrille(abscisses+i,ordonnees,index, p1.getVisuel());
+                        g1.afficherCaseGrille(abscisses+i,ordonnees,indexShipFromFlotte, p1.getVisuel());
                         position = 2;
                     }
                 }
