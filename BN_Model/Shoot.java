@@ -47,13 +47,33 @@ public class Shoot extends Coordonnees {
         switch (puissance)
         {
             case 9:
-            for (int i=shootY-1; i<=shootY+1; i++)
-            {
-                for (int j=shootX-1; j<=shootX+1; j++)
+                for (int i=shootY-1; i<=shootY+1; i++)
                 {
-                    grille.afficherCaseGrille(j, i,-1, "BOOM");
+                    for (int j=shootX-1; j<=shootX+1; j++)
+                    {
+                        if (grille.grilleJeu[j][i] != " ~~ "){
+                            grille.afficherCaseGrille(j, i,-1, "BOOM");
+                        }else{
+                            grille.afficherCaseGrille(j, i,-1, "PLOP");
+                        }
+                    }
+                
                 }
-            }
+                grille.afficherGrille();
+
+                for (int i=shootY-1; i<=shootY+1; i++)
+                {
+                    for (int j=shootX-1; j<=shootX+1; j++)
+                    {
+                        if (grille.grilleJeu[j][i] == "BOOM"){
+                            grille.afficherCaseGrille(j, i,-1, " ## ");
+                        }else{
+                            grille.afficherCaseGrille(j, i,-1, " ~~ ");
+                        }
+                    }
+                }
+                grille.afficherGrille();
+
             break;
 
             case 4:
@@ -61,13 +81,44 @@ public class Shoot extends Coordonnees {
             {
                 for (int j=shootX; j<=shootX+1; j++)
                 {
-                    grille.afficherCaseGrille(j, i,-1, "BOOM");
+                    if (grille.grilleJeu[j][i]!= " ~~ "){
+                        grille.afficherCaseGrille(j, i,-1, "BOOM");
+                    }else{
+                        grille.afficherCaseGrille(j, i,-1, "PLOP");
+                    }
+                }  
+            }
+            grille.afficherGrille();
+
+            for (int i=shootY; i<=shootY+1; i++)
+            {
+                for (int j=shootX; j<=shootX+1; j++)
+                {
+                    if (grille.grilleJeu[j][i]== "BOOM"){
+                        grille.afficherCaseGrille(j, i,-1, " ## ");
+                    }else{
+                        grille.afficherCaseGrille(j, i,-1, " ~~ ");
+                    }
                 }
             }
+
             break;
 
             case 1:
-            grille.afficherCaseGrille(x, y,-1, "BOOM");
+
+                if (grille.grilleJeu[x][y]!= " ~~ "){
+                    grille.afficherCaseGrille(x, y,-1, "BOOM");
+                }else{
+                    grille.afficherCaseGrille(x, y,-1, "PLOP");
+                }
+                grille.afficherGrille();
+
+                if (grille.grilleJeu[x][y]== "BOOM"){
+                    grille.afficherCaseGrille(x, y,-1, " ## ");
+                }else{
+                    grille.afficherCaseGrille(x, y,-1, " ~~ ");
+                }
+
             break;
 
             default:
