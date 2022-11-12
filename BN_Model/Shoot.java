@@ -77,30 +77,31 @@ public class Shoot extends Coordonnees {
             break;
 
             case 4:
-            for (int i=shootY; i<=shootY+1; i++)
-            {
-                for (int j=shootX; j<=shootX+1; j++)
+                for (int i=shootY; i<=shootY+1; i++)
                 {
-                    if (grille.grilleJeu[j][i]!= " ~~ "){
-                        grille.afficherCaseGrille(j, i,-1, "BOOM");
-                    }else{
-                        grille.afficherCaseGrille(j, i,-1, "PLOP");
-                    }
-                }  
-            }
-            grille.afficherGrille();
+                    for (int j=shootX; j<=shootX+1; j++)
+                    {
+                        if (grille.grilleJeu[j][i]!= " ~~ "){
+                            grille.afficherCaseGrille(j, i,-1, "BOOM");
+                        }else{
+                            grille.afficherCaseGrille(j, i,-1, "PLOP");
+                        }
+                    }  
+                }
+                grille.afficherGrille();
 
-            for (int i=shootY; i<=shootY+1; i++)
-            {
-                for (int j=shootX; j<=shootX+1; j++)
+                for (int i=shootY; i<=shootY+1; i++)
                 {
-                    if (grille.grilleJeu[j][i]== "BOOM"){
-                        grille.afficherCaseGrille(j, i,-1, " ## ");
-                    }else{
-                        grille.afficherCaseGrille(j, i,-1, " ~~ ");
+                    for (int j=shootX; j<=shootX+1; j++)
+                    {
+                        if (grille.grilleJeu[j][i]== "BOOM"){
+                            grille.afficherCaseGrille(j, i,-1, " ## ");
+                        }else{
+                            grille.afficherCaseGrille(j, i,-1, " ~~ ");
+                        }
                     }
                 }
-            }
+                grille.afficherGrille();
 
             break;
 
@@ -118,7 +119,7 @@ public class Shoot extends Coordonnees {
                 }else{
                     grille.afficherCaseGrille(x, y,-1, " ~~ ");
                 }
-
+                grille.afficherGrille();
             break;
 
             default:
