@@ -7,7 +7,7 @@ public class Ship extends Coordonnees {
     private int orientation;
     ArrayList<Coordonnees> navires = new ArrayList();
     
-
+    public Ship() {}
     public Ship(caracteristiquesBateaux bateau) {
         
         this.bateau = bateau;
