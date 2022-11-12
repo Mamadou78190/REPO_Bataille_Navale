@@ -28,8 +28,9 @@ public class View {
     }
 
     public void showGrilles() { 
-        
-        System.out.print("\n\ny--x");
+        System.out.println("\n\nGRILLE JOUEUR \t\t\t\t\t\t\t\t\t\tGRILLE IA");
+        //Affichage repere abscisses 1ere grille IA
+        System.out.print("y--x");
 
         for (int j = 0; j < controller.getGrilleTailleAbscisse(); j++) {  
             if (controller.getGrilleJoueurContent(0, 0).length()%2==0)
@@ -81,7 +82,8 @@ public class View {
                 }
             }   
         }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
         // Affichage repere abscisses 2eme grille IA
         System.out.print("\t\ty--x");
 
@@ -136,12 +138,11 @@ public class View {
             }   
         }
 
-        
         System.out.println();
 
-
+        //affichage ligne par ligne des 2 tableaux
         for (int i = 0; i < controller.getGrilleTailleOrdonnees(); i++) {
-            //affichage du repere y due Joueur
+            //affichage du repere y du Joueur
             if (i<10)
             {
                 System.out.print(i+"  ");
@@ -150,7 +151,6 @@ public class View {
             {
                 System.out.print(i+" ");
             }
-            ////////////////////////////////
 
             //affichage grille JOUEUR
             for (int j = 0; j < controller.getGrilleTailleAbscisse(); j++) {
@@ -160,9 +160,9 @@ public class View {
                 
             }
             System.out.print("|");
-            ////////////////////////////////
 
             System.out.print("\t\t");
+
 
             //affichage du repere y de IA
             if (i<10)
@@ -173,7 +173,6 @@ public class View {
             {
                 System.out.print(i+" ");
             }
-            ////////////////////////////////
 
             //affichage grille IA
             for (int j = 0; j < controller.getGrilleTailleAbscisse(); j++) {
@@ -182,9 +181,9 @@ public class View {
                 System.out.print(controller.getGrilleIAContent(j, i));
                 
             }
-            ////////////////////////////////
             System.out.println("|");
-            
+
+            //affichage des lignes de séparations
             showSeparationLine();
             System.out.print("\t\t");
             showSeparationLine();
