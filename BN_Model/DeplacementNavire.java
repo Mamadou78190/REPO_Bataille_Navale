@@ -16,7 +16,7 @@ public class DeplacementNavire {
                     switch (direction){
 
                         case "bas" : 
-                            if (ApparitionFlotte.balayageBas(ship, ship.getY(), ship.getX() , grille) >= 1 ){ 
+                            if (ApparitionBateau.balayageBas(ship, ship.getY(), ship.getX() , grille) >= 1 ){ 
                                 String contenuGrilleB = grille.getContenuGrille(ship.getX(), ship.getY());
                                 grille.cacherCaseGrille(ship.getX(), (ship.getY()-ship.getTaille())+1);
                                 grille.grilleJeu[ship.getX()][(ship.getY() + 1)] = contenuGrilleB;
@@ -29,7 +29,7 @@ public class DeplacementNavire {
 
                         case "haut" : 
 
-                            if (ApparitionFlotte.balayageHaut(ship, (ship.getY()- (ship.getTaille() - 1)), ship.getX(), grille) >= 1){
+                            if (ApparitionBateau.balayageHaut(ship, (ship.getY()- (ship.getTaille() - 1)), ship.getX(), grille) >= 1){
                                 String contenuGrilleH = grille.getContenuGrille(ship.getX(), ship.getY());
                                 grille.cacherCaseGrille(ship.getX(), ship.getY());
                                 grille.grilleJeu[ship.getX()][(ship.getY() - ship.getTaille())] = contenuGrilleH;
@@ -49,7 +49,7 @@ public class DeplacementNavire {
 
                         case "bas" : 
 
-                            if (ApparitionFlotte.balayageBas(ship, (ship.getY() + (ship.getTaille()-1)) , ship.getX(), grille) >= 1){
+                            if (ApparitionBateau.balayageBas(ship, (ship.getY() + (ship.getTaille()-1)) , ship.getX(), grille) >= 1){
                                 String contenuGrille = grille.getContenuGrille(ship.getX(), ship.getY());
                                 grille.cacherCaseGrille(ship.getX(), ship.getY());
                                 grille.grilleJeu[ship.getX()][(ship.getY() + ship.getTaille())] = contenuGrille;
@@ -62,7 +62,7 @@ public class DeplacementNavire {
 
                         case "haut" : 
 
-                            if(ApparitionFlotte.balayageHaut(ship, ship.getY(), ship.getX(), grille) >= 1){
+                            if(ApparitionBateau.balayageHaut(ship, ship.getY(), ship.getX(), grille) >= 1){
                                 String contenuGrille = grille.getContenuGrille(ship.getX(), ship.getY());
                                 grille.cacherCaseGrille(ship.getX(),(ship.getY()+ship.getTaille()) -1);
                                 grille.grilleJeu[ship.getX()][ship.getY() - 1] = contenuGrille;
@@ -81,7 +81,7 @@ public class DeplacementNavire {
 
                         case "gauche" :
 
-                        if (ApparitionFlotte.balayageGauche(ship, ship.getY(), ship.getX(), grille) >= 1){
+                        if (ApparitionBateau.balayageGauche(ship, ship.getY(), ship.getX(), grille) >= 1){
                             String contenuGrille = grille.getContenuGrille(ship.getX(), ship.getY());
                             grille.cacherCaseGrille((ship.getX() + (ship.getTaille()-1)), ship.getY());
                             grille.grilleJeu[ship.getX() - 1][ship.getY()] = contenuGrille;
@@ -94,7 +94,7 @@ public class DeplacementNavire {
 
                         case "droite" :
 
-                        if(ApparitionFlotte.balayageDroite(ship, ship.getY(), ship.getX() +(ship.getTaille() -1), grille) >= 1){
+                        if(ApparitionBateau.balayageDroite(ship, ship.getY(), ship.getX() +(ship.getTaille() -1), grille) >= 1){
                             String contenuGrille = grille.getContenuGrille(ship.getX(), ship.getY());
                             grille.cacherCaseGrille(ship.getX(), ship.getY());
                             grille.grilleJeu[ship.getX() + ship.getTaille()][ship.getY()] = contenuGrille;
@@ -114,7 +114,7 @@ public class DeplacementNavire {
 
                         case "gauche" : 
 
-                        if (ApparitionFlotte.balayageGauche(ship, ship.getY(), (ship.getX() - (ship.getTaille() +1)), grille) >= 1){
+                        if (ApparitionBateau.balayageGauche(ship, ship.getY(), (ship.getX() - (ship.getTaille() +1)), grille) >= 1){
                             String contenuGrille = grille.getContenuGrille(ship.getX(), ship.getY());
                             grille.cacherCaseGrille(ship.getX(), ship.getY());
                             grille.grilleJeu[ship.getX()-ship.getTaille()][ship.getY()] = contenuGrille;
@@ -127,7 +127,7 @@ public class DeplacementNavire {
 
                         case "droite" :
 
-                        if(ApparitionFlotte.balayageDroite(ship, ship.getY(), ship.getX(), grille) >= 1){
+                        if(ApparitionBateau.balayageDroite(ship, ship.getY(), ship.getX(), grille) >= 1){
                             String contenuGrille = grille.getContenuGrille(ship.getX(), ship.getY());
                             grille.cacherCaseGrille((ship.getX()-ship.getTaille())+1, ship.getY());
                             grille.grilleJeu[ship.getX() + 1][ship.getY()] = contenuGrille;
@@ -148,7 +148,7 @@ public class DeplacementNavire {
 
                     case "gauche" :
             
-                    if (ApparitionFlotte.balayageGauche(ship, ship.getY(),ship.getX()-1,grille) == 1){
+                    if (ApparitionBateau.balayageGauche(ship, ship.getY(),ship.getX()-1,grille) == 1){
                         String contenuGrille = grille.getContenuGrille(ship.getX(), ship.getY());
                         grille.cacherCaseGrille(ship.getX(), ship.getY());
                         grille.grilleJeu[ship.getX()-1][ship.getY()] = contenuGrille;
@@ -162,7 +162,7 @@ public class DeplacementNavire {
 
                     case "droite" :
 
-                    if(ApparitionFlotte.balayageDroite(ship, ship.getY(),ship.getX()+1,grille) == 1){
+                    if(ApparitionBateau.balayageDroite(ship, ship.getY(),ship.getX()+1,grille) == 1){
                         String contenuGrille = grille.getContenuGrille(ship.getX(), ship.getY());
                         grille.cacherCaseGrille(ship.getX(), ship.getY());
                         grille.grilleJeu[ship.getX()+1][ship.getY()] = contenuGrille;
@@ -175,7 +175,7 @@ public class DeplacementNavire {
 
                     case "haut" : 
 
-                    if(ApparitionFlotte.balayageHaut(ship, ship.getY()-1,ship.getX(),grille) == 1){
+                    if(ApparitionBateau.balayageHaut(ship, ship.getY()-1,ship.getX(),grille) == 1){
                         String contenuGrille = grille.getContenuGrille(ship.getX(), ship.getY());
                         grille.cacherCaseGrille(ship.getX(), ship.getY());
                         grille.grilleJeu[ship.getX()][ship.getY()-1] = contenuGrille;
@@ -188,7 +188,7 @@ public class DeplacementNavire {
 
                     case "bas" :
 
-                    if(ApparitionFlotte.balayageBas(ship, ship.getY()+1,ship.getX(),grille) ==  1){
+                    if(ApparitionBateau.balayageBas(ship, ship.getY()+1,ship.getX(),grille) ==  1){
                         String contenuGrille = grille.getContenuGrille(ship.getX(), ship.getY());
                         grille.cacherCaseGrille(ship.getX(), ship.getY());
                         grille.grilleJeu[ship.getX()][ship.getY()+1] = contenuGrille;
@@ -203,7 +203,6 @@ public class DeplacementNavire {
 
     public boolean navireDamaged(Ship navire, Grille grille){
 
-        int cmpt = 0;
         boolean status = false;
 
         for (int i = 0; i < navire.getTaille(); i++){
