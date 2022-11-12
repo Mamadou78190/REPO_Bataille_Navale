@@ -79,6 +79,7 @@ public class Controller {
     public void startNewGame () {
         gameState = GameState.TourJoueur;
         grilleJoueur.initializeGrille();
+        grilleIA.initializeGrille();
         view.showGrilles();
     }
 

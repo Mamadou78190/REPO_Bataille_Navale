@@ -81,11 +81,67 @@ public class View {
                 }
             }   
         }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Affichage repere abscisses 2eme grille IA
+        System.out.print("\t\ty--x");
+
+        for (int j = 0; j < controller.getGrilleTailleAbscisse(); j++) {  
+            if (controller.getGrilleIAContent(0, 0).length()%2==0)
+            {
+                if (j<10)
+                {
+                    for (int i = 0; i < controller.getGrilleIAContent(0, 0).length()/2; i++) {
+                    System.out.print(" ");
+                    }
+                    System.out.print(j);
+                    for (int i = 0; i < controller.getGrilleIAContent(0, 0).length()/2; i++) {
+                        System.out.print(" ");
+                    }                        
+                }  
+                else 
+                {
+                    for (int i = 0; i < (controller.getGrilleIAContent(0, 0).length()/2)-1; i++) {
+                        System.out.print(" ");
+                        }
+                        System.out.print(j);
+                        for (int i = 0; i < (controller.getGrilleIAContent(0, 0).length()/2); i++) {
+                            System.out.print(" ");
+                        }
+                }
+            }
+            else 
+            {
+                if (j<10)
+                {
+                    for (int i = 0; i < controller.getGrilleIAContent(0, 0).length()/2; i++) {
+                    System.out.print(" ");
+                    }
+                    System.out.print(j);
+                    for (int i = 0; i < controller.getGrilleIAContent(0, 0).length()/2; i++) {
+                        System.out.print(" ");
+                    }   
+                    System.out.print(" ");                     
+                }  
+                else 
+                {
+                    for (int i = 0; i < (controller.getGrilleIAContent(0, 0).length()/2)-1; i++) {
+                        System.out.print(" ");
+                        }
+                        System.out.print(j);
+                        for (int i = 0; i < (controller.getGrilleIAContent(0, 0).length()/2); i++) {
+                            System.out.print(" ");
+                        }
+                        System.out.print(" ");
+                }
+            }   
+        }
+
         
         System.out.println();
 
+
         for (int i = 0; i < controller.getGrilleTailleOrdonnees(); i++) {
-            //affichage du repere y 
+            //affichage du repere y due Joueur
             if (i<10)
             {
                 System.out.print(i+"  ");
@@ -96,21 +152,49 @@ public class View {
             }
             ////////////////////////////////
 
-            //affichage grille
+            //affichage grille JOUEUR
             for (int j = 0; j < controller.getGrilleTailleAbscisse(); j++) {
                 
                 System.out.print("|");
                 System.out.print(controller.getGrilleJoueurContent(j, i));
                 
             }
+            System.out.print("|");
             ////////////////////////////////
 
+            System.out.print("\t\t");
+
+            //affichage du repere y de IA
+            if (i<10)
+            {
+                System.out.print(i+"  ");
+            }
+            else
+            {
+                System.out.print(i+" ");
+            }
+            ////////////////////////////////
+
+            //affichage grille IA
+            for (int j = 0; j < controller.getGrilleTailleAbscisse(); j++) {
+                
+                System.out.print("|");
+                System.out.print(controller.getGrilleIAContent(j, i));
+                
+            }
+            ////////////////////////////////
+            System.out.println("|");
+            
             showSeparationLine();
+            System.out.print("\t\t");
+            showSeparationLine();
+            System.out.println();
+
         }
     }
 
     public void showSeparationLine() {
-        System.out.println("|");
+        
             System.out.print("   ");
                 for (int k = 0; k < controller.getGrilleTailleAbscisse(); k++) {
                     System.out.print("|");
@@ -119,7 +203,7 @@ public class View {
                     }
                     
                 }
-                System.out.println("|");
+                System.out.print("|");
     }
 
 
