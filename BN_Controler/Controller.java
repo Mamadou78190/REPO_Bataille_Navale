@@ -32,6 +32,9 @@ public class Controller {
     Flotte flotteIA = new Flotte();
     Grille grilleJoueur = new Grille(15,15);
     Grille grilleIA = new Grille(15,15);
+    Shoot shoot;
+    public Boolean exit = false;
+    
     GameState gameState;
     InputCustoms inputCustoms = new InputCustoms();
 
@@ -44,7 +47,7 @@ public class Controller {
         view.linkController(this);
     }
 
-    public void runGame () throws BadInputException { //Fonction qui va appeller le controlleur depuis le main
+    public void runGame () throws BadInputException, InterruptedException { //Fonction qui va appeller le controlleur depuis le main
         switch (gameState) {
             case MenuGame:
             view.showMenu();
@@ -52,6 +55,9 @@ public class Controller {
             break;
             case TourJoueur:
             System.out.println("Call View for player turn, input for what action to do");
+            view.showGrilles();
+            view.showFlotte(flotteJoueur.getStringFlotte());
+            view.askInputForAction(); 
             break;
             case TourIA:
             System.out.println("Call View for IA turn, input for what action to do ");
@@ -63,7 +69,7 @@ public class Controller {
 
     }
 
-    public void menuInput (int userChoice) throws BadInputException {
+    public void menuInput (int userChoice) throws BadInputException, InterruptedException {
         
         switch (userChoice) {
             case 1:
@@ -78,6 +84,7 @@ public class Controller {
             break;
             case 4:
             System.out.println("call exitGame");
+            exit=true;
             break;
             default:
             try { inputCustoms.menuInput(userChoice); } 
@@ -86,9 +93,8 @@ public class Controller {
     }
 
     public void startNewGame () {
-        gameState = GameState.TourJoueur;
         grilleJoueur.initializeGrille();
-        grilleIA.initializeGrille();
+        grilleIA.initializeGrille();  
         gameState = GameState.TourJoueur;
     }
 
@@ -125,7 +131,21 @@ public class Controller {
         } else if (gameState==GameState.TourIA) {
             setShootImpact(shoot,grilleJoueur);
         }
+        // switchingTurn();
+        }
+
+    public void switchingTurn() {
+        if (gameState==GameState.TourJoueur) {
+            gameState=GameState.TourIA;
+        }
+        else if (gameState==GameState.TourIA) {
+            gameState=GameState.TourJoueur;
+        }
     }
+    
+
+
+    
 
     
     // les deux grilles dont la même taille que ce soit en abscisse ou en ordonnee, donc autant les généraliser à une grille
@@ -171,7 +191,7 @@ public class Controller {
         else if (shoot.getX()<=0 && shoot.getPuissance()==9)
         {
             shootX=shoot.getX()+1;
-}
+        }
         /////////////////////////////////////////////////
 
         switch (shoot.getPuissance())
@@ -278,3 +298,7 @@ public class Controller {
 
         }
         }
+
+        public boolean exit(boolean status) {return status=true;}
+    }
+
