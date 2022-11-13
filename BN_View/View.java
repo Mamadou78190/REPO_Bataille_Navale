@@ -6,7 +6,9 @@ import BN_Controler.*;
 
 public class View {
     Scanner UserInput = new Scanner(System.in);
+    Scanner UserInputString = new Scanner(System.in);
     int input;
+    String inputString;
     Controller controller;
 
     public View() {}
@@ -230,5 +232,15 @@ public class View {
                 System.out.print("|");
     }
 
+
+    public void askInputForMove() throws BadInputException, InterruptedException {
+        System.out.println("Which boat you want to move ? from 0 to 9");
+        input = UserInput.nextInt();
+        
+        System.out.println("In which direction you want to move yout boat ? if it is horizontal (gauche or droite) if it is vertical (haut or bas)");
+        inputString = UserInputString.nextLine();
+
+        controller.moveInput(input, inputString);
+    }
 
 }
