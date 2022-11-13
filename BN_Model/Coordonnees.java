@@ -42,6 +42,10 @@ public class Coordonnees {
     }
     
 
-    // ATTRIBUER CETTE METHODE DANS UNE CLASSE QUI LUI CONVIENT MIEUX
+
+    @Override
+    public String toString() {
+        return  "("+x+" , "+y+") ";
+    }
     
 }
