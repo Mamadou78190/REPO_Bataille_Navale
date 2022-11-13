@@ -79,6 +79,7 @@ public class Controller {
             break;
             case 2:
             System.out.println("call Load a New Game");
+            chargement();
             break;
             case 3:
             System.out.println("call showHelp");
@@ -111,7 +112,7 @@ public class Controller {
             break;
             case 2:
             sauvegarder();
-            System.out.println("Partie sauvgardé !");
+            System.out.println("Partie sauvegardé !");
             case -1:
             gameState=GameState.MenuGame;
             default:
@@ -166,7 +167,32 @@ public class Controller {
         }
     }
 
-    public void Chargement(){
+    public void chargement(){
+        try {
+            FileInputStream fis = new FileInputStream("Save/Sauvegarde.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            grilleJoueur = (Grille) ois.readObject();
+            grilleIA = (Grille) ois.readObject();
+            view.showGrilles();
+
+
+
+
+            //o = ois.readObject();
+            //System.out.println(o);
+            //o = ois.readObject();
+            //System.out.println(o);
+            //o = ois.readObject();
+            //System.out.println(o);
+            ois.close();
+            fis.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
     
