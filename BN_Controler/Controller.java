@@ -108,6 +108,8 @@ public class Controller {
             System.out.println("call askForShootInput");
             view.askInputForShoot();
             break;
+            case 2:
+            System
             case -1:
             gameState=GameState.MenuGame;
             default:
