@@ -8,19 +8,29 @@ import BN_View.View;
 
 
 class InputCustoms {
-    public void menuInput (int userChoice) throws BadInputException{
+    public void menuInputCustoms (int userChoice) throws BadInputException{
         
         if (userChoice < 1 || userChoice > 5) {
             throw new BadInputException("Vous devez saisir un nombre entre 0 et 5");
         }
     } 
 
-    public void actionInput (int userChoice) throws BadInputException{
+    public void actionInputCustoms (int userChoice) throws BadInputException{
         
         if (userChoice < -1 || userChoice > 1) {
             throw new BadInputException("Vous devez saisir un nombre entre 0 et 1");
         }
-    } 
+    }
+    
+    public void shootInputCustoms (int shipIndex, int x, int y, Flotte flotte, Grille grille) throws BadInputException {
+        if (shipIndex < 0 || shipIndex > flotte.getFlotteSize()) {
+            throw new BadInputException("Vous devez selectionner un de vos navires par son Numero ! ");
+        } else if (x < 0 || x > grille.getTailleAbscisse()) {
+            throw new BadInputException("Vous devez selectionner une coordonnee X entre 0 et "+ grille.getTailleAbscisse());
+        } else if (y < 0 || y > grille.getTailleOrdonnees()) {
+            throw new BadInputException("Vous devez selectionner une coordonnee Y entre 0 et "+ grille.getTailleAbscisse());
+        }
+    }
 }
 
 public class Controller {
@@ -88,7 +98,7 @@ public class Controller {
             exit=true;
             break;
             default:
-            try { inputCustoms.menuInput(userChoice); } 
+            try { inputCustoms.menuInputCustoms(userChoice); } 
             catch (BadInputException e) { System.out.println(e.getMessage()); this.runGame();}
         }
     }
@@ -114,14 +124,16 @@ public class Controller {
             case -1:
             gameState=GameState.MenuGame;
             default:
-            try { inputCustoms.actionInput(userChoice); } 
+            try { inputCustoms.actionInputCustoms(userChoice); } 
             catch (BadInputException e) { System.out.println(e.getMessage()); this.runGame();}
         }
     }
 
     public void shootInput (int boatChoice, int xChoice, int yChoice) throws BadInputException, InterruptedException {
-        //Gerer l'exception d'un mauvais input
-        createShoot (flotteJoueur.getShipFromFlotte(boatChoice), xChoice, yChoice);
+        try {
+            inputCustoms.shootInputCustoms(boatChoice, xChoice, yChoice, flotteJoueur, grilleIA);
+            createShoot (flotteJoueur.getShipFromFlotte(boatChoice), xChoice, yChoice);
+        } catch (BadInputException e) {System.out.println(e.getMessage()); this.runGame();}
     }
 
     public void createShoot (Ship boat, int x, int y) throws InterruptedException {
