@@ -95,7 +95,9 @@ public class Controller {
 
     public void startNewGame () {
         grilleJoueur.initializeGrille();
-        grilleIA.initializeGrille();  
+        grilleIA.initializeGrille(); 
+        apparitionFlotteOnGrille(flotteIA, grilleIA);
+        apparitionFlotteOnGrille(flotteJoueur, grilleJoueur); 
         gameState = GameState.TourJoueur;
     }
 
@@ -144,9 +146,62 @@ public class Controller {
         }
     }
     
+    public static int balayageBoatVersHaut(Ship ship, int ordonnees, int abscisses, Grille grille){
+
+        int cmpt = 0;
+        int y = 0;
+        for (int i= 0; i<ship.getTaille(); i++){
+            y = ordonnees - i;
+            if (y >= 0 && grille.getContent(abscisses, y) == " ~~ "){
+                cmpt = cmpt +1;
+            }
+        }
+        return cmpt; 
+
+    }
+
+    public static int balayageBoatVersBas(Ship ship, int ordonnees, int abscisses, Grille grille){
+        int cmpt = 0;
+        int y = 0;
+        for (int i= 0; i<ship.getTaille(); i++){
+            y = ordonnees + i;
+            if (y <= (grille.getTailleAbscisse()-1) && grille.getContent(abscisses,y) == " ~~ "){
+                cmpt = cmpt+1;
+            }
+        }
+        return cmpt;
+    }
+
+    public static int balayageBoatVersGauche(Ship ship, int ordonnees, int abscisses, Grille grille){
+        int cmpt = 0;
+        int x = 0;
+
+        for (int i= 0; i<ship.getTaille(); i++){
+            x = abscisses -i;
+            if (x >= 0 && grille.getContent(x, ordonnees) == " ~~ "){
+                    cmpt = cmpt + 1;
+            }
+        }
+
+        return cmpt;
+    }
+
+    public static int balayageBoatVersDroite(Ship ship, int ordonnees, int abscisses, Grille grille){
+        int cmpt = 0;
+        int x = 0;
+        for (int i= 0; i<ship.getTaille(); i++){
+            x = abscisses + i;
+            if (x <= (grille.getTailleAbscisse()-1) && grille.getContent(x, ordonnees) == " ~~ "){
+                cmpt = cmpt + 1;
+           }
+       }
+
+        return cmpt;
+    }
 
     public void apparitionFlotteOnGrille (Flotte flotte, Grille grille){
-        for (int i = 0; i < flotte.getFlotteSize(); i++) {
+        // better chance of infinite loop if cuirasse (9cases) is the last to spawn rather than if it is the first to spawn
+        for (int i = flotte.getFlotteSize()-1; i >= 0; i--) {
             randomApparitionForBoatOnGrille(flotte.getShipFromFlotte(i), grille, i);
          }
     }
@@ -177,6 +232,9 @@ public class Controller {
             } if (balayageBoatVersHaut(ship, ordonnees, abscisses, grille) == ship.getTaille()){
                 jetonHaut = true;
                 disponibilite = true;
+            } if (!disponibilite) {
+                abscisses = randomAbscisse.nextInt(grille.getTailleAbscisse());
+                ordonnees = randomOrdonnee.nextInt(grille.getTailleOrdonnees());
             }
         } while (disponibilite==false);
 
@@ -301,58 +359,7 @@ public class Controller {
         }
     }
 
-    public static int balayageBoatVersHaut(Ship ship, int ordonnees, int abscisses, Grille grille){
-
-        int cmpt = 0;
-        
-                for (int i= 0; i<ship.getTaille(); i++){
-                    ordonnees = ordonnees - i;
-                    if (ordonnees >= 0 && grille.getContent(abscisses, ordonnees) == " ~~ "){
-                      cmpt = cmpt +1;
-                    }
-                }
-        return cmpt; 
-
-    }
-
-    public static int balayageBoatVersBas(Ship ship, int ordonnees, int abscisses, Grille grille){
-        int cmpt = 0;
-
-        for (int i= 0; i<ship.getTaille(); i++){
-            ordonnees = ordonnees + i;
-            if (ordonnees <= (grille.getTailleAbscisse()-1) && grille.getContent(abscisses,ordonnees) == " ~~ "){
-                cmpt = cmpt+1;
-            }
-        }
-        return cmpt;
-    }
-
-    public static int balayageBoatVersGauche(Ship ship, int ordonnees, int abscisses, Grille grille){
-        int cmpt = 0;
-
-        for (int i= 0; i<ship.getTaille(); i++){
-            abscisses = abscisses -i;
-            if (abscisses >= 0 && grille.getContent(abscisses, ordonnees) == " ~~ "){
-                    cmpt = cmpt + 1;
-            }
-        }
-
-        return cmpt;
-    }
-
-    public static int balayageBoatVersDroite(Ship ship, int ordonnees, int abscisses, Grille grille){
-        int cmpt = 0;
-
-        for (int i= 0; i<ship.getTaille(); i++){
-            abscisses = abscisses + i;
-            if (abscisses <= (grille.getTailleAbscisse()-1) && grille.getContent(abscisses, ordonnees) == " ~~ "){
-                cmpt = cmpt + 1;
-           }
-       }
-
-        return cmpt;
-    }
-
+    
     
     // les deux grilles dont la même taille que ce soit en abscisse ou en ordonnee, donc autant les généraliser à une grille
     public int getGrilleTailleAbscisse()
@@ -417,7 +424,7 @@ public class Controller {
                 }
 
                 view.showGrilles();
-                System.out.println("\nMise a jour de la girlle dans 3");
+                System.out.println("\nMise a jour des grilles dans 3");
                 for (int i=2; i>=0; i--)
                 {
                     TimeUnit.SECONDS.sleep(1);
@@ -454,7 +461,7 @@ public class Controller {
                 }
                 
                 view.showGrilles();
-                System.out.println("\nMise a jour de la girlle dans 3");
+                System.out.println("\nMise a jour des grilles dans 3");
                 for (int i=2; i>=0; i--)
                 {
                     TimeUnit.SECONDS.sleep(1);
@@ -486,7 +493,7 @@ public class Controller {
                 }
                 
                 view.showGrilles();
-                System.out.println("\nMise a jour de la girlle dans 3");
+                System.out.println("\nMise a jour des grilles dans 3");
                 for (int i=2; i>=0; i--)
                 {
                     TimeUnit.SECONDS.sleep(1);

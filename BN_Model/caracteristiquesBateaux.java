@@ -2,8 +2,8 @@ package BN_Model;
 
 
 public enum caracteristiquesBateaux {// enumeration des caracteristique des bateaux
-    croiseur("croiseur",5,4, "CR "),
-    cuirasse("cuirasse",7,9, "CU "),
+    croiseur("croiseur ",5,4, "CR "),
+    cuirasse("cuirasse ",7,9, "CU "),
     destroyer("destroyer",3,1,"DS "),
     sousMarin("sousmarin",1,1, "SM ");
 
