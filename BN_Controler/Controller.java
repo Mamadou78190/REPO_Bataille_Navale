@@ -1,5 +1,6 @@
 package BN_Controler;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import BN_Model.*;
@@ -144,15 +145,161 @@ public class Controller {
     }
     
 
+    public void apparitionFlotteOnGrille (Flotte flotte, Grille grille){
+        for (int i = 0; i < flotte.getFlotteSize(); i++) {
+            randomApparitionForBoatOnGrille(flotte.getShipFromFlotte(i), grille, i);
+         }
+    }
 
-    
+    public void randomApparitionForBoatOnGrille (Ship ship, Grille grille, int indexOfBoat) {
+        boolean disponibilite = false; 
+        boolean jetonBas = false;
+        boolean jetonHaut = false;
+        boolean jetonGauche = false;
+        boolean jetonDroit = false;
+        Random randomAbscisse = new Random();
+		Random randomOrdonnee = new Random();
+        Random randomPosition = new Random();
+        int abscisses = randomAbscisse.nextInt(grille.getTailleAbscisse());
+        int ordonnees = randomOrdonnee.nextInt(grille.getTailleOrdonnees());
+        int position = randomPosition.nextInt(3);
 
+        do {
+            if (balayageBoatVersBas(ship, ordonnees, abscisses, grille) == ship.getTaille()){
+                jetonBas = true;
+                disponibilite = true;
+            } if (balayageBoatVersDroite(ship, ordonnees, abscisses, grille) == ship.getTaille()){
+                jetonDroit = true;
+                disponibilite = true;
+            } if (balayageBoatVersGauche(ship, ordonnees, abscisses, grille) == ship.getTaille()){
+                jetonGauche = true;
+                disponibilite = true;
+            } if (balayageBoatVersHaut(ship, ordonnees, abscisses, grille) == ship.getTaille()){
+                jetonHaut = true;
+                disponibilite = true;
+            }
+        } while (disponibilite==false);
 
+        switch (position) {
 
+            case 0 : 
+                //haut
+                if (jetonHaut){
+                    for (int i = 0; i<ship.getTaille(); i++){
+                        grille.setContent(abscisses,ordonnees-i,indexOfBoat , ship.getVisuel());
+                        position = 0;
+                        ship.setCoordonneesShip(abscisses, ordonnees-i, ship);
+                    }
+                }else if (jetonBas){
+                    for (int i = 0; i<ship.getTaille(); i++){
+                        grille.setContent(abscisses,ordonnees+i,indexOfBoat , ship.getVisuel());
+                        position = 1;
+                        ship.setCoordonneesShip(abscisses, ordonnees+i, ship);
+                    }
+                }else if (jetonGauche){
+                    for (int i = 0; i<ship.getTaille(); i++){
+                        grille.setContent(abscisses-i,ordonnees,indexOfBoat , ship.getVisuel());
+                        position = 3;
+                        ship.setCoordonneesShip(abscisses-i, ordonnees, ship);
+                    }
+                }else if (jetonDroit){
+                    for (int i = 0; i<ship.getTaille(); i++){
+                        grille.setContent(abscisses+i,ordonnees,indexOfBoat, ship.getVisuel());
+                        position = 2;
+                        ship.setCoordonneesShip(abscisses+i, ordonnees, ship);
+                    }
+                }
 
+            break; 
 
+            case 1 : 
+                //bas
+                if (jetonBas){
+                    for (int i = 0; i<ship.getTaille(); i++){
+                        grille.setContent(abscisses,ordonnees+i,indexOfBoat, ship.getVisuel());
+                        position = 1;
+                        ship.setCoordonneesShip(abscisses, ordonnees+i, ship);
+                    }
+                }else if (jetonHaut){
+                    for (int i = 0; i<ship.getTaille(); i++){
+                        grille.setContent(abscisses,ordonnees-i,indexOfBoat, ship.getVisuel());
+                        position = 0;
+                        ship.setCoordonneesShip(abscisses, ordonnees-i, ship);
+                    }
+                }else if (jetonDroit){
+                    for (int i = 0; i<ship.getTaille(); i++){
+                        grille.setContent(abscisses+i,ordonnees,indexOfBoat, ship.getVisuel());
+                        position = 2;
+                        ship.setCoordonneesShip(abscisses+i, ordonnees, ship);
+                    }
+                }else if (jetonGauche){
+                    for (int i = 0; i<ship.getTaille(); i++){
+                        grille.setContent(abscisses-i,ordonnees,indexOfBoat, ship.getVisuel());
+                        position = 3;
+                        ship.setCoordonneesShip(abscisses-i, ordonnees, ship);
+                    }
+                }
+            break; 
 
+            case 2 : 
+                //droit
+                if (jetonDroit){
+                    for (int i = 0; i<ship.getTaille(); i++){
+                        grille.setContent(abscisses+i,ordonnees,indexOfBoat, ship.getVisuel());
+                        position = 2;
+                        ship.setCoordonneesShip(abscisses+i, ordonnees, ship);
+                    }
+                }else if (jetonGauche){
+                    for (int i = 0; i<ship.getTaille(); i++){
+                        grille.setContent(abscisses-i,ordonnees,indexOfBoat, ship.getVisuel());
+                        position = 3;
+                        ship.setCoordonneesShip(abscisses-i, ordonnees, ship);
+                    }
+                }else if (jetonHaut){
+                    for (int i = 0; i<ship.getTaille(); i++){
+                        grille.setContent(abscisses,ordonnees-i,indexOfBoat, ship.getVisuel());
+                        position = 0;
+                        ship.setCoordonneesShip(abscisses, ordonnees-i, ship);
+                    }
+                }else if (jetonBas){
+                    for (int i = 0; i<ship.getTaille(); i++){
+                        grille.setContent(abscisses,ordonnees+i,indexOfBoat, ship.getVisuel());
+                        position = 1;
+                        ship.setCoordonneesShip(abscisses, ordonnees+i, ship);
+                    }
+                }
+            break; 
 
+            case 3 : 
+                //gauche
+                if (jetonGauche){
+                    for (int i = 0; i<ship.getTaille(); i++){
+                        grille.setContent(abscisses-i,ordonnees,indexOfBoat, ship.getVisuel());
+                        position = 3;
+                        ship.setCoordonneesShip(abscisses-i, ordonnees, ship);
+                    }
+                }else if (jetonDroit){
+                    for (int i = 0; i<ship.getTaille(); i++){
+                        grille.setContent(abscisses+i,ordonnees,indexOfBoat, ship.getVisuel());
+                        position = 2;
+                        ship.setCoordonneesShip(abscisses+i, ordonnees, ship);
+                    }
+                }else if (jetonHaut){
+                    for (int i = 0; i<ship.getTaille(); i++){
+                        grille.setContent(abscisses,ordonnees-i,indexOfBoat, ship.getVisuel());
+                        position = 0;
+                        ship.setCoordonneesShip(abscisses, ordonnees-i, ship);
+                    }
+                }else if (jetonBas){
+                    for (int i = 0; i<ship.getTaille(); i++){
+                        grille.setContent(abscisses,ordonnees+i,indexOfBoat, ship.getVisuel());
+                        position = 1;
+                        ship.setCoordonneesShip(abscisses, ordonnees+i, ship);
+                    }
+                }
+            break;
+        }
+    }
 
     public static int balayageBoatVersHaut(Ship ship, int ordonnees, int abscisses, Grille grille){
 
