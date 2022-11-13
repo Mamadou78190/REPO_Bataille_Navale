@@ -89,7 +89,42 @@ public class Controller {
         gameState = GameState.TourJoueur;
         grilleJoueur.initializeGrille();
         grilleIA.initializeGrille();
-        view.showGrilles();
+        gameState = GameState.TourJoueur;
+    }
+
+    public void actionInput (int userChoice) throws BadInputException, InterruptedException {
+        
+        switch (userChoice) {
+            case 0:
+            System.out.println("call askForMoveBoatInput");
+            break;
+            case 1:
+            System.out.println("call askForShootInput");
+            view.askInputForShoot();
+            break;
+            case -1:
+            gameState=GameState.MenuGame;
+            default:
+            try { inputCustoms.actionInput(userChoice); } 
+            catch (BadInputException e) { System.out.println(e.getMessage()); this.runGame();}
+        }
+    }
+
+    public void shootInput (int boatChoice, int xChoice, int yChoice) throws BadInputException, InterruptedException {
+        //Gerer l'exception d'un mauvais input
+        createShoot (flotteJoueur.getShipFromFlotte(boatChoice), xChoice, yChoice);
+    }
+
+    public void createShoot (Ship boat, int x, int y) throws InterruptedException {
+        // shoot.setX=x;
+        // shoot.setY=y;
+        // shoot.setPuissance(boat.getPuissance)
+        shoot = new Shoot (x,y,boat.getPuissance());
+        if (gameState==GameState.TourJoueur) {
+            setShootImpact(shoot,grilleIA);
+        } else if (gameState==GameState.TourIA) {
+            setShootImpact(shoot,grilleJoueur);
+        }
     }
 
     

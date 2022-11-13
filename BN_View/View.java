@@ -11,7 +11,7 @@ public class View {
 
     public View() {}
 
-    public void askInputForMenu () throws BadInputException {
+    public void askInputForMenu () throws BadInputException, InterruptedException {
         System.out.println("\nWhat would you like to do ? Enter a number : ");    
         input = UserInput.nextInt();
         controller.menuInput(input);
@@ -40,6 +40,17 @@ public class View {
         input = UserInput.nextInt();
         controller.actionInput(input);
     }
+
+    public void askInputForShoot () throws BadInputException, InterruptedException {
+        System.out.println( "\nWhich boat are you choosing from 0 to 9 ?");
+        input = UserInput.nextInt();
+        System.out.println( "Where would you like to shoot ? Select x : ");
+        int inputx = UserInput.nextInt();
+        System.out.println( "                                Select Y : ");
+        int inputy = UserInput.nextInt();
+        controller.shootInput(input, inputx, inputy);
+    }
+
 
     public void showGrilles() { 
         System.out.println("\n\nGRILLE JOUEUR \t\t\t\t\t\t\t\t\t\tGRILLE IA");
