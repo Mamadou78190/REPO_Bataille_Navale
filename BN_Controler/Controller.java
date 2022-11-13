@@ -1,5 +1,7 @@
 package BN_Controler;
 
+import java.util.concurrent.TimeUnit;
+
 import BN_Model.*;
 import BN_View.View;
 
@@ -9,6 +11,13 @@ class InputCustoms {
         
         if (userChoice < 1 || userChoice > 5) {
             throw new BadInputException("Vous devez saisir un nombre entre 0 et 5");
+        }
+    } 
+
+    public void actionInput (int userChoice) throws BadInputException{
+        
+        if (userChoice < -1 || userChoice > 1) {
+            throw new BadInputException("Vous devez saisir un nombre entre 0 et 1");
         }
     } 
 }
