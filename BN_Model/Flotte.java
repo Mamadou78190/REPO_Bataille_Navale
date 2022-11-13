@@ -1,5 +1,5 @@
 package BN_Model;
-public class Flotte extends Ship {
+public class Flotte {
 
     private Ship flotte[] = new Ship[10];//Flotte ami
 
@@ -7,7 +7,7 @@ public class Flotte extends Ship {
     public Flotte()
 
     {
-        super();
+
         for (int i=0;i<4;i++){//creation de 4 sous-marin
             flotte[i] = new Ship(caracteristiquesBateaux.sousMarin);
         }
@@ -44,7 +44,7 @@ public class Flotte extends Ship {
     }
 
     public void isDeadOnArray(Flotte flotte, Grille grille){
-    
+
         for (int i=0; i<flotte.getFlotteSize(); i++){
             if(flotte.getShipFromFlotte(i).isDead(flotte.getShipFromFlotte(i), grille)){
 
@@ -52,7 +52,7 @@ public class Flotte extends Ship {
 
                     Coordonnees coordonnes = flotte.getShipFromFlotte(i).getCaseNavire(j);
 
-                    grille.grilleJeu[coordonnes.getX()][coordonnes.getY()] = "DEAD";
+                    grille.tableauJeu[coordonnes.getX()][coordonnes.getY()] = "DEAD";
 
                 }
             }
