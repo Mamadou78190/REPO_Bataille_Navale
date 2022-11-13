@@ -27,6 +27,9 @@ public class View {
                             "\n4 - Exit Game");
     }
 
+    public void showFlotte (String flotte) {
+        System.out.println("\n\nVOTRE FLOTTE\n"+flotte);
+    }
     public void showGrilles() { 
         System.out.println("\n\nGRILLE JOUEUR \t\t\t\t\t\t\t\t\t\tGRILLE IA");
         //Affichage repere abscisses 1ere grille IA
