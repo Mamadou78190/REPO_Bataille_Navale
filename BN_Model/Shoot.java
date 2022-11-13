@@ -1,11 +1,10 @@
 package BN_Model;
 
-import java.util.concurrent.TimeUnit;
 
 public class Shoot extends Coordonnees {
 
     int puissance;
-
+    
     public Shoot(int x, int y, int puissance) {
         super(x, y);
         this.puissance = puissance;
@@ -18,6 +17,7 @@ public class Shoot extends Coordonnees {
     public int getPuissance() {
         return puissance;
     }
+
 
     public void setImpact(Grille grille) throws InterruptedException {
 
@@ -141,4 +141,7 @@ public class Shoot extends Coordonnees {
         // }
 
     }
+
+    
+
 }

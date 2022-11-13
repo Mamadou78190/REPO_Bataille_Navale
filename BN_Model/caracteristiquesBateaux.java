@@ -39,6 +39,6 @@ public enum caracteristiquesBateaux {// enumeration des caracteristique des bate
 
     @Override
     public String toString() {
-        return "Caract. sont : "+name+", puissance : "+puissance+", taille : "+taille + " visuel : " +visuel;
+        return "Type : "+name+" / Puissance : "+puissance+" / Taille : "+taille + " / Visuel : " +visuel;
     }
 }
