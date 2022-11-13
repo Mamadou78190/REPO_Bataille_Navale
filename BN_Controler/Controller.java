@@ -44,6 +44,7 @@ public class Controller {
     Grille grilleJoueur = new Grille(15,15);
     Grille grilleIA = new Grille(15,15);
     Shoot shoot;
+    Coordonnees coordonnees;
     public Boolean exit = false;
     
     GameState gameState;
@@ -103,6 +104,15 @@ public class Controller {
         }
     }
 
+    public void switchingTurn() {
+        if (gameState==GameState.TourJoueur) {
+            gameState=GameState.TourIA;
+        }
+        else if (gameState==GameState.TourIA) {
+            gameState=GameState.TourJoueur;
+        }
+    }
+
     public void startNewGame () {
         grilleJoueur.initializeGrille();
         grilleIA.initializeGrille(); 
@@ -133,6 +143,7 @@ public class Controller {
         try {
             inputCustoms.shootInputCustoms(boatChoice, xChoice, yChoice, flotteJoueur, grilleIA);
             createShoot (flotteJoueur.getShipFromFlotte(boatChoice), xChoice, yChoice);
+            checkIfAShipIsDead(flotteIA, grilleIA);
         } catch (BadInputException e) {System.out.println(e.getMessage()); this.runGame();}
     }
 
@@ -148,16 +159,138 @@ public class Controller {
         }
         // switchingTurn();
         }
+    
+    public void setShootImpact(Shoot shoot, Grille grille) throws InterruptedException {
+        int shootX = shoot.getX();
+        int shootY = shoot.getY();
 
-    public void switchingTurn() {
-        if (gameState==GameState.TourJoueur) {
-            gameState=GameState.TourIA;
+        // Gestion des bords de la grille
+        //userInput y = 14
+        if (shoot.getY()>=grille.getTailleOrdonnees()-1 && (shoot.getPuissance()==4 || shoot.getPuissance()==9) )
+        {
+            shootY=shoot.getY()-1;
         }
-        else if (gameState==GameState.TourIA) {
-            gameState=GameState.TourJoueur;
+        else if (shoot.getY()<=0 && shoot.getPuissance()==9)
+        {
+            shootY=shoot.getY()+1;
+        }
+
+        //userInput x = 14
+        if (shoot.getX()>=grille.getTailleAbscisse()-1 && (shoot.getPuissance()==4 || shoot.getPuissance()==9))
+        {
+            shootX=shoot.getX()-1;
+        }
+        else if (shoot.getX()<=0 && shoot.getPuissance()==9)
+        {
+            shootX=shoot.getX()+1;
+        }
+        /////////////////////////////////////////////////
+
+        switch (shoot.getPuissance())
+        {
+            case 9:
+                for (int i=shootY-1; i<=shootY+1; i++)
+                {
+                    for (int j=shootX-1; j<=shootX+1; j++)
+                    {
+                        if (grille.getContent(j,i) != " ~~ "){
+                            grille.setContent(j, i,-1, "BOOM");
+                        }else{
+                            grille.setContent(j, i,-1, "PLOP");
+                        }
+                    }
+                
+                }
+
+                view.showGrilles();
+                System.out.println("\nMise a jour des grilles dans 3");
+                for (int i=2; i>=0; i--)
+                {
+                    TimeUnit.SECONDS.sleep(1);
+                    System.out.println("                             "+i);
+
+                }
+
+                for (int i=shootY-1; i<=shootY+1; i++)
+                {
+                    for (int j=shootX-1; j<=shootX+1; j++)
+                    {
+                        if (grille.getContent(j,i) == "BOOM"){
+                            grille.setContent(j, i,-1, " ## ");
+                        }else{
+                            grille.setContent(j, i,-1, " ~~ ");
+                        }
+                    }
+                }
+                
+
+            break;
+
+            case 4:
+                for (int i=shootY; i<=shootY+1; i++)
+                {
+                    for (int j=shootX; j<=shootX+1; j++)
+                    {
+                        if (grille.getContent(j,i)!= " ~~ "){
+                            grille.setContent(j, i,-1, "BOOM");
+                        }else{
+                            grille.setContent(j, i,-1, "PLOP");
+                        }
+                    }  
+                }
+                
+                view.showGrilles();
+                System.out.println("\nMise a jour des grilles dans 3");
+                for (int i=2; i>=0; i--)
+                {
+                    TimeUnit.SECONDS.sleep(1);
+                    System.out.println("                             "+i);
+
+                }
+
+                for (int i=shootY; i<=shootY+1; i++)
+                {
+                    for (int j=shootX; j<=shootX+1; j++)
+                    {
+                        if (grille.getContent(j,i)== "BOOM"){
+                            grille.setContent(j, i,-1, " ## ");
+                        }else{
+                            grille.setContent(j, i,-1, " ~~ ");
+                        }
+                    }
+                }
+                
+
+            break;
+
+            case 1:
+
+                if (grille.getContent(shootX, shootY)!= " ~~ "){
+                    grille.setContent(shootX, shootY,-1, "BOOM");
+                }else{
+                    grille.setContent(shootX, shootY,-1, "PLOP");
+                }
+                
+                view.showGrilles();
+                System.out.println("\nMise a jour des grilles dans 3");
+                for (int i=2; i>=0; i--)
+                {
+                    TimeUnit.SECONDS.sleep(1);
+                    System.out.println("                             "+i);
+
+                }
+
+                if (grille.getContent(shootX, shootY)== "BOOM"){
+                    grille.setContent(shootX, shootY,-1, " ## ");
+                }else{
+                    grille.setContent(shootX, shootY,-1, " ~~ ");
+                }
+                
+            break;
+
         }
     }
-    
+
     public static int balayageBoatVersHaut(Ship ship, int ordonnees, int abscisses, Grille grille){
 
         int cmpt = 0;
@@ -371,8 +504,42 @@ public class Controller {
         }
     }
 
+    public void checkIfAShipIsDead (Flotte flotte, Grille grille) {
+        boolean status = false;
+        for (int i = 0 ; i < flotte.getFlotteSize() ; i++) {
+            status = isShipDead(flotte.getShipFromFlotte(i), grille);
+            if (status) {
+                setDeadShipOnGrille(flotte.getShipFromFlotte(i), grille);
+            }
+        }
+    }
+    public boolean isShipDead(Ship ship, Grille grille){
+
+        int cmpt = 0;
+        boolean isDead = false;
+
+        for (int i = 0; i < ship.getTaille(); i++)
+        {
+            Coordonnees coordonnes = ship.getCaseShip(i);
+            if (grille.getContent(coordonnes.getX(),coordonnes.getY())==" ## ")
+            {
+                cmpt++;
+            }
+        }
+        if (cmpt == ship.getTaille())
+        {
+            ship.setIsDead();
+            isDead = true;
+        }
+        return isDead;
+    }
     
-    
+    public void setDeadShipOnGrille (Ship ship, Grille grille) {
+        for (int i = 0 ; i < ship.getTaille() ; i++) {
+            coordonnees = ship.getCaseShip(i);
+            grille.setContent(coordonnees.getX(), coordonnees.getY(), -1, "DEAD");
+        }
+    }
     // les deux grilles dont la même taille que ce soit en abscisse ou en ordonnee, donc autant les généraliser à une grille
     public int getGrilleTailleAbscisse()
     {
@@ -393,137 +560,6 @@ public class Controller {
     }
     /////////////////////////////////////////////////
 
-    public void setShootImpact(Shoot shoot, Grille grille) throws InterruptedException {
-        int shootX = shoot.getX();
-        int shootY = shoot.getY();
-
-        // Gestion des bords de la grille
-        //userInput y = 14
-        if (shoot.getY()>=grille.getTailleOrdonnees()-1 && (shoot.getPuissance()==4 || shoot.getPuissance()==9) )
-        {
-            shootY=shoot.getY()-1;
-        }
-        else if (shoot.getY()<=0 && shoot.getPuissance()==9)
-        {
-            shootY=shoot.getY()+1;
-        }
-
-        //userInput x = 14
-        if (shoot.getX()>=grille.getTailleAbscisse()-1 && (shoot.getPuissance()==4 || shoot.getPuissance()==9))
-        {
-            shootX=shoot.getX()-1;
-        }
-        else if (shoot.getX()<=0 && shoot.getPuissance()==9)
-        {
-            shootX=shoot.getX()+1;
-        }
-        /////////////////////////////////////////////////
-
-        switch (shoot.getPuissance())
-        {
-            case 9:
-                for (int i=shootY-1; i<=shootY+1; i++)
-                {
-                    for (int j=shootX-1; j<=shootX+1; j++)
-                    {
-                        if (grille.getContent(j,i) != " ~~ "){
-                            grille.setContent(j, i,-1, "BOOM");
-                        }else{
-                            grille.setContent(j, i,-1, "PLOP");
-                        }
-                    }
-                
-                }
-
-                view.showGrilles();
-                System.out.println("\nMise a jour des grilles dans 3");
-                for (int i=2; i>=0; i--)
-                {
-                    TimeUnit.SECONDS.sleep(1);
-                    System.out.println("                              "+i);
-
-                }
-
-                for (int i=shootY-1; i<=shootY+1; i++)
-                {
-                    for (int j=shootX-1; j<=shootX+1; j++)
-                    {
-                        if (grille.getContent(j,i) == "BOOM"){
-                            grille.setContent(j, i,-1, " ## ");
-                        }else{
-                            grille.setContent(j, i,-1, " ~~ ");
-                        }
-                    }
-                }
-                
-
-            break;
-
-            case 4:
-                for (int i=shootY; i<=shootY+1; i++)
-                {
-                    for (int j=shootX; j<=shootX+1; j++)
-                    {
-                        if (grille.getContent(j,i)!= " ~~ "){
-                            grille.setContent(j, i,-1, "BOOM");
-                        }else{
-                            grille.setContent(j, i,-1, "PLOP");
-                        }
-                    }  
-                }
-                
-                view.showGrilles();
-                System.out.println("\nMise a jour des grilles dans 3");
-                for (int i=2; i>=0; i--)
-                {
-                    TimeUnit.SECONDS.sleep(1);
-                    System.out.println("                              "+i);
-
-                }
-
-                for (int i=shootY; i<=shootY+1; i++)
-                {
-                    for (int j=shootX; j<=shootX+1; j++)
-                    {
-                        if (grille.getContent(j,i)== "BOOM"){
-                            grille.setContent(j, i,-1, " ## ");
-                        }else{
-                            grille.setContent(j, i,-1, " ~~ ");
-                        }
-                    }
-                }
-                
-
-            break;
-
-            case 1:
-
-                if (grille.getContent(shootX, shootY)!= " ~~ "){
-                    grille.setContent(shootX, shootY,-1, "BOOM");
-                }else{
-                    grille.setContent(shootX, shootY,-1, "PLOP");
-                }
-                
-                view.showGrilles();
-                System.out.println("\nMise a jour des grilles dans 3");
-                for (int i=2; i>=0; i--)
-                {
-                    TimeUnit.SECONDS.sleep(1);
-                    System.out.println("                              "+i);
-
-                }
-
-                if (grille.getContent(shootX, shootY)== "BOOM"){
-                    grille.setContent(shootX, shootY,-1, " ## ");
-                }else{
-                    grille.setContent(shootX, shootY,-1, " ~~ ");
-                }
-                
-            break;
-
-        }
-        }
-
-        public boolean exit(boolean status) {return status=true;}
+    public boolean exit(boolean status) {return status=true;}
     }
 
