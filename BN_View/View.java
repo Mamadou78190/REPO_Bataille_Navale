@@ -38,10 +38,12 @@ public class View {
         System.out.println( "\nWhat action would you like to do ?"+
                             "\n\t0  Deplacer un bateau"+
                             "\n\t1  Tirer sur la grille adverse"+
+                            "\n\t2 Sauvegarder la partie"+
                             "\n\t-1 Go back to Main Menu");
         input = UserInput.nextInt();
         controller.actionInput(input);
     }
+
 
     public void askInputForShoot () throws BadInputException, InterruptedException {
         System.out.println( "\nWhich boat are you choosing from 0 to 9 ?");

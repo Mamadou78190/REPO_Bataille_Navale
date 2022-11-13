@@ -1,6 +1,10 @@
 package BN_Controler;
 
+<<<<<<< HEAD
 import java.util.Random;
+=======
+import java.io.*;
+>>>>>>> Bobby_dev
 import java.util.concurrent.TimeUnit;
 
 import BN_Model.*;
@@ -17,14 +21,14 @@ class InputCustoms {
 
     public void actionInput (int userChoice) throws BadInputException{
         
-        if (userChoice < -1 || userChoice > 1) {
-            throw new BadInputException("Vous devez saisir un nombre entre 0 et 1");
+        if (userChoice < -1 || userChoice > 2) {
+            throw new BadInputException("Vous devez saisir un nombre entre 0 et 2");
         }
     } 
 }
 
 public class Controller {
-    enum GameState {
+    enum GameState implements Serializable {
         MenuGame, TourJoueur, TourIA, EndGame
     }
 
@@ -112,12 +116,16 @@ public class Controller {
             System.out.println("call askForShootInput");
             view.askInputForShoot();
             break;
+            case 2:
+            sauvegarder();
+            System.out.println("Partie sauvgardé !");
             case -1:
             gameState=GameState.MenuGame;
             default:
             try { inputCustoms.actionInput(userChoice); } 
             catch (BadInputException e) { System.out.println(e.getMessage()); this.runGame();}
         }
+
     }
 
     public void shootInput (int boatChoice, int xChoice, int yChoice) throws BadInputException, InterruptedException {
@@ -144,6 +152,24 @@ public class Controller {
         }
         else if (gameState==GameState.TourIA) {
             gameState=GameState.TourJoueur;
+        }
+    }
+
+    public void sauvegarder (){
+        try {
+            FileOutputStream fos = new FileOutputStream("Save/Sauvegarde.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(grilleJoueur);
+            oos.writeObject(grilleIA);
+            oos.writeObject(flotteIA);
+            oos.writeObject(flotteJoueur);
+            oos.writeObject(gameState);
+            oos.close();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     
