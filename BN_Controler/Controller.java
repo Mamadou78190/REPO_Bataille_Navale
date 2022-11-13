@@ -147,6 +147,65 @@ public class Controller {
 
     
 
+
+
+
+
+
+
+
+    public static int balayageBoatVersHaut(Ship ship, int ordonnees, int abscisses, Grille grille){
+
+        int cmpt = 0;
+        
+                for (int i= 0; i<ship.getTaille(); i++){
+                    ordonnees = ordonnees - i;
+                    if (ordonnees >= 0 && grille.getContent(abscisses, ordonnees) == " ~~ "){
+                      cmpt = cmpt +1;
+                    }
+                }
+        return cmpt; 
+
+    }
+
+    public static int balayageBoatVersBas(Ship ship, int ordonnees, int abscisses, Grille grille){
+        int cmpt = 0;
+
+        for (int i= 0; i<ship.getTaille(); i++){
+            ordonnees = ordonnees + i;
+            if (ordonnees <= (grille.getTailleAbscisse()-1) && grille.getContent(abscisses,ordonnees) == " ~~ "){
+                cmpt = cmpt+1;
+            }
+        }
+        return cmpt;
+    }
+
+    public static int balayageBoatVersGauche(Ship ship, int ordonnees, int abscisses, Grille grille){
+        int cmpt = 0;
+
+        for (int i= 0; i<ship.getTaille(); i++){
+            abscisses = abscisses -i;
+            if (abscisses >= 0 && grille.getContent(abscisses, ordonnees) == " ~~ "){
+                    cmpt = cmpt + 1;
+            }
+        }
+
+        return cmpt;
+    }
+
+    public static int balayageBoatVersDroite(Ship ship, int ordonnees, int abscisses, Grille grille){
+        int cmpt = 0;
+
+        for (int i= 0; i<ship.getTaille(); i++){
+            abscisses = abscisses + i;
+            if (abscisses <= (grille.getTailleAbscisse()-1) && grille.getContent(abscisses, ordonnees) == " ~~ "){
+                cmpt = cmpt + 1;
+           }
+       }
+
+        return cmpt;
+    }
+
     
     // les deux grilles dont la même taille que ce soit en abscisse ou en ordonnee, donc autant les généraliser à une grille
     public int getGrilleTailleAbscisse()
