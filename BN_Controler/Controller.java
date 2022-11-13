@@ -1,5 +1,11 @@
 package BN_Controler;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -565,6 +571,51 @@ public class Controller {
         return grilleIA.getContent(x,y);
     }
     /////////////////////////////////////////////////
+
+
+    public void sauvegarder (){
+        try {
+            FileOutputStream fos = new FileOutputStream("Save/Sauvegarde.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(grilleJoueur);
+            oos.writeObject(grilleIA);
+            oos.writeObject(flotteIA);
+            oos.writeObject(flotteJoueur);
+            oos.writeObject(gameState);
+            oos.close();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void chargement(){
+        try {
+            FileInputStream fis = new FileInputStream("Save/Sauvegarde.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            grilleJoueur = (Grille) ois.readObject();
+            grilleIA = (Grille) ois.readObject();
+            view.showGrilles();
+            //o = ois.readObject();
+            //System.out.println(o);
+            //o = ois.readObject();
+            //System.out.println(o);
+            //o = ois.readObject();
+            //System.out.println(o);
+            ois.close();
+            fis.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     public boolean exit(boolean status) {return status=true;}
     }
