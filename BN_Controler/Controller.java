@@ -73,6 +73,7 @@ public class Controller {
             break;
             case TourIA:
             System.out.println("Call View for IA turn, input for what action to do ");
+            view.showGrilles();
             break;
             case EndGame:
             System.out.println("Go back to main menu");
@@ -121,6 +122,12 @@ public class Controller {
         gameState = GameState.TourJoueur;
     }
 
+    public void startShootAction (int shipIndex, int x, int y) throws InterruptedException {
+        createShoot (flotteJoueur.getShipFromFlotte(shipIndex), x, y);
+        checkIfAShipIsDead(flotteIA, grilleIA);
+        // switchingTurn(); //toggle comment when on dbg
+    }
+
     public void actionInput (int userChoice) throws BadInputException, InterruptedException {
         
         switch (userChoice) {
@@ -142,8 +149,7 @@ public class Controller {
     public void shootInput (int boatChoice, int xChoice, int yChoice) throws BadInputException, InterruptedException {
         try {
             inputCustoms.shootInputCustoms(boatChoice, xChoice, yChoice, flotteJoueur, grilleIA);
-            createShoot (flotteJoueur.getShipFromFlotte(boatChoice), xChoice, yChoice);
-            checkIfAShipIsDead(flotteIA, grilleIA);
+            startShootAction(boatChoice, xChoice, yChoice);
         } catch (BadInputException e) {System.out.println(e.getMessage()); this.runGame();}
     }
 
@@ -157,7 +163,7 @@ public class Controller {
         } else if (gameState==GameState.TourIA) {
             setShootImpact(shoot,grilleJoueur);
         }
-        // switchingTurn();
+        
         }
     
     public void setShootImpact(Shoot shoot, Grille grille) throws InterruptedException {
