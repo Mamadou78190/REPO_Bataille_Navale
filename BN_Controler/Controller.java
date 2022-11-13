@@ -159,6 +159,7 @@ public class Controller {
             oos.writeObject(grilleIA);
             oos.writeObject(flotteIA);
             oos.writeObject(flotteJoueur);
+            oos.writeObject(gameState);
             oos.close();
             fos.close();
         } catch (FileNotFoundException e) {
