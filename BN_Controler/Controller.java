@@ -1,9 +1,6 @@
 package BN_Controler;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.concurrent.TimeUnit;
 
 import BN_Model.*;
@@ -27,7 +24,7 @@ class InputCustoms {
 }
 
 public class Controller {
-    enum GameState {
+    enum GameState implements Serializable {
         MenuGame, TourJoueur, TourIA, EndGame
     }
 
