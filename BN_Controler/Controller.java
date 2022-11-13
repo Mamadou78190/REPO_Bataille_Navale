@@ -1,10 +1,10 @@
 package BN_Controler;
 
-<<<<<<< HEAD
+
 import java.util.Random;
-=======
+
 import java.io.*;
->>>>>>> Bobby_dev
+
 import java.util.concurrent.TimeUnit;
 
 import BN_Model.*;
