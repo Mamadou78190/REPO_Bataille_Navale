@@ -103,4 +103,134 @@ public class Controller {
         return grilleIA.getContent(x,y);
     }
     /////////////////////////////////////////////////
+
+    public void setShootImpact(Shoot shoot, Grille grille) throws InterruptedException {
+        int shootX = shoot.getX();
+        int shootY = shoot.getY();
+
+        // Gestion des bords de la grille
+        //userInput y = 14
+        if (shoot.getY()>=grille.getTailleOrdonnees()-1 && (shoot.getPuissance()==4 || shoot.getPuissance()==9) )
+        {
+            shootY=shoot.getY()-1;
+        }
+        else if (shoot.getY()<=0 && shoot.getPuissance()==9)
+        {
+            shootY=shoot.getY()+1;
+        }
+
+        //userInput x = 14
+        if (shoot.getX()>=grille.getTailleAbscisse()-1 && (shoot.getPuissance()==4 || shoot.getPuissance()==9))
+        {
+            shootX=shoot.getX()-1;
+        }
+        else if (shoot.getX()<=0 && shoot.getPuissance()==9)
+        {
+            shootX=shoot.getX()+1;
 }
+        /////////////////////////////////////////////////
+
+        switch (shoot.getPuissance())
+        {
+            case 9:
+                for (int i=shootY-1; i<=shootY+1; i++)
+                {
+                    for (int j=shootX-1; j<=shootX+1; j++)
+                    {
+                        if (grille.getContent(j,i) != " ~~ "){
+                            grille.setContent(j, i,-1, "BOOM");
+                        }else{
+                            grille.setContent(j, i,-1, "PLOP");
+                        }
+                    }
+                
+                }
+
+                view.showGrilles();
+                System.out.println("\nMise a jour de la girlle dans 3");
+                for (int i=2; i>=0; i--)
+                {
+                    TimeUnit.SECONDS.sleep(1);
+                    System.out.println("                              "+i);
+
+                }
+
+                for (int i=shootY-1; i<=shootY+1; i++)
+                {
+                    for (int j=shootX-1; j<=shootX+1; j++)
+                    {
+                        if (grille.getContent(j,i) == "BOOM"){
+                            grille.setContent(j, i,-1, " ## ");
+                        }else{
+                            grille.setContent(j, i,-1, " ~~ ");
+                        }
+                    }
+                }
+                
+
+            break;
+
+            case 4:
+                for (int i=shootY; i<=shootY+1; i++)
+                {
+                    for (int j=shootX; j<=shootX+1; j++)
+                    {
+                        if (grille.getContent(j,i)!= " ~~ "){
+                            grille.setContent(j, i,-1, "BOOM");
+                        }else{
+                            grille.setContent(j, i,-1, "PLOP");
+                        }
+                    }  
+                }
+                
+                view.showGrilles();
+                System.out.println("\nMise a jour de la girlle dans 3");
+                for (int i=2; i>=0; i--)
+                {
+                    TimeUnit.SECONDS.sleep(1);
+                    System.out.println("                              "+i);
+
+                }
+
+                for (int i=shootY; i<=shootY+1; i++)
+                {
+                    for (int j=shootX; j<=shootX+1; j++)
+                    {
+                        if (grille.getContent(j,i)== "BOOM"){
+                            grille.setContent(j, i,-1, " ## ");
+                        }else{
+                            grille.setContent(j, i,-1, " ~~ ");
+                        }
+                    }
+                }
+                
+
+            break;
+
+            case 1:
+
+                if (grille.getContent(shootX, shootY)!= " ~~ "){
+                    grille.setContent(shootX, shootY,-1, "BOOM");
+                }else{
+                    grille.setContent(shootX, shootY,-1, "PLOP");
+                }
+                
+                view.showGrilles();
+                System.out.println("\nMise a jour de la girlle dans 3");
+                for (int i=2; i>=0; i--)
+                {
+                    TimeUnit.SECONDS.sleep(1);
+                    System.out.println("                              "+i);
+
+                }
+
+                if (grille.getContent(shootX, shootY)== "BOOM"){
+                    grille.setContent(shootX, shootY,-1, " ## ");
+                }else{
+                    grille.setContent(shootX, shootY,-1, " ~~ ");
+                }
+                
+            break;
+
+        }
+        }
