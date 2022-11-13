@@ -1,9 +1,9 @@
 
-// package BN_Model;
+package BN_Model;
 
-// public class DeplacementNavire {
+public class Damaged {
 
-//     public void deplacementNavire(Grille grille, Ship ship, String direction){
+    // public void deplacementNavire(Grille grille, Ship ship, String direction){
       
 //         int position = ship.getOrientation();
 //         if (navireDamaged(ship, grille) == false){
@@ -201,21 +201,21 @@
 //         }else {System.out.println("VOTRE BATEAU EST ENDOMMAGER VOUS NE POUVEZ PAS LE DEPLACER");}      
 //     }
 
-//     public boolean navireDamaged(Ship navire, Grille grille){
+    public boolean navireDamaged(Ship navire, Grille grille){
 
-//         boolean status = false;
+        boolean status = false;
 
-//         for (int i = 0; i < navire.getTaille(); i++){
+        for (int i = 0; i < navire.getTaille(); i++){
 
-//             Coordonnees coordonnes = navire.getCaseNavire(i);
+            Coordonnees coordonnes = navire.getCaseShip(i);
 
-//             if (grille.grilleJeu[coordonnes.getX()][coordonnes.getY()]==" ## "){
-//                 status = true;
-//             }
-//         }
-//         return status;
-//     }
-// }
+            if (grille.tableauJeu[coordonnes.getX()][coordonnes.getY()]==" ## "){
+                status = true;
+            }
+        }
+        return status;
+    }
+}
     
 
 
