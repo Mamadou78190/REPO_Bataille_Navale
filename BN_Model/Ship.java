@@ -5,7 +5,9 @@ import java.util.ArrayList;
 public class Ship extends Coordonnees {
     private caracteristiquesBateaux bateau;
     private int orientation;
-    ArrayList<Coordonnees> navires = new ArrayList<Coordonnees>();
+    private boolean isDead = false;
+    private String stringIsDead = "ALIVE";
+    ArrayList<Coordonnees> navireCoordonneesList = new ArrayList<Coordonnees>();
     
     public Ship() {}
     public Ship(caracteristiquesBateaux bateau) {
@@ -37,6 +39,7 @@ public class Ship extends Coordonnees {
     // public void setOrdonnees(int ordonnees) {
     //     this.ordonnees = ordonnees;
     // }
+
     public int getOrientation() {
         return orientation;
     }
@@ -60,49 +63,33 @@ public class Ship extends Coordonnees {
            //     ", puissanceDeTire=" + bateau.getpuissance() +
             //    '}';
 
-    public ArrayList<Coordonnees> getCoordonneesShip(){
-        return navires;
+    public ArrayList<Coordonnees> getCoordonneesShip() {
+        return navireCoordonneesList;
     }
-
 
     public void setCoordonneesShip(int x, int y, Ship bateau) {
 
         Coordonnees coordonnees = new Coordonnees(x, y);
-        navires.add(coordonnees);
+        navireCoordonneesList.add(coordonnees);
 
     }
 
     public Coordonnees getCaseShip (int index){
 
-        return navires.get(index);
+        return navireCoordonneesList.get(index);
 
     }
 
-    // public boolean isDead(Ship navire, Grille grille){
+    public void setIsDead() {
+        stringIsDead = "DEAD";
+        isDead = true;
+    }
 
-    //     int cmpt = 0;
-    //     boolean isDead = false;
-
-    //     for (int i = 0; i < navire.getTaille(); i++)
-    //     {
-    //         Coordonnees coordonnes = navire.getCaseNavire(i);
-    //         if (grille.grilleJeu[coordonnes.getX()][coordonnes.getY()]==" ## ")
-    //         {
-    //             cmpt++;
-    //         }
-    //     }
-    //     if (cmpt == navire.getTaille())
-    //     {
-    //         isDead = true;
-    //     }
-    //     return isDead;
-    // }
 
     @Override
     public String toString() {
-        return bateau.toString()+" / orientation : "+this.getOrientation()+
-        " / abscisse : "+this.getX()+
-        " / ordonnees : "+this.getY()+" }\n";
+        return bateau.toString()+" / Coordonnees : "+navireCoordonneesList.toString()+
+        " } "+stringIsDead+ "\n";
     }
     
 }
