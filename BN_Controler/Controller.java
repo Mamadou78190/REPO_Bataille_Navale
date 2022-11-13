@@ -103,7 +103,7 @@ public class Controller {
         switch (userChoice) {
             case 0:
             System.out.println("call askForMoveBoatInput");
-            view.askInputForDeplacement();
+            view.askInputForMove();
             break;
             case 1:
             System.out.println("call askForShootInput");
