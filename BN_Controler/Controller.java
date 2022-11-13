@@ -165,6 +165,10 @@ public class Controller {
             e.printStackTrace();
         }
     }
+
+    public void Chargement(){
+
+    }
     
 
 
