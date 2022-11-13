@@ -1,8 +1,9 @@
 package BN_Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Ship extends Coordonnees {
+public class Ship extends Coordonnees implements Serializable {
     private caracteristiquesBateaux bateau;
     private int orientation;
     ArrayList<Coordonnees> navires = new ArrayList<Coordonnees>();

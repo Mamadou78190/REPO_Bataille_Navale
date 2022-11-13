@@ -1,5 +1,8 @@
 package BN_Model;
-public class Grille {
+
+import java.io.Serializable;
+
+public class Grille implements Serializable {
     
     public String tableauJeu [][]; 
     private int taille_abscisse;

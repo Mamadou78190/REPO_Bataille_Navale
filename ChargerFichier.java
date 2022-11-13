@@ -7,7 +7,7 @@ public class ChargerFichier {
 
     public static void main(String[] args){
         try {
-            FileInputStream fis = new FileInputStream("Testgr.txt");
+            FileInputStream fis = new FileInputStream("Sauvegarde.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
             Object o = ois.readObject();
             System.out.println(o);

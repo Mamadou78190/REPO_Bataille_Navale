@@ -42,6 +42,7 @@ public class View {
         controller.actionInput(input);
     }
 
+
     public void askInputForShoot () throws BadInputException, InterruptedException {
         System.out.println( "\nWhich boat are you choosing from 0 to 9 ?");
         input = UserInput.nextInt();
