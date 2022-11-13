@@ -42,11 +42,11 @@ public class View {
     }
 
     public void askInputForShoot () throws BadInputException, InterruptedException {
-        System.out.println( "\nWhich boat are you choosing from 0 to 9 ?");
+        System.out.print( "\nWhich boat are you choosing from 0 to 9 ?  Select ship : ");
         input = UserInput.nextInt();
-        System.out.println( "Where would you like to shoot ? Select x : ");
+        System.out.print( "\nWhere would you like to shoot ?            Select X : ");
         int inputx = UserInput.nextInt();
-        System.out.println( "                                Select Y : ");
+        System.out.print( "\n                                           Select Y : ");
         int inputy = UserInput.nextInt();
         controller.shootInput(input, inputx, inputy);
     }
