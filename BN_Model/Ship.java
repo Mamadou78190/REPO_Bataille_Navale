@@ -60,19 +60,19 @@ public class Ship extends Coordonnees {
            //     ", puissanceDeTire=" + bateau.getpuissance() +
             //    '}';
 
-    public ArrayList<Coordonnees> getCoordonneesNavire(){
+    public ArrayList<Coordonnees> getCoordonneesShip(){
         return navires;
     }
 
 
-    public void setNavires(int x, int y, Ship bateau) {
+    public void setCoordonneesShip(int x, int y, Ship bateau) {
 
         Coordonnees coordonnees = new Coordonnees(x, y);
         navires.add(coordonnees);
 
     }
 
-    public Coordonnees getCaseNavire (int index){
+    public Coordonnees getCaseShip (int index){
 
         return navires.get(index);
 
