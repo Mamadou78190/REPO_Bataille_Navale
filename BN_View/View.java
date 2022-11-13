@@ -6,13 +6,14 @@ import BN_Controler.*;
 
 public class View {
     Scanner UserInput = new Scanner(System.in);
+    int input;
     Controller controller;
 
     public View() {}
 
-    public void askInputForMenu () throws BadInputException {
+    public void askInputForMenu () throws BadInputException, InterruptedException {
         System.out.println("\nWhat would you like to do ? Enter a number : ");    
-        int input = UserInput.nextInt();
+        input = UserInput.nextInt();
         controller.menuInput(input);
     }
 
@@ -26,6 +27,30 @@ public class View {
                             "\n3 - Show help"+
                             "\n4 - Exit Game");
     }
+
+    public void showFlotte (String flotte) {
+        System.out.println("\n\nVOTRE FLOTTE\n"+flotte);
+    }
+
+    public void askInputForAction () throws BadInputException, InterruptedException {
+        System.out.println( "\nWhat action would you like to do ?"+
+                            "\n\t0  Deplacer un bateau"+
+                            "\n\t1  Tirer sur la grille adverse"+
+                            "\n\t-1 Go back to Main Menu");
+        input = UserInput.nextInt();
+        controller.actionInput(input);
+    }
+
+    public void askInputForShoot () throws BadInputException, InterruptedException {
+        System.out.println( "\nWhich boat are you choosing from 0 to 9 ?");
+        input = UserInput.nextInt();
+        System.out.println( "Where would you like to shoot ? Select x : ");
+        int inputx = UserInput.nextInt();
+        System.out.println( "                                Select Y : ");
+        int inputy = UserInput.nextInt();
+        controller.shootInput(input, inputx, inputy);
+    }
+
 
     public void showGrilles() { 
         System.out.println("\n\nGRILLE JOUEUR \t\t\t\t\t\t\t\t\t\tGRILLE IA");

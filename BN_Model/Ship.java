@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Ship extends Coordonnees {
     private caracteristiquesBateaux bateau;
     private int orientation;
-    ArrayList<Coordonnees> navires = new ArrayList();
+    ArrayList<Coordonnees> navires = new ArrayList<Coordonnees>();
     
     public Ship() {}
     public Ship(caracteristiquesBateaux bateau) {
@@ -44,11 +44,6 @@ public class Ship extends Coordonnees {
         this.orientation = orientation;
     }
 
-    @Override
-    public String toString() {
-        return bateau.toString()+", orientation= "+this.getOrientation()+", abscisse= "+this.getX()+", ordonnees= "+this.getY();
-    }
-
     // public Taille getTaille() {
     //     return taille;
     // }
@@ -65,7 +60,11 @@ public class Ship extends Coordonnees {
            //     ", puissanceDeTire=" + bateau.getpuissance() +
             //    '}';
 
+<<<<<<< HEAD
     public ArrayList getCoordonneesNavire(){
+=======
+    public ArrayList<Coordonnees> getCoordonneesNavire(){
+>>>>>>> Developpement
         return navires;
     }
 
@@ -102,6 +101,13 @@ public class Ship extends Coordonnees {
     //     }
     //     return isDead;
     // }
+
+    @Override
+    public String toString() {
+        return bateau.toString()+" / orientation : "+this.getOrientation()+
+        " / abscisse : "+this.getX()+
+        " / ordonnees : "+this.getY()+" }\n";
+    }
     
 }
 

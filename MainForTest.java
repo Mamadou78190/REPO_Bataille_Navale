@@ -8,10 +8,12 @@ import BN_Controler.*;
 import BN_View.*;
 
 public class MainForTest {
-    public static void main(String[] args) throws BadInputException {
+    public static void main(String[] args) throws BadInputException, InterruptedException {
 
         Controller ToRun = new Controller(new View());
-        ToRun.runGame();
+        do {
+           ToRun.runGame();
+        } while (!ToRun.exit);
 
 
         // Grille g1 = new Grille(15,15);

@@ -34,13 +34,15 @@ public class Flotte {
         return flotte[index];
     }
 
-    public void afficherFlotte()
+    public String getStringFlotte()
     {
+        String s = new String();
         for (int i=0;i<10;i++)
         {
-            System.out.println("Numero du bateau : "+i + "  " +flotte[i]);
+            s = s + " { N° "+i + " / " +flotte[i];
             
         }
+        return s;
     }
 
     public void isDeadOnArray(Flotte flotte, Grille grille){
