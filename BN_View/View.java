@@ -231,12 +231,15 @@ public class View {
                 System.out.print("|");
     }
 
-    public void askInputForDeplacement() throws BadInputException, InterruptedException{
-        System.out.println("\nWhich boat you want to move ?");
+    public void askInputForMove() throws BadInputException, InterruptedException {
+        System.out.println("Which boat you want to move ? from 0 to 9");
         input = UserInput.nextInt();
-        System.out.println("\nWhich direction you want to move your boat ? / In fonction of orientation");
-        String inputDirection = UserInput.nextLine();
-        controller.moveInput(input, inputDirection);
+        
+        System.out.println("In which direction you want to move yout boat ? if it is horizontal (gauche or droite) if it is vertical (haut or bas)");
+        inputString = UserInput.nextLine();
+
+        controller.moveInput(input, inputString);
     }
+
 
 }
