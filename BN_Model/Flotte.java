@@ -1,5 +1,8 @@
 package BN_Model;
-public class Flotte extends Ship {
+
+import java.io.Serializable;
+
+public class Flotte extends Ship implements Serializable {
 
     private Ship flotte[] = new Ship[10];//Flotte ami
 

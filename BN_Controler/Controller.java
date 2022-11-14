@@ -97,6 +97,7 @@ public class Controller {
             break;
             case 2:
             System.out.println("call Load a New Game");
+            chargement();
             break;
             case 3:
             System.out.println("call showHelp");
@@ -143,6 +144,10 @@ public class Controller {
             case 1:
             System.out.println("call askForShootInput");
             view.askInputForShoot();
+            break;
+            case 2:
+            System.out.println("call saveMethod");
+            sauvegarder();
             break;
             case -1:
             gameState=GameState.MenuGame;
@@ -584,6 +589,7 @@ public class Controller {
             oos.writeObject(gameState);
             oos.close();
             fos.close();
+            view.showSaveComplete();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

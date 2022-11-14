@@ -32,10 +32,15 @@ public class View {
         System.out.println("\n\nVOTRE FLOTTE\n"+flotte);
     }
 
+    public void showSaveComplete () {
+        System.out.println("\nSave complete !");
+    }
+
     public void askInputForAction () throws BadInputException, InterruptedException {
         System.out.println( "\nWhat action would you like to do ?"+
                             "\n\t0  Deplacer un bateau"+
                             "\n\t1  Tirer sur la grille adverse"+
+                            "\n\t2  Save the game"+
                             "\n\t-1 Go back to Main Menu");
         input = UserInput.nextInt();
         controller.actionInput(input);
