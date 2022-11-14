@@ -1,6 +1,7 @@
 package BN_View;
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 import BN_Controler.*;
 
@@ -238,6 +239,17 @@ public class View {
                 System.out.print("|");
     }
 
+    public void showTemporisation (int delayInSeconds, String message) throws InterruptedException {
+        System.out.println("\n"+message+"\t"+delayInSeconds);
+                for (int i=delayInSeconds-1; i>=0; i--)
+                {
+                    TimeUnit.SECONDS.sleep(1);
+                    for (int j = 0 ; j < message.length() ; j++) {
+                        System.out.print(" ");
+                    }
+                    System.out.println("\t"+i);
+                }
+    }
 
     public void askInputForMove() throws BadInputException, InterruptedException {
         System.out.println("Which boat you want to move ? from 0 to 9");

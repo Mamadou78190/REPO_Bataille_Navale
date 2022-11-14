@@ -82,7 +82,8 @@ public class Controller {
             break;
             case TourIA:
             System.out.println("Call View for IA turn, input for what action to do ");
-            view.showGrilles();
+            startShootAction (0, 0, 0);
+            // view.showGrilles();
             break;
             case EndGame:
             System.out.println("Go back to main menu");
@@ -133,9 +134,21 @@ public class Controller {
     }
 
     public void startShootAction (int shipIndex, int x, int y) throws InterruptedException {
-        createShoot (flotteJoueur.getShipFromFlotte(shipIndex), x, y);
-        checkIfAShipIsDead(flotteIA, grilleIA);
-        // switchingTurn(); //toggle comment when on dbg
+        Random randomShootX = new Random();
+        Random randomShootY = new Random();
+        Random randomShootShipIndex = new Random();
+        
+        if (gameState==GameState.TourJoueur) {
+            createShoot (flotteJoueur.getShipFromFlotte(shipIndex), x, y);
+            checkIfAShipIsDead(flotteIA, grilleIA);
+        } else if (gameState==GameState.TourIA) {
+            int xIA = randomShootX.nextInt(grilleIA.getTailleAbscisse());
+            int yIA = randomShootY.nextInt(grilleIA.getTailleOrdonnees());
+            int indexShipFromFlotteIA = randomShootShipIndex.nextInt(flotteIA.getFlotteSize());
+            createShoot (flotteIA.getShipFromFlotte(indexShipFromFlotteIA), xIA, yIA);
+            checkIfAShipIsDead(flotteJoueur, grilleJoueur);
+        }
+        switchingTurn(); //toggle comment when on dbg
     }
 
     public void actionInput (int userChoice) throws BadInputException, InterruptedException {
@@ -157,7 +170,7 @@ public class Controller {
             gameState=GameState.MenuGame;
             default:
             try { inputCustoms.actionInputCustoms(userChoice); } 
-            catch (BadInputException e) { System.out.println(e.getMessage()); this.runGame();}
+            catch (BadInputException e) { System.out.println(e.getMessage());}
         }
 
     }
@@ -166,7 +179,7 @@ public class Controller {
         try {
             inputCustoms.shootInputCustoms(boatChoice, xChoice, yChoice, flotteJoueur, grilleIA);
             startShootAction(boatChoice, xChoice, yChoice);
-        } catch (BadInputException e) {System.out.println(e.getMessage()); this.runGame();}
+        } catch (BadInputException e) {System.out.println(e.getMessage()); }
     }
 
     public void createShoot (Ship boat, int x, int y) throws InterruptedException {
@@ -178,9 +191,8 @@ public class Controller {
             setShootImpact(shoot,grilleIA);
         } else if (gameState==GameState.TourIA) {
             setShootImpact(shoot,grilleJoueur);
-        }
-        
-        }
+        }    
+    }
     
     public void setShootImpact(Shoot shoot, Grille grille) throws InterruptedException {
         int shootX = shoot.getX();
@@ -215,9 +227,11 @@ public class Controller {
                 {
                     for (int j=shootX-1; j<=shootX+1; j++)
                     {
-                        if (grille.getContent(j,i) != " ~~ "){
+                        if (grille.getContent(j,i) == "DEAD") {
+                            // does nothing, just keep it dead
+                        } else if (grille.getContent(j,i) != " ~~ "){
                             grille.setContent(j, i,-1, "BOOM");
-                        }else{
+                        } else {
                             grille.setContent(j, i,-1, "PLOP");
                         }
                     }
@@ -225,13 +239,8 @@ public class Controller {
                 }
 
                 view.showGrilles();
-                System.out.println("\nMise a jour des grilles dans 3");
-                for (int i=2; i>=0; i--)
-                {
-                    TimeUnit.SECONDS.sleep(1);
-                    System.out.println("                             "+i);
+                view.showTemporisation (3, "Mise a jour des grilles dans ");
 
-                }
 
                 for (int i=shootY-1; i<=shootY+1; i++)
                 {
@@ -253,7 +262,9 @@ public class Controller {
                 {
                     for (int j=shootX; j<=shootX+1; j++)
                     {
-                        if (grille.getContent(j,i)!= " ~~ "){
+                        if (grille.getContent(j,i) == "DEAD") {
+                            // does nothing, just keep it dead
+                        } else if (grille.getContent(j,i)!= " ~~ "){
                             grille.setContent(j, i,-1, "BOOM");
                         }else{
                             grille.setContent(j, i,-1, "PLOP");
@@ -262,13 +273,7 @@ public class Controller {
                 }
                 
                 view.showGrilles();
-                System.out.println("\nMise a jour des grilles dans 3");
-                for (int i=2; i>=0; i--)
-                {
-                    TimeUnit.SECONDS.sleep(1);
-                    System.out.println("                             "+i);
-
-                }
+                view.showTemporisation (3, "Mise a jour des grilles dans ");
 
                 for (int i=shootY; i<=shootY+1; i++)
                 {
@@ -287,20 +292,17 @@ public class Controller {
 
             case 1:
 
-                if (grille.getContent(shootX, shootY)!= " ~~ "){
+                if (grille.getContent(shootX,shootY) == "DEAD") {
+                    // does nothing, just keep it dead
+                } else if (grille.getContent(shootX, shootY)!= " ~~ "){
                     grille.setContent(shootX, shootY,-1, "BOOM");
                 }else{
                     grille.setContent(shootX, shootY,-1, "PLOP");
                 }
                 
                 view.showGrilles();
-                System.out.println("\nMise a jour des grilles dans 3");
-                for (int i=2; i>=0; i--)
-                {
-                    TimeUnit.SECONDS.sleep(1);
-                    System.out.println("                             "+i);
+                view.showTemporisation (3, "Mise a jour des grilles dans ");
 
-                }
 
                 if (grille.getContent(shootX, shootY)== "BOOM"){
                     grille.setContent(shootX, shootY,-1, " ## ");
@@ -310,6 +312,43 @@ public class Controller {
                 
             break;
 
+        }
+    }
+
+    public void checkIfAShipIsDead (Flotte flotte, Grille grille) {
+        boolean status = false;
+        for (int i = 0 ; i < flotte.getFlotteSize() ; i++) {
+            status = isShipDead(flotte.getShipFromFlotte(i), grille);
+            if (status) {
+                setDeadShipOnGrille(flotte.getShipFromFlotte(i), grille);
+            }
+        }
+    }
+    public boolean isShipDead(Ship ship, Grille grille){
+
+        int cmpt = 0;
+        boolean isDead = false;
+
+        for (int i = 0; i < ship.getTaille(); i++)
+        {
+            Coordonnees coordonnes = ship.getCaseShip(i);
+            if (grille.getContent(coordonnes.getX(),coordonnes.getY())==" ## ")
+            {
+                cmpt++;
+            }
+        }
+        if (cmpt == ship.getTaille())
+        {
+            ship.setIsDead();
+            isDead = true;
+        }
+        return isDead;
+    }
+    
+    public void setDeadShipOnGrille (Ship ship, Grille grille) {
+        for (int i = 0 ; i < ship.getTaille() ; i++) {
+            coordonnees = ship.getCaseShip(i);
+            grille.setContent(coordonnees.getX(), coordonnees.getY(), -1, "DEAD");
         }
     }
 
@@ -526,42 +565,6 @@ public class Controller {
         }
     }
 
-    public void checkIfAShipIsDead (Flotte flotte, Grille grille) {
-        boolean status = false;
-        for (int i = 0 ; i < flotte.getFlotteSize() ; i++) {
-            status = isShipDead(flotte.getShipFromFlotte(i), grille);
-            if (status) {
-                setDeadShipOnGrille(flotte.getShipFromFlotte(i), grille);
-            }
-        }
-    }
-    public boolean isShipDead(Ship ship, Grille grille){
-
-        int cmpt = 0;
-        boolean isDead = false;
-
-        for (int i = 0; i < ship.getTaille(); i++)
-        {
-            Coordonnees coordonnes = ship.getCaseShip(i);
-            if (grille.getContent(coordonnes.getX(),coordonnes.getY())==" ## ")
-            {
-                cmpt++;
-            }
-        }
-        if (cmpt == ship.getTaille())
-        {
-            ship.setIsDead();
-            isDead = true;
-        }
-        return isDead;
-    }
-    
-    public void setDeadShipOnGrille (Ship ship, Grille grille) {
-        for (int i = 0 ; i < ship.getTaille() ; i++) {
-            coordonnees = ship.getCaseShip(i);
-            grille.setContent(coordonnees.getX(), coordonnees.getY(), -1, "DEAD");
-        }
-    }
     // les deux grilles dont la même taille que ce soit en abscisse ou en ordonnee, donc autant les généraliser à une grille
     public int getGrilleTailleAbscisse()
     {
