@@ -23,8 +23,8 @@ class InputCustoms {
     } 
 }
 
-public class Controller {
-    enum GameState implements Serializable {
+public class Controller implements Serializable{
+    enum GameState {
         MenuGame, TourJoueur, TourIA, EndGame
     }
 
@@ -174,16 +174,9 @@ public class Controller {
             grilleJoueur = (Grille) ois.readObject();
             grilleIA = (Grille) ois.readObject();
             view.showGrilles();
-
-
-
-
-            //o = ois.readObject();
-            //System.out.println(o);
-            //o = ois.readObject();
-            //System.out.println(o);
-            //o = ois.readObject();
-            //System.out.println(o);
+            flotteIA = (Flotte) ois.readObject();
+            flotteJoueur = (Flotte) ois.readObject();
+            gameState = (GameState) ois.readObject();
             ois.close();
             fis.close();
         } catch (FileNotFoundException e) {
