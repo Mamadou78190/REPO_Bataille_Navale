@@ -48,6 +48,26 @@ public class Ship extends Coordonnees implements Serializable {
         this.orientation = orientation;
     }
 
+    public ArrayList<Coordonnees> getArrayCoordonneesShip(){
+        return navireCoordonneesList;
+    }
+
+    public void setArrayCoordonneesShip(ArrayList<Coordonnees> navires) {
+        this.navireCoordonneesList = navires;
+    }
+
+    public int getCaseShipX(int index){
+
+        return navireCoordonneesList.get(index).getX();
+
+    }
+
+    public int getCaseShipY(int index){
+
+        return navireCoordonneesList.get(index).getY();
+
+    }
+
     // public Taille getTaille() {
     //     return taille;
     // }
@@ -89,7 +109,7 @@ public class Ship extends Coordonnees implements Serializable {
 
     @Override
     public String toString() {
-        return bateau.toString()+" / Coordonnees : "+navireCoordonneesList.toString()+
+        return bateau.toString()+" / Orientation "+orientation +"/ Coordonnees : "+navireCoordonneesList.toString()+
         " } "+stringIsDead+ "\n";
     }
     
