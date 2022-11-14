@@ -79,7 +79,8 @@ public class Controller {
             break;
             case TourIA:
             System.out.println("Call View for IA turn, input for what action to do ");
-            view.showGrilles();
+            startShootAction (0, 0, 0);
+            // view.showGrilles();
             break;
             case EndGame:
             System.out.println("Go back to main menu");
@@ -130,9 +131,21 @@ public class Controller {
     }
 
     public void startShootAction (int shipIndex, int x, int y) throws InterruptedException {
+        Random randomShootX = new Random();
+        Random randomShootY = new Random();
+        Random randomShootShipIndex = new Random();
+        
+        if (gameState==GameState.TourJoueur) {
         createShoot (flotteJoueur.getShipFromFlotte(shipIndex), x, y);
         checkIfAShipIsDead(flotteIA, grilleIA);
-        // switchingTurn(); //toggle comment when on dbg
+        } else if (gameState==GameState.TourIA) {
+            int xIA = randomShootX.nextInt(grilleIA.getTailleAbscisse());
+            int yIA = randomShootY.nextInt(grilleIA.getTailleOrdonnees());
+            int indexShipFromFlotteIA = randomShootShipIndex.nextInt(flotteIA.getFlotteSize());
+            createShoot (flotteIA.getShipFromFlotte(indexShipFromFlotteIA), xIA, yIA);
+            checkIfAShipIsDead(flotteJoueur, grilleJoueur);
+        }
+        switchingTurn(); //toggle comment when on dbg
     }
 
     public void actionInput (int userChoice) throws BadInputException, InterruptedException {
