@@ -223,9 +223,11 @@ public class Controller {
                 {
                     for (int j=shootX-1; j<=shootX+1; j++)
                     {
-                        if (grille.getContent(j,i) != " ~~ "){
+                        if (grille.getContent(j,i) == "DEAD") {
+                            // does nothing, just keep it dead
+                        } else if (grille.getContent(j,i) != " ~~ "){
                             grille.setContent(j, i,-1, "BOOM");
-                        }else{
+                        } else {
                             grille.setContent(j, i,-1, "PLOP");
                         }
                     }
@@ -261,7 +263,9 @@ public class Controller {
                 {
                     for (int j=shootX; j<=shootX+1; j++)
                     {
-                        if (grille.getContent(j,i)!= " ~~ "){
+                        if (grille.getContent(j,i) == "DEAD") {
+                            // does nothing, just keep it dead
+                        } else if (grille.getContent(j,i)!= " ~~ "){
                             grille.setContent(j, i,-1, "BOOM");
                         }else{
                             grille.setContent(j, i,-1, "PLOP");
@@ -295,7 +299,9 @@ public class Controller {
 
             case 1:
 
-                if (grille.getContent(shootX, shootY)!= " ~~ "){
+                if (grille.getContent(shootX,shootY) == "DEAD") {
+                    // does nothing, just keep it dead
+                } else if (grille.getContent(shootX, shootY)!= " ~~ "){
                     grille.setContent(shootX, shootY,-1, "BOOM");
                 }else{
                     grille.setContent(shootX, shootY,-1, "PLOP");
