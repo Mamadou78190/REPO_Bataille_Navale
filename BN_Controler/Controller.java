@@ -136,8 +136,8 @@ public class Controller {
         Random randomShootShipIndex = new Random();
         
         if (gameState==GameState.TourJoueur) {
-        createShoot (flotteJoueur.getShipFromFlotte(shipIndex), x, y);
-        checkIfAShipIsDead(flotteIA, grilleIA);
+            createShoot (flotteJoueur.getShipFromFlotte(shipIndex), x, y);
+            checkIfAShipIsDead(flotteIA, grilleIA);
         } else if (gameState==GameState.TourIA) {
             int xIA = randomShootX.nextInt(grilleIA.getTailleAbscisse());
             int yIA = randomShootY.nextInt(grilleIA.getTailleOrdonnees());
@@ -186,9 +186,8 @@ public class Controller {
             setShootImpact(shoot,grilleIA);
         } else if (gameState==GameState.TourIA) {
             setShootImpact(shoot,grilleJoueur);
-        }
-        
-        }
+        }    
+    }
     
     public void setShootImpact(Shoot shoot, Grille grille) throws InterruptedException {
         int shootX = shoot.getX();
@@ -237,7 +236,6 @@ public class Controller {
                 view.showGrilles();
                 view.showTemporisation (3, "Mise a jour des grilles dans ");
 
-                }
 
                 for (int i=shootY-1; i<=shootY+1; i++)
                 {
@@ -300,7 +298,6 @@ public class Controller {
                 view.showGrilles();
                 view.showTemporisation (3, "Mise a jour des grilles dans ");
 
-                }
 
                 if (grille.getContent(shootX, shootY)== "BOOM"){
                     grille.setContent(shootX, shootY,-1, " ## ");
@@ -310,6 +307,43 @@ public class Controller {
                 
             break;
 
+        }
+    }
+
+    public void checkIfAShipIsDead (Flotte flotte, Grille grille) {
+        boolean status = false;
+        for (int i = 0 ; i < flotte.getFlotteSize() ; i++) {
+            status = isShipDead(flotte.getShipFromFlotte(i), grille);
+            if (status) {
+                setDeadShipOnGrille(flotte.getShipFromFlotte(i), grille);
+            }
+        }
+    }
+    public boolean isShipDead(Ship ship, Grille grille){
+
+        int cmpt = 0;
+        boolean isDead = false;
+
+        for (int i = 0; i < ship.getTaille(); i++)
+        {
+            Coordonnees coordonnes = ship.getCaseShip(i);
+            if (grille.getContent(coordonnes.getX(),coordonnes.getY())==" ## ")
+            {
+                cmpt++;
+            }
+        }
+        if (cmpt == ship.getTaille())
+        {
+            ship.setIsDead();
+            isDead = true;
+        }
+        return isDead;
+    }
+    
+    public void setDeadShipOnGrille (Ship ship, Grille grille) {
+        for (int i = 0 ; i < ship.getTaille() ; i++) {
+            coordonnees = ship.getCaseShip(i);
+            grille.setContent(coordonnees.getX(), coordonnees.getY(), -1, "DEAD");
         }
     }
 
@@ -526,42 +560,6 @@ public class Controller {
         }
     }
 
-    public void checkIfAShipIsDead (Flotte flotte, Grille grille) {
-        boolean status = false;
-        for (int i = 0 ; i < flotte.getFlotteSize() ; i++) {
-            status = isShipDead(flotte.getShipFromFlotte(i), grille);
-            if (status) {
-                setDeadShipOnGrille(flotte.getShipFromFlotte(i), grille);
-            }
-        }
-    }
-    public boolean isShipDead(Ship ship, Grille grille){
-
-        int cmpt = 0;
-        boolean isDead = false;
-
-        for (int i = 0; i < ship.getTaille(); i++)
-        {
-            Coordonnees coordonnes = ship.getCaseShip(i);
-            if (grille.getContent(coordonnes.getX(),coordonnes.getY())==" ## ")
-            {
-                cmpt++;
-            }
-        }
-        if (cmpt == ship.getTaille())
-        {
-            ship.setIsDead();
-            isDead = true;
-        }
-        return isDead;
-    }
-    
-    public void setDeadShipOnGrille (Ship ship, Grille grille) {
-        for (int i = 0 ; i < ship.getTaille() ; i++) {
-            coordonnees = ship.getCaseShip(i);
-            grille.setContent(coordonnees.getX(), coordonnees.getY(), -1, "DEAD");
-        }
-    }
     // les deux grilles dont la même taille que ce soit en abscisse ou en ordonnee, donc autant les généraliser à une grille
     public int getGrilleTailleAbscisse()
     {
