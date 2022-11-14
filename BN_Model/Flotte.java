@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Flotte extends Ship implements Serializable {
 
-    private Ship flotte[] = new Ship[10];//Flotte ami
+    private Ship flotte[] = new Ship[10];
 
 
     public Flotte()

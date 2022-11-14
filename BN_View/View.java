@@ -34,11 +34,15 @@ public class View {
         System.out.println("\n\nVOTRE FLOTTE\n"+flotte);
     }
 
+    public void showSaveComplete () {
+        System.out.println("\nSave complete !");
+    }
+
     public void askInputForAction () throws BadInputException, InterruptedException {
         System.out.println( "\nWhat action would you like to do ?"+
                             "\n\t0  Deplacer un bateau"+
                             "\n\t1  Tirer sur la grille adverse"+
-                            "\n\t2 Sauvegarder la partie"+
+                            "\n\t2  Save the game"+
                             "\n\t-1 Go back to Main Menu");
         input = UserInput.nextInt();
         controller.actionInput(input);
@@ -46,11 +50,11 @@ public class View {
 
 
     public void askInputForShoot () throws BadInputException, InterruptedException {
-        System.out.println( "\nWhich boat are you choosing from 0 to 9 ?");
+        System.out.print( "\nWhich boat are you choosing from 0 to 9 ?  Select ship : ");
         input = UserInput.nextInt();
-        System.out.println( "Where would you like to shoot ? Select x : ");
+        System.out.print( "\nWhere would you like to shoot ?            Select X : ");
         int inputx = UserInput.nextInt();
-        System.out.println( "                                Select Y : ");
+        System.out.print( "\n                                           Select Y : ");
         int inputy = UserInput.nextInt();
         controller.shootInput(input, inputx, inputy);
     }
@@ -242,7 +246,7 @@ public class View {
         System.out.println("In which direction you want to move yout boat ? if it is horizontal (gauche or droite) if it is vertical (haut or bas)");
         inputString = UserInputString.nextLine();
 
-        controller.moveInput(input, inputString);
+        // controller.moveInput(input, inputString);
     }
 
 }
