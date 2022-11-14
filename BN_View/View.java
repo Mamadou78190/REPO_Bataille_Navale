@@ -258,7 +258,7 @@ public class View {
         System.out.println("In which direction you want to move yout boat ? if it is horizontal (gauche or droite) if it is vertical (haut or bas)");
         inputString = UserInputString.nextLine();
 
-        // controller.moveInput(input, inputString);
+        controller.moveInput(input, inputString);
     }
 
 }
