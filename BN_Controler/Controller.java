@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Random;
 
 import java.io.*;
@@ -562,7 +563,10 @@ public class Controller {
                     }
                 }
             break;
+
+            
         }
+        ship.setOrientation(position);
     }
 
     // les deux grilles dont la même taille que ce soit en abscisse ou en ordonnee, donc autant les généraliser à une grille
@@ -628,6 +632,272 @@ public class Controller {
             e.printStackTrace();
         }
 
+    }
+
+    public void moveInput (int boat, String direction) throws BadInputException, InterruptedException {
+        
+        createMove(boat, direction);
+    }
+
+    public void createMove (int boat, String direction){
+
+        if (gameState==GameState.TourJoueur) {
+            moveBoat(grilleJoueur, flotteJoueur.getShipFromFlotte(boat), direction);
+        } else if (gameState==GameState.TourIA) {
+            moveBoat(grilleIA, flotteIA.getShipFromFlotte(boat), direction);
+        }
+
+    }
+
+    public void moveBoat(Grille grille, Ship ship, String direction){
+      
+        int position = ship.getOrientation();
+        Damaged damaged = new Damaged();
+        ArrayList<Coordonnees> listCoordonnees = new ArrayList<Coordonnees>();
+
+        if (damaged.navireDamaged(ship, grille) == false){
+            if (ship.getTaille() > 1){
+    
+                switch (position){
+                    //verticale
+                    case 0 : 
+    
+                        switch (direction){
+    
+                            case "bas" : 
+
+                                if (balayageBoatVersBas(ship, ship.getCaseShipY(0), ship.getCaseShipX(0) , grille) >= 1 ){ 
+                                    String contenuGrilleB = grille.getContent(ship.getCaseShipX(0), ship.getCaseShipY(0));
+                                    grille.hideContent(ship.getCaseShipX(0), (ship.getCaseShipY(0)-ship.getTaille())+1);
+                                    grille.setContent(ship.getCaseShipX(0), ship.getCaseShipY(0)+1,-1, contenuGrilleB);
+                                    
+                                    for (int i = 0; i < ship.getTaille(); i++){
+                                    listCoordonnees.add(new Coordonnees(ship.getCaseShipX(0), (ship.getCaseShipY(0)+1)-i));
+                                    }
+
+                                    ship.setArrayCoordonneesShip(listCoordonnees);
+                                    
+                                    System.out.println("Bateau déplacé en bas : : YOUPI" );
+                                  }else{System.out.println("Impossibilité d'aller pLus bas : : NOP");} 
+                                
+                            break;
+    
+                            case "haut" : 
+    
+                                if (balayageBoatVersHaut(ship, (ship.getCaseShipY(0)- (ship.getTaille() - 1)), ship.getCaseShipX(0), grille) >= 1){
+
+                                    String contenuGrilleH = grille.getContent(ship.getCaseShipX(0), ship.getCaseShipY(0));
+                                    grille.hideContent(ship.getCaseShipX(0), ship.getCaseShipY(0));
+                                    grille.setContent(ship.getCaseShipX(0), (ship.getCaseShipY(0) - ship.getTaille()), -1, contenuGrilleH);
+                                    
+                                    for (int i = 0; i < ship.getTaille(); i++) {
+                                        listCoordonnees.add(new Coordonnees(ship.getCaseShipX(0), (ship.getCaseShipY(0)-1)-i));
+                                    }
+
+                                    ship.setArrayCoordonneesShip(listCoordonnees);
+                                    
+                                    System.out.println("Bateau déplacé en haut");
+                                }else {System.out.println("Impossibilité d'aller plus haut");}   
+    
+                            break;
+                        }
+                    
+                    break;
+                 
+                    case 1 : 
+                        switch (direction){
+                            
+                            case "bas" : 
+    
+                                if (balayageBoatVersBas(ship, (ship.getCaseShipY(0) + (ship.getTaille()-1)) , ship.getCaseShipX(0), grille) >= 1){
+
+                                    String contenuGrille = grille.getContent(ship.getCaseShipX(0), ship.getCaseShipY(0));
+                                    grille.hideContent(ship.getCaseShipX(0), ship.getCaseShipY(0));
+                                    grille.setContent(ship.getCaseShipX(0), ship.getCaseShipY(0)+ship.getTaille(), -1, contenuGrille);
+
+                                    for (int i = 0; i < ship.getTaille(); i++) {
+                                        listCoordonnees.add(new Coordonnees(ship.getCaseShipX(0), (ship.getCaseShipY(0)+1)+i));
+                                    }
+                                    
+                                    ship.setArrayCoordonneesShip(listCoordonnees);
+                                    
+                                    System.out.println("Bateau déplacé en bas :: Youpi");
+                                }else {System.out.println("Impossibilité d'aller plus bas");}
+                        
+                            break; 
+    
+                            case "haut" : 
+    
+                                if(balayageBoatVersHaut(ship, ship.getCaseShipY(0), ship.getCaseShipX(0), grille) >= 1){
+
+                                    String contenuGrille = grille.getContent(ship.getCaseShipX(0), ship.getCaseShipY(0));
+                                    grille.hideContent(ship.getCaseShipX(0),(ship.getCaseShipY(0)+ship.getTaille()) -1);
+                                    grille.setContent(ship.getCaseShipX(0), ship.getCaseShipY(0) - 1, -1, contenuGrille);
+
+                                    for (int i = 0; i < ship.getTaille(); i++) {
+                                        listCoordonnees.add(new Coordonnees(ship.getCaseShipX(0), (ship.getCaseShipY(0) - 1)+i));
+                                    }
+
+                                    ship.setArrayCoordonneesShip(listCoordonnees);
+
+                                    System.out.println("Bateau déplacé en haut");
+                                }else {System.out.println("Impossibilité d'aller plus haut");}
+    
+                            break; 
+                        }
+    
+                    break;
+    
+                    case 2 : //Apparition deploiement à Droite
+                        switch (direction){
+    
+                            case "gauche" :
+    
+                            if (balayageBoatVersGauche(ship, ship.getCaseShipY(0), ship.getCaseShipX(0), grille) >= 1){
+                                String contenuGrille = grille.getContent(ship.getCaseShipX(0), ship.getCaseShipY(0));
+                                grille.hideContent((ship.getCaseShipX(0) + (ship.getTaille()-1)), ship.getCaseShipY(0));
+                                grille.setContent(ship.getCaseShipX(0) - 1, ship.getCaseShipY(0), -1, contenuGrille);
+
+                                for (int i = 0; i < ship.getTaille(); i++) {
+                                    listCoordonnees.add(new Coordonnees((ship.getCaseShipX(0)-1)+i, ship.getCaseShipY(0)));
+                                }
+
+                                ship.setArrayCoordonneesShip(listCoordonnees);
+
+                                System.out.println("Bateau déplacé à gauche");
+                            }else{System.out.println("Impossibilité d'aller à gauche");}
+    
+                            break;
+    
+                            case "droite" :
+    
+                            if(balayageBoatVersDroite(ship, ship.getCaseShipY(0), ship.getCaseShipX(0) +(ship.getTaille() -1), grille) >= 1){
+                                String contenuGrille = grille.getContent(ship.getCaseShipX(0), ship.getCaseShipY(0));
+                                grille.hideContent(ship.getCaseShipX(0), ship.getCaseShipY(0));
+                                grille.setContent(ship.getCaseShipX(0) + ship.getTaille(), ship.getCaseShipY(0), -1, contenuGrille);
+
+                                for (int i = 0; i < ship.getTaille(); i++) {
+                                    listCoordonnees.add(new Coordonnees((ship.getCaseShipX(0)+1)+i,ship.getCaseShipY(0)));
+                                }
+
+                                ship.setArrayCoordonneesShip(listCoordonnees);
+
+                                System.out.println("Bateau déplacé à droite");
+                            }else {System.out.println("Impossibilité d'aller à droite");}
+    
+                            break;
+                        }
+    
+                    break;
+    
+                    case 3 : 
+    
+                    switch (direction){
+    
+                            case "gauche" : 
+    
+                            if (balayageBoatVersGauche(ship, ship.getCaseShipY(0), (ship.getCaseShipX(0) - (ship.getTaille() -1)), grille) >= 1){
+
+                                String contenuGrille = grille.getContent(ship.getCaseShipX(0), ship.getCaseShipY(0));
+                                grille.hideContent(ship.getCaseShipX(0), ship.getCaseShipY(0));
+                                grille.setContent(ship.getCaseShipX(0)-ship.getTaille(), ship.getCaseShipY(0), -1, contenuGrille);
+
+                                for (int i = 0; i < ship.getTaille(); i++) {
+                                    listCoordonnees.add(new Coordonnees((ship.getCaseShipX(0)-1)-i,ship.getCaseShipY(0)));
+                                }
+
+                                ship.setArrayCoordonneesShip(listCoordonnees);
+
+                                System.out.println("Bateau déplacé à gauche LMAO");
+                            }else{System.out.println("Impossibilité d'aller à gauche");}
+    
+                            break;
+    
+                            case "droite" :
+    
+                            if(balayageBoatVersDroite(ship, ship.getCaseShipY(0), ship.getCaseShipX(0), grille) >= 1){
+                                String contenuGrille = grille.getContent(ship.getCaseShipX(0), ship.getCaseShipY(0));
+                                grille.hideContent((ship.getCaseShipX(0)-ship.getTaille())+1, ship.getCaseShipY(0));
+                                grille.setContent(ship.getCaseShipX(0)+1, ship.getCaseShipY(0), -1, contenuGrille);
+
+                                for (int i = 0; i < ship.getTaille(); i++) {
+                                    listCoordonnees.add(new Coordonnees((ship.getCaseShipX(0)+1)-i,ship.getCaseShipY(0)));
+                                }
+
+                                ship.setArrayCoordonneesShip(listCoordonnees);
+                            }else{System.out.println("Impossibilité d'aller à droite");}
+    
+                            break;
+                    }
+                    break;
+                
+                }
+    
+                } else if (ship.getTaille() == 1){
+    
+                    switch (direction){
+    
+                        case "gauche" :
+                
+                        if (balayageBoatVersGauche(ship, ship.getCaseShipY(0),ship.getCaseShipX(0)-1,grille) == 1){
+                            String contenuGrille = grille.getContent(ship.getCaseShipX(0), ship.getCaseShipY(0));
+                            grille.hideContent(ship.getCaseShipX(0), ship.getCaseShipY(0));
+                            grille.setContent(ship.getCaseShipX(0)-1, ship.getCaseShipY(0), -1, contenuGrille);
+
+                            listCoordonnees.add(new Coordonnees(ship.getCaseShipX(0)-1, ship.getCaseShipY(0)));
+                            ship.setArrayCoordonneesShip(listCoordonnees);
+
+                            System.out.println("Sous-Marin déplacé à gauche");
+                        }else{System.out.println("Impossibilité d'aller à gauche");}
+    
+                        break;
+    
+    
+                        case "droite" :
+    
+                        if(balayageBoatVersDroite(ship, ship.getCaseShipY(0),ship.getCaseShipX(0)+1,grille) == 1){
+                            String contenuGrille = grille.getContent(ship.getCaseShipX(0), ship.getCaseShipY(0));
+                            grille.hideContent(ship.getCaseShipX(0), ship.getCaseShipY(0));
+                            grille.setContent(ship.getCaseShipX(0)+1, ship.getCaseShipY(0), -1, contenuGrille);
+
+                            listCoordonnees.add(new Coordonnees(ship.getCaseShipX(0)+1, ship.getCaseShipY(0)));
+                            ship.setArrayCoordonneesShip(listCoordonnees);
+
+                            System.out.println("Sous-Marin déplacé à droite");
+                        }else{System.out.println("Impossibilité d'aller à droite");}
+    
+                        break;
+    
+                        case "haut" : 
+    
+                        if(balayageBoatVersHaut(ship, ship.getCaseShipY(0)-1,ship.getCaseShipX(0),grille) == 1){
+                            String contenuGrille = grille.getContent(ship.getCaseShipX(0), ship.getCaseShipY(0));
+                            grille.hideContent(ship.getCaseShipX(0), ship.getCaseShipY(0));
+                            grille.setContent(ship.getCaseShipX(0), ship.getCaseShipY(0)-1, -1, contenuGrille);
+
+                            listCoordonnees.add(new Coordonnees(ship.getCaseShipX(0), ship.getCaseShipY(0)-1));
+                            ship.setArrayCoordonneesShip(listCoordonnees);
+
+                            System.out.println("Sous-Marin déplacé en haut");
+                        }else{System.out.println("Impossibilité d'aller plus haut");}
+    
+                        break;
+    
+                        case "bas" :
+    
+                        if(balayageBoatVersBas(ship, ship.getCaseShipY(0)+1,ship.getCaseShipX(0),grille) ==  1){
+                            String contenuGrille = grille.getContent(ship.getCaseShipX(0), ship.getCaseShipY(0));
+                            grille.hideContent(ship.getCaseShipX(0), ship.getCaseShipY(0));
+                            grille.setContent(ship.getCaseShipX(0), ship.getCaseShipY(0)+1, -1, contenuGrille);
+
+                            listCoordonnees.add(new Coordonnees(ship.getCaseShipX(0), ship.getCaseShipY(0)+1));
+                            ship.setArrayCoordonneesShip(listCoordonnees);
+
+                            System.out.println("Sous-Marin déplacé en bas");
+                        }else{System.out.println("Impossibilité d'aller plus bas");}
+                    }    
+            }
+            }else {System.out.println("VOTRE BATEAU EST ENDOMMAGER VOUS NE POUVEZ PAS LE DEPLACER");} 
     }
 
 
