@@ -166,7 +166,7 @@ public class Controller {
             gameState=GameState.MenuGame;
             default:
             try { inputCustoms.actionInputCustoms(userChoice); } 
-            catch (BadInputException e) { System.out.println(e.getMessage()); this.runGame();}
+            catch (BadInputException e) { System.out.println(e.getMessage());}
         }
     }
 
@@ -174,7 +174,7 @@ public class Controller {
         try {
             inputCustoms.shootInputCustoms(boatChoice, xChoice, yChoice, flotteJoueur, grilleIA);
             startShootAction(boatChoice, xChoice, yChoice);
-        } catch (BadInputException e) {System.out.println(e.getMessage()); this.runGame();}
+        } catch (BadInputException e) {System.out.println(e.getMessage()); }
     }
 
     public void createShoot (Ship boat, int x, int y) throws InterruptedException {
