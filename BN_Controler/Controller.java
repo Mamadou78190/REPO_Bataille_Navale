@@ -235,11 +235,7 @@ public class Controller {
                 }
 
                 view.showGrilles();
-                System.out.println("\nMise a jour des grilles dans 3");
-                for (int i=2; i>=0; i--)
-                {
-                    TimeUnit.SECONDS.sleep(1);
-                    System.out.println("                             "+i);
+                view.showTemporisation (3, "Mise a jour des grilles dans ");
 
                 }
 
@@ -274,13 +270,7 @@ public class Controller {
                 }
                 
                 view.showGrilles();
-                System.out.println("\nMise a jour des grilles dans 3");
-                for (int i=2; i>=0; i--)
-                {
-                    TimeUnit.SECONDS.sleep(1);
-                    System.out.println("                             "+i);
-
-                }
+                view.showTemporisation (3, "Mise a jour des grilles dans ");
 
                 for (int i=shootY; i<=shootY+1; i++)
                 {
@@ -308,11 +298,7 @@ public class Controller {
                 }
                 
                 view.showGrilles();
-                System.out.println("\nMise a jour des grilles dans 3");
-                for (int i=2; i>=0; i--)
-                {
-                    TimeUnit.SECONDS.sleep(1);
-                    System.out.println("                             "+i);
+                view.showTemporisation (3, "Mise a jour des grilles dans ");
 
                 }
 
