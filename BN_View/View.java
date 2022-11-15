@@ -60,6 +60,29 @@ public class View {
         controller.shootInput(input, inputx, inputy);
     }
 
+    public void showHelp() {
+        System.out.println( "\n\tBienvenue sur le Bataille Navale fait par Mahamadou Niakate, Bobby Bones, Azlaf Abdoul Vahab, Lucas Labaille !"+
+                            "\n"+
+                            "\n\t\t Voici sans plus tarder les regles du jeu :"+
+                            "\n\t\t - Chaque joueur possede une flotte de 10 navires : 1 cuirasse, 2 croiseurs, 3 destroyers et 4 sous-marins"+
+                            "\n\t\t - Chaque joueur joue a tour de role"+
+                            "\n\t\t - A chaque tour de jeu, les joueurs peuvent choisir l une des 2 actions suivantes"+
+                            "\n\t\t   sur un seul navire de leur choix de la grille, en choisissant les coordonnées de l une des cases du navire :"+
+                            "\n\n\t\t - TIRER : Le joueur tire en choisissant les coordonnees d’une case valide de l adversaire"+
+                            "\n\n\t\t - DEPLACER : Deplacer le navire d une seule case sauf s il est touche. Un navire ne peut pas se deplacer en"+
+                            "\n\t\t   diagonale. Il ne peut se deplacer que dans sa direction horizontale ou verticale, et d'une seule case"+
+                            "\n\t\t   a la fois, selon le sens de son bateau"+
+                            "\n\n\t\t - A chaque instant, le joueur peut quitter la partie en cours avec une touche du clavier. La partie est"+
+                            "\n\t\t   alors sauvegardee dans un fichier texte. La sauvegarde comprend la position et le type de tous les"+
+                            "\n\t\t   navires restant et coules des grilles."+
+                            "\n\t\t - Pour charger une partie, il faut passer par le menu principal et choisir 'Load an existing Game'"+
+                            "\n\t\t - Le premier qui a coule toute la flotte de son adversaire a gagné la partie !"+
+                            "\n\n\t\t Comment jouer ?"+
+                            "\n\t\t - Le jeu se joue uniquement par clavier !"+
+                            "\n\t\t - Dans la majorité des cas, il suffira juste de repondre a la console par un nombre, ce jeu est user intuitive !"+
+                            "\n\n\t\t Voila pour les regles du jeu. Nous vous souhaitons une bonne experience de jeu ! :)");
+    }
+
     public void showIALog (String message) {
         System.out.println("\n\t"+message);
     }

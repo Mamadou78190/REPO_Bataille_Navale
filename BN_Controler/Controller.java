@@ -112,7 +112,7 @@ public class Controller implements Serializable{
             chargement();
             break;
             case 3:
-            System.out.println("call showHelp");
+            view.showHelp();
             break;
             case 4:
             System.out.println("call exitGame");
