@@ -60,6 +60,9 @@ public class View {
         controller.shootInput(input, inputx, inputy);
     }
 
+    public void showIALog (String message) {
+        System.out.println("\n"+message);
+    }
 
     public void showGrilles() { 
         System.out.println("\n\nGRILLE JOUEUR \t\t\t\t\t\t\t\t\t\tGRILLE IA");
