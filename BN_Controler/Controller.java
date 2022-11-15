@@ -76,12 +76,14 @@ public class Controller implements Serializable{
             view.askInputForMenu();
             break;
             case TourJoueur:
-            System.out.println("Call View for player turn, input for what action to do");
+            System.out.println("\n\tIt is player turn now");
             view.showGrilles();
             view.showFlotte(flotteJoueur.getStringFlotte());
             view.askInputForAction(); 
             break;
             case TourIA:
+            view.showGrilles();
+            view.showIALog("It is IA's turn now");
             actionInput(0);
             // view.showGrilles();
             break;
