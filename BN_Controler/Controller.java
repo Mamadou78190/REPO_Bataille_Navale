@@ -82,8 +82,7 @@ public class Controller implements Serializable{
             view.askInputForAction(); 
             break;
             case TourIA:
-            System.out.println("Call View for IA turn, input for what action to do ");
-            startShootAction (0, 0, 0);
+            actionInput(0);
             // view.showGrilles();
             break;
             case EndGame:
@@ -153,7 +152,7 @@ public class Controller implements Serializable{
     }
 
     public void actionInput (int userChoice) throws BadInputException, InterruptedException {
-        
+        if (gameState==GameState.TourJoueur) {
         switch (userChoice) {
             case 0:
             System.out.println("call askForMoveBoatInput");
@@ -174,7 +173,20 @@ public class Controller implements Serializable{
             try { inputCustoms.actionInputCustoms(userChoice); } 
             catch (BadInputException e) { System.out.println(e.getMessage());}
         }
-
+        } else if (gameState==GameState.TourIA) {
+            int choiceIA = randomChoiceIA.nextInt(2);
+            switch (choiceIA) {
+                case 0:
+                view.showIALog("IA chose to move a boat");
+                createMove(0, "0");
+                view.showTemporisation(4, "Wait, IA's boat is moving ... ");
+                break;
+                case 1:
+                view.showIALog("IA chose to shoot !");
+                startShootAction(0, 0, 0);
+                break;
+            }
+        }
     }
 
     public void shootInput (int boatChoice, int xChoice, int yChoice) throws BadInputException, InterruptedException {
@@ -678,12 +690,41 @@ public class Controller implements Serializable{
     }
 
     public void createMove (int boat, String direction){
-
+        Random randomIndexIA = new Random();
+		Random randomDirectionIA = new Random();
         if (gameState==GameState.TourJoueur) {
             moveBoat(grilleJoueur, flotteJoueur.getShipFromFlotte(boat), direction);
         } else if (gameState==GameState.TourIA) {
-            moveBoat(grilleIA, flotteIA.getShipFromFlotte(boat), direction);
+            int indexShipIA = randomIndexIA.nextInt(10);
+            int directionIA = 0;
+            boolean pass = false;
+            String directionIAString = new String();
+            do {
+            directionIA = randomDirectionIA.nextInt(4);
+            switch (directionIA) {
+                case 0:
+                directionIAString = "haut";
+                break;
+                case 1:
+                directionIAString = "bas";
+                break;
+                case 2:
+                directionIAString = "droite";
+                break;
+                case 3:
+                directionIAString = "gauche";
+                break;
+            } //orientation 0 1 2 3 haut bas droite et gauche
+            if (((flotteIA.getShipFromFlotte(indexShipIA).getOrientation()==0 || flotteIA.getShipFromFlotte(indexShipIA).getOrientation()==1)&&
+            (directionIAString=="haut" || directionIAString=="bas"))||
+            ((flotteIA.getShipFromFlotte(indexShipIA).getOrientation()==3 || flotteIA.getShipFromFlotte(indexShipIA).getOrientation()==2)&&
+            (directionIAString=="droite" || directionIAString=="gauche"))) {
+                pass=true;
+            }
+            } while (!pass);
+            moveBoat(grilleIA, flotteIA.getShipFromFlotte(indexShipIA), directionIAString);
         }
+        switchingTurn(); //toggle comment when on dbg
 
     }
 
