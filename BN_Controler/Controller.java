@@ -304,7 +304,7 @@ public class Controller implements Serializable{
                 {
                     for (int j=shootX-1; j<=shootX+1; j++)
                     {
-                        if (grille.getContent(j,i) == "BOOM"){
+                        if (grille.getContent(j,i)== "BOOM" || grille.getContent(j,i)== "DEAD"){
                             grille.setContent(j, i,-1, " ## ");
                         }else{
                             grille.setContent(j, i,-1, " ~~ ");
@@ -337,7 +337,7 @@ public class Controller implements Serializable{
                 {
                     for (int j=shootX; j<=shootX+1; j++)
                     {
-                        if (grille.getContent(j,i)== "BOOM"){
+                        if (grille.getContent(j,i)== "BOOM" || grille.getContent(j,i)== "DEAD"){
                             grille.setContent(j, i,-1, " ## ");
                         }else{
                             grille.setContent(j, i,-1, " ~~ ");
@@ -362,7 +362,7 @@ public class Controller implements Serializable{
                 view.showTemporisation (3, "Mise a jour des grilles dans ");
 
 
-                if (grille.getContent(shootX, shootY)== "BOOM"){
+                if (grille.getContent(shootX, shootY)== "BOOM" || grille.getContent(shootX, shootY)== "DEAD"){
                     grille.setContent(shootX, shootY,-1, " ## ");
                 }else{
                     grille.setContent(shootX, shootY,-1, " ~~ ");
