@@ -1,11 +1,14 @@
 package BN_Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Ship extends Coordonnees {
+public class Ship extends Coordonnees implements Serializable {
     private caracteristiquesBateaux bateau;
     private int orientation;
-    ArrayList<Coordonnees> navires = new ArrayList<Coordonnees>();
+    private boolean isDead = false;
+    private String stringIsDead = "ALIVE";
+    ArrayList<Coordonnees> navireCoordonneesList = new ArrayList<Coordonnees>();
     
     public Ship() {}
     public Ship(caracteristiquesBateaux bateau) {
@@ -37,11 +40,32 @@ public class Ship extends Coordonnees {
     // public void setOrdonnees(int ordonnees) {
     //     this.ordonnees = ordonnees;
     // }
+
     public int getOrientation() {
         return orientation;
     }
     public void setOrientation(int orientation) {
         this.orientation = orientation;
+    }
+
+    public ArrayList<Coordonnees> getArrayCoordonneesShip(){
+        return navireCoordonneesList;
+    }
+
+    public void setArrayCoordonneesShip(ArrayList<Coordonnees> navires) {
+        this.navireCoordonneesList = navires;
+    }
+
+    public int getCaseShipX(int index){
+
+        return navireCoordonneesList.get(index).getX();
+
+    }
+
+    public int getCaseShipY(int index){
+
+        return navireCoordonneesList.get(index).getY();
+
     }
 
     // public Taille getTaille() {
@@ -60,27 +84,32 @@ public class Ship extends Coordonnees {
            //     ", puissanceDeTire=" + bateau.getpuissance() +
             //    '}';
 
+<<<<<<< HEAD
 
     public ArrayList<Coordonnees> getCoordonneesNavire(){
 
         return navires;
 
+=======
+    public ArrayList<Coordonnees> getCoordonneesShip() {
+        return navireCoordonneesList;
+>>>>>>> Developpement
     }
 
-
-    public void setNavires(int x, int y, Ship bateau) {
+    public void setCoordonneesShip(int x, int y, Ship bateau) {
 
         Coordonnees coordonnees = new Coordonnees(x, y);
-        navires.add(coordonnees);
+        navireCoordonneesList.add(coordonnees);
 
     }
 
-    public Coordonnees getCaseNavire (int index){
+    public Coordonnees getCaseShip (int index){
 
-        return navires.get(index);
+        return navireCoordonneesList.get(index);
 
     }
 
+<<<<<<< HEAD
     public boolean isDead(Ship navire, Grille grille){
 
         int cmpt = 0;
@@ -100,12 +129,18 @@ public class Ship extends Coordonnees {
         }
         return isDead;
     }
+=======
+    public void setIsDead() {
+        stringIsDead = "DEAD";
+        isDead = true;
+    }
+
+>>>>>>> Developpement
 
     @Override
     public String toString() {
-        return bateau.toString()+" / orientation : "+this.getOrientation()+
-        " / abscisse : "+this.getX()+
-        " / ordonnees : "+this.getY()+" }\n";
+        return bateau.toString()+" / Orientation "+orientation +"/ Coordonnees : "+navireCoordonneesList.toString()+
+        " } "+stringIsDead+ "\n";
     }
     
 }

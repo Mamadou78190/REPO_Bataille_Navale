@@ -3,6 +3,7 @@ package BN_Model;
 
 public class Damaged {
 
+<<<<<<< HEAD
     // public void deplacementNavire(Grille grille, Ship ship, String direction){
       
     //     int position = ship.getOrientation();
@@ -203,13 +204,19 @@ public class Damaged {
     //     }else {System.out.println("VOTRE BATEAU EST ENDOMMAGER VOUS NE POUVEZ PAS LE DEPLACER");}      
     // }
 
+=======
+>>>>>>> Developpement
     public boolean navireDamaged(Ship navire, Grille grille){
 
         boolean status = false;
 
         for (int i = 0; i < navire.getTaille(); i++){
 
+<<<<<<< HEAD
             Coordonnees coordonnes = navire.getCaseNavire(i);
+=======
+            Coordonnees coordonnes = navire.getCaseShip(i);
+>>>>>>> Developpement
 
             if (grille.tableauJeu[coordonnes.getX()][coordonnes.getY()]==" ## "){
                 status = true;

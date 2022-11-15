@@ -1,7 +1,14 @@
 package BN_Model;
+<<<<<<< HEAD
 public class Flotte {
+=======
+>>>>>>> Developpement
 
-    private Ship flotte[] = new Ship[10];//Flotte ami
+import java.io.Serializable;
+
+public class Flotte extends Ship implements Serializable {
+
+    private Ship flotte[] = new Ship[10];
 
 
     public Flotte()
