@@ -84,16 +84,8 @@ public class Ship extends Coordonnees implements Serializable {
            //     ", puissanceDeTire=" + bateau.getpuissance() +
             //    '}';
 
-<<<<<<< HEAD
-
-    public ArrayList<Coordonnees> getCoordonneesNavire(){
-
-        return navires;
-
-=======
     public ArrayList<Coordonnees> getCoordonneesShip() {
         return navireCoordonneesList;
->>>>>>> Developpement
     }
 
     public void setCoordonneesShip(int x, int y, Ship bateau) {
@@ -109,33 +101,11 @@ public class Ship extends Coordonnees implements Serializable {
 
     }
 
-<<<<<<< HEAD
-    public boolean isDead(Ship navire, Grille grille){
-
-        int cmpt = 0;
-        boolean isDead = false;
-
-        for (int i = 0; i < navire.getTaille(); i++)
-        {
-            Coordonnees coordonnes = navire.getCaseNavire(i);
-            if (grille.tableauJeu[coordonnes.getX()][coordonnes.getY()]==" ## ")
-            {
-                cmpt++;
-            }
-        }
-        if (cmpt == navire.getTaille())
-        {
-            isDead = true;
-        }
-        return isDead;
-    }
-=======
     public void setIsDead() {
         stringIsDead = "DEAD";
         isDead = true;
     }
 
->>>>>>> Developpement
 
     @Override
     public String toString() {

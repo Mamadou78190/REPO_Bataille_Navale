@@ -239,8 +239,6 @@ public class View {
                 System.out.print("|");
     }
 
-<<<<<<< HEAD
-=======
     public void showTemporisation (int delayInSeconds, String message) throws InterruptedException {
         System.out.println("\n"+message+"\t"+delayInSeconds);
                 for (int i=delayInSeconds-1; i>=0; i--)
@@ -253,23 +251,14 @@ public class View {
                 }
     }
 
->>>>>>> Developpement
     public void askInputForMove() throws BadInputException, InterruptedException {
         System.out.println("Which boat you want to move ? from 0 to 9");
         input = UserInput.nextInt();
         
         System.out.println("In which direction you want to move yout boat ? if it is horizontal (gauche or droite) if it is vertical (haut or bas)");
-<<<<<<< HEAD
-        inputString = UserInput.nextLine();
-
-        controller.moveInput(input, inputString);
-    }
-
-=======
         inputString = UserInputString.nextLine();
 
         controller.moveInput(input, inputString);
     }
->>>>>>> Developpement
 
 }
