@@ -93,6 +93,7 @@ public class Controller implements Serializable{
             // view.showGrilles();
             break;
             case EndGame:
+            System.out.println("NOUS AVONS UN VAINQUEUR !");
             System.out.println("Go back to main menu");
             break;
         }
@@ -144,18 +145,21 @@ public class Controller implements Serializable{
         Random randomShootX = new Random();
         Random randomShootY = new Random();
         Random randomShootShipIndex = new Random();
+        boolean endGame = false;
         
         if (gameState==GameState.TourJoueur) {
             createShoot (flotteJoueur.getShipFromFlotte(shipIndex), x, y);
-            checkIfAShipIsDead(flotteIA, grilleIA);
+            endGame = checkIfAShipIsDead(flotteIA, grilleIA);
         } else if (gameState==GameState.TourIA) {
             int xIA = randomShootX.nextInt(grilleIA.getTailleAbscisse());
             int yIA = randomShootY.nextInt(grilleIA.getTailleOrdonnees());
             int indexShipFromFlotteIA = randomShootShipIndex.nextInt(flotteIA.getFlotteSize());
             createShoot (flotteIA.getShipFromFlotte(indexShipFromFlotteIA), xIA, yIA);
-            checkIfAShipIsDead(flotteJoueur, grilleJoueur);
+            endGame = checkIfAShipIsDead(flotteJoueur, grilleJoueur);
         }
+        if (endGame == false){
         switchingTurn(); //toggle comment when on dbg
+        }
     }
 
     public void actionInput (int userChoice) throws BadInputException, InterruptedException {
@@ -208,12 +212,19 @@ public class Controller implements Serializable{
         // shoot.setX=x;
         // shoot.setY=y;
         // shoot.setPuissance(boat.getPuissance)
+        boolean sousmarinShoot = false;
+
+        if (boat.getName() == "sousmarin"){
+            sousmarinShoot = true;
+        }
+
         shoot = new Shoot (x,y,boat.getPuissance());
         if (gameState==GameState.TourJoueur) {
-            setShootImpact(shoot,grilleIA);
+            setShootImpact(shoot,grilleIA, sousmarinShoot);
         } else if (gameState==GameState.TourIA) {
-            setShootImpact(shoot,grilleJoueur);
+            setShootImpact(shoot,grilleJoueur, sousmarinShoot);
         }
+
         // switchingTurn();
         }
 
@@ -271,8 +282,35 @@ public class Controller implements Serializable{
     {
         return grilleJoueur.getTailleOrdonnees();
     }
+
+    public boolean isHere(int positionX, int positionY, Grille grille){
+
+        boolean isHere = false; 
+
+        switch(grille.getContent(positionX, positionY)){
+
+            case "0SM ":
+                isHere = true;
+            break;
+
+            case "1SM ":
+                isHere = true;
+            break;
+
+            case "2SM ":
+                isHere = true;
+            break;
+
+            case "3SM ":
+                isHere = true;
+            break;
+            
+        }
+
+        return isHere;
+    }
     
-    public void setShootImpact(Shoot shoot, Grille grille) throws InterruptedException {
+    public void setShootImpact(Shoot shoot, Grille grille, boolean shootbySM) throws InterruptedException {
         int shootX = shoot.getX();
         int shootY = shoot.getY();
 
@@ -305,9 +343,10 @@ public class Controller implements Serializable{
                 {
                     for (int j=shootX-1; j<=shootX+1; j++)
                     {
-                        if (grille.getContent(j,i) == "DEAD") {
+                        if (grille.getContent(j,i) == "DEAD" || isHere(j, i, grille)) {
                             // does nothing, just keep it dead
-                        } else if (grille.getContent(j,i) != " ~~ "){
+                        } 
+                        else if (grille.getContent(j,i) != " ~~ "){
                             grille.setContent(j, i,-1, "BOOM");
                         } else {
                             grille.setContent(j, i,-1, "PLOP");
@@ -324,9 +363,9 @@ public class Controller implements Serializable{
                 {
                     for (int j=shootX-1; j<=shootX+1; j++)
                     {
-                        if (grille.getContent(j,i)== "BOOM" || grille.getContent(j,i)!= "DEAD"){
+                        if (grille.getContent(j,i)== "BOOM"){
                             grille.setContent(j, i,-1, " ## ");
-                        }else{
+                        }else if (grille.getContent(j,i)== "PLOP"){
                             grille.setContent(j, i,-1, " ~~ ");
                         }
                     }
@@ -340,7 +379,7 @@ public class Controller implements Serializable{
                 {
                     for (int j=shootX; j<=shootX+1; j++)
                     {
-                        if (grille.getContent(j,i) == "DEAD") {
+                        if (grille.getContent(j,i) == "DEAD" || isHere(j, i, grille)) {
                             // does nothing, just keep it dead
                         } else if (grille.getContent(j,i)!= " ~~ "){
                             grille.setContent(j, i,-1, "BOOM");
@@ -357,9 +396,9 @@ public class Controller implements Serializable{
                 {
                     for (int j=shootX; j<=shootX+1; j++)
                     {
-                        if (grille.getContent(j,i)== "BOOM" || grille.getContent(j,i)!= "DEAD"){
+                        if (grille.getContent(j,i)== "BOOM"){
                             grille.setContent(j, i,-1, " ## ");
-                        }else{
+                        }else if(grille.getContent(j,i)== "PLOP"){
                             grille.setContent(j, i,-1, " ~~ ");
                         }
                     }
@@ -369,38 +408,67 @@ public class Controller implements Serializable{
             break;
 
             case 1:
+                if (shootbySM == false){
+                    if (grille.getContent(shootX,shootY) == "DEAD" || isHere(shootX, shootY, grille)) {
+                        // does nothing, just keep it dead
+                    } else if (grille.getContent(shootX, shootY)!= " ~~ "){
+                        grille.setContent(shootX, shootY,-1, "BOOM");
+                    }else{
+                        grille.setContent(shootX, shootY,-1, "PLOP");
+                    }
+                    
+                    view.showGrilles();
+                    view.showTemporisation (3, "Mise a jour des grilles dans ");
 
-                if (grille.getContent(shootX,shootY) == "DEAD") {
-                    // does nothing, just keep it dead
-                } else if (grille.getContent(shootX, shootY)!= " ~~ "){
-                    grille.setContent(shootX, shootY,-1, "BOOM");
-                }else{
-                    grille.setContent(shootX, shootY,-1, "PLOP");
+
+                    if (grille.getContent(shootX, shootY)== "BOOM"){
+                        grille.setContent(shootX, shootY,-1, " ## ");
+                    }else if (grille.getContent(shootX, shootY)== "PLOP"){
+                        grille.setContent(shootX, shootY,-1, " ~~ ");
+                    }
+                }else if (shootbySM == true) {
+                    
+                    if (grille.getContent(shootX,shootY) == "DEAD") {
+                        // does nothing, just keep it dead
+                    } else if (grille.getContent(shootX, shootY)!= " ~~ "){
+                        grille.setContent(shootX, shootY,-1, "BOOM");
+                    }else{
+                        grille.setContent(shootX, shootY,-1, "PLOP");
+                    }
+                    
+                    view.showGrilles();
+                    view.showTemporisation (3, "Mise a jour des grilles dans ");
+
+
+                    if (grille.getContent(shootX, shootY)== "BOOM"){
+                        grille.setContent(shootX, shootY,-1, " ## ");
+                    }else if (grille.getContent(shootX, shootY)== "PLOP"){
+                        grille.setContent(shootX, shootY,-1, " ~~ ");
+                    }
+
                 }
-                
-                view.showGrilles();
-                view.showTemporisation (3, "Mise a jour des grilles dans ");
-
-
-                if (grille.getContent(shootX, shootY)== "BOOM" || grille.getContent(shootX, shootY)!= "DEAD"){
-                    grille.setContent(shootX, shootY,-1, " ## ");
-                }else{
-                    grille.setContent(shootX, shootY,-1, " ~~ ");
-                }
-                
             break;
 
         }
     }
 
-    public void checkIfAShipIsDead (Flotte flotte, Grille grille) {
+
+    public boolean checkIfAShipIsDead (Flotte flotte, Grille grille) {
         boolean status = false;
+        int cmpt = 0;
         for (int i = 0 ; i < flotte.getFlotteSize() ; i++) {
             status = isShipDead(flotte.getShipFromFlotte(i), grille);
             if (status) {
                 setDeadShipOnGrille(flotte.getShipFromFlotte(i), grille);
+                cmpt ++;
             }
         }
+        if (cmpt == flotte.getFlotteSize()-1){
+            gameState = GameState.EndGame;
+            return true;
+        }
+
+        return false;
     }
     public boolean isShipDead(Ship ship, Grille grille){
 

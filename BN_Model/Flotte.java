@@ -10,7 +10,7 @@ public class Flotte extends Ship implements Serializable {
     public Flotte()
 
     {
-        super();
+
         for (int i=0;i<4;i++){//creation de 4 sous-marin
             flotte[i] = new Ship(caracteristiquesBateaux.sousMarin);
         }
