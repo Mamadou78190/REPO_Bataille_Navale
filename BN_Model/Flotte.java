@@ -1,8 +1,4 @@
 package BN_Model;
-<<<<<<< HEAD
-public class Flotte {
-=======
->>>>>>> Developpement
 
 import java.io.Serializable;
 
@@ -50,22 +46,6 @@ public class Flotte extends Ship implements Serializable {
             
         }
         return s;
-    }
-
-    public void isDeadOnArray(Flotte flotte, Grille grille){
-
-        for (int i=0; i<flotte.getFlotteSize(); i++){
-            if(flotte.getShipFromFlotte(i).isDead(flotte.getShipFromFlotte(i), grille)){
-
-                for (int j = 0; j < flotte.getShipFromFlotte(i).getTaille(); j++){
-
-                    Coordonnees coordonnes = flotte.getShipFromFlotte(i).getCaseNavire(j);
-
-                    grille.tableauJeu[coordonnes.getX()][coordonnes.getY()] = "DEAD";
-
-                }
-            }
-        }
     }
 
 }
