@@ -425,6 +425,7 @@ public class Controller {
         int abscisses = randomAbscisse.nextInt(grille.getTailleAbscisse());
         int ordonnees = randomOrdonnee.nextInt(grille.getTailleOrdonnees());
         int position = randomPosition.nextInt(3);
+        ArrayList<Coordonnees> listCoordonneesShipApparition = new ArrayList<Coordonnees>();
 
         do {
             if (balayageBoatVersBas(ship, ordonnees, abscisses, grille) == ship.getTaille()){
@@ -453,25 +454,34 @@ public class Controller {
                     for (int i = 0; i<ship.getTaille(); i++){
                         grille.setContent(abscisses,ordonnees-i,indexOfBoat , ship.getVisuel());
                         position = 0;
-                        ship.setCoordonneesShip(abscisses, ordonnees-i, ship);
+                        //ship.setCoordonneesShip(abscisses, ordonnees-i, ship);
+                        listCoordonneesShipApparition.add(new Coordonnees(abscisses, ordonnees-i));
+                        ship.setArrayCoordonneesShip(listCoordonneesShipApparition);
+
                     }
                 }else if (jetonBas){
                     for (int i = 0; i<ship.getTaille(); i++){
                         grille.setContent(abscisses,ordonnees+i,indexOfBoat , ship.getVisuel());
                         position = 1;
-                        ship.setCoordonneesShip(abscisses, ordonnees+i, ship);
+                        //ship.setCoordonneesShip(abscisses, ordonnees+i, ship);
+                        listCoordonneesShipApparition.add(new Coordonnees(abscisses, ordonnees+i));
+                        ship.setArrayCoordonneesShip(listCoordonneesShipApparition);
                     }
                 }else if (jetonGauche){
                     for (int i = 0; i<ship.getTaille(); i++){
                         grille.setContent(abscisses-i,ordonnees,indexOfBoat , ship.getVisuel());
                         position = 3;
-                        ship.setCoordonneesShip(abscisses-i, ordonnees, ship);
+                        //ship.setCoordonneesShip(abscisses-i, ordonnees, ship);
+                        listCoordonneesShipApparition.add(new Coordonnees(abscisses-i, ordonnees));
+                        ship.setArrayCoordonneesShip(listCoordonneesShipApparition);
                     }
                 }else if (jetonDroit){
                     for (int i = 0; i<ship.getTaille(); i++){
                         grille.setContent(abscisses+i,ordonnees,indexOfBoat, ship.getVisuel());
                         position = 2;
-                        ship.setCoordonneesShip(abscisses+i, ordonnees, ship);
+                        //ship.setCoordonneesShip(abscisses+i, ordonnees, ship);
+                        listCoordonneesShipApparition.add(new Coordonnees(abscisses+i, ordonnees));
+                        ship.setArrayCoordonneesShip(listCoordonneesShipApparition);
                     }
                 }
 
@@ -483,25 +493,33 @@ public class Controller {
                     for (int i = 0; i<ship.getTaille(); i++){
                         grille.setContent(abscisses,ordonnees+i,indexOfBoat, ship.getVisuel());
                         position = 1;
-                        ship.setCoordonneesShip(abscisses, ordonnees+i, ship);
+                       // ship.setCoordonneesShip(abscisses, ordonnees+i, ship);
+                        listCoordonneesShipApparition.add(new Coordonnees(abscisses, ordonnees+i));
+                        ship.setArrayCoordonneesShip(listCoordonneesShipApparition);
                     }
                 }else if (jetonHaut){
                     for (int i = 0; i<ship.getTaille(); i++){
                         grille.setContent(abscisses,ordonnees-i,indexOfBoat, ship.getVisuel());
                         position = 0;
-                        ship.setCoordonneesShip(abscisses, ordonnees-i, ship);
+                        //ship.setCoordonneesShip(abscisses, ordonnees-i, ship);
+                        listCoordonneesShipApparition.add(new Coordonnees(abscisses, ordonnees-i));
+                        ship.setArrayCoordonneesShip(listCoordonneesShipApparition);
                     }
                 }else if (jetonDroit){
                     for (int i = 0; i<ship.getTaille(); i++){
                         grille.setContent(abscisses+i,ordonnees,indexOfBoat, ship.getVisuel());
                         position = 2;
-                        ship.setCoordonneesShip(abscisses+i, ordonnees, ship);
+                        //ship.setCoordonneesShip(abscisses+i, ordonnees, ship);
+                        listCoordonneesShipApparition.add(new Coordonnees(abscisses+i, ordonnees));
+                        ship.setArrayCoordonneesShip(listCoordonneesShipApparition);
                     }
                 }else if (jetonGauche){
                     for (int i = 0; i<ship.getTaille(); i++){
                         grille.setContent(abscisses-i,ordonnees,indexOfBoat, ship.getVisuel());
                         position = 3;
-                        ship.setCoordonneesShip(abscisses-i, ordonnees, ship);
+                        //ship.setCoordonneesShip(abscisses-i, ordonnees, ship);
+                        listCoordonneesShipApparition.add(new Coordonnees(abscisses-i, ordonnees));
+                        ship.setArrayCoordonneesShip(listCoordonneesShipApparition);
                     }
                 }
             break; 
@@ -512,25 +530,33 @@ public class Controller {
                     for (int i = 0; i<ship.getTaille(); i++){
                         grille.setContent(abscisses+i,ordonnees,indexOfBoat, ship.getVisuel());
                         position = 2;
-                        ship.setCoordonneesShip(abscisses+i, ordonnees, ship);
+                        //ship.setCoordonneesShip(abscisses+i, ordonnees, ship);
+                        listCoordonneesShipApparition.add(new Coordonnees(abscisses+i, ordonnees));
+                        ship.setArrayCoordonneesShip(listCoordonneesShipApparition);
                     }
                 }else if (jetonGauche){
                     for (int i = 0; i<ship.getTaille(); i++){
                         grille.setContent(abscisses-i,ordonnees,indexOfBoat, ship.getVisuel());
                         position = 3;
-                        ship.setCoordonneesShip(abscisses-i, ordonnees, ship);
+                        //ship.setCoordonneesShip(abscisses-i, ordonnees, ship);
+                        listCoordonneesShipApparition.add(new Coordonnees(abscisses-i, ordonnees));
+                        ship.setArrayCoordonneesShip(listCoordonneesShipApparition);
                     }
                 }else if (jetonHaut){
                     for (int i = 0; i<ship.getTaille(); i++){
                         grille.setContent(abscisses,ordonnees-i,indexOfBoat, ship.getVisuel());
                         position = 0;
-                        ship.setCoordonneesShip(abscisses, ordonnees-i, ship);
+                        //ship.setCoordonneesShip(abscisses, ordonnees-i, ship);
+                        listCoordonneesShipApparition.add(new Coordonnees(abscisses, ordonnees-i));
+                        ship.setArrayCoordonneesShip(listCoordonneesShipApparition);
                     }
                 }else if (jetonBas){
                     for (int i = 0; i<ship.getTaille(); i++){
                         grille.setContent(abscisses,ordonnees+i,indexOfBoat, ship.getVisuel());
                         position = 1;
-                        ship.setCoordonneesShip(abscisses, ordonnees+i, ship);
+                        //ship.setCoordonneesShip(abscisses, ordonnees+i, ship);
+                        listCoordonneesShipApparition.add(new Coordonnees(abscisses, ordonnees+i));
+                        ship.setArrayCoordonneesShip(listCoordonneesShipApparition);
                     }
                 }
             break; 
@@ -541,25 +567,33 @@ public class Controller {
                     for (int i = 0; i<ship.getTaille(); i++){
                         grille.setContent(abscisses-i,ordonnees,indexOfBoat, ship.getVisuel());
                         position = 3;
-                        ship.setCoordonneesShip(abscisses-i, ordonnees, ship);
+                        //ship.setCoordonneesShip(abscisses-i, ordonnees, ship);
+                        listCoordonneesShipApparition.add(new Coordonnees(abscisses-i, ordonnees));
+                        ship.setArrayCoordonneesShip(listCoordonneesShipApparition);
                     }
                 }else if (jetonDroit){
                     for (int i = 0; i<ship.getTaille(); i++){
                         grille.setContent(abscisses+i,ordonnees,indexOfBoat, ship.getVisuel());
                         position = 2;
-                        ship.setCoordonneesShip(abscisses+i, ordonnees, ship);
+                        //ship.setCoordonneesShip(abscisses+i, ordonnees, ship);
+                        listCoordonneesShipApparition.add(new Coordonnees(abscisses+i, ordonnees));
+                        ship.setArrayCoordonneesShip(listCoordonneesShipApparition);
                     }
                 }else if (jetonHaut){
                     for (int i = 0; i<ship.getTaille(); i++){
                         grille.setContent(abscisses,ordonnees-i,indexOfBoat, ship.getVisuel());
                         position = 0;
-                        ship.setCoordonneesShip(abscisses, ordonnees-i, ship);
+                        //ship.setCoordonneesShip(abscisses, ordonnees-i, ship);
+                        listCoordonneesShipApparition.add(new Coordonnees(abscisses, ordonnees-i));
+                        ship.setArrayCoordonneesShip(listCoordonneesShipApparition);
                     }
                 }else if (jetonBas){
                     for (int i = 0; i<ship.getTaille(); i++){
                         grille.setContent(abscisses,ordonnees+i,indexOfBoat, ship.getVisuel());
                         position = 1;
-                        ship.setCoordonneesShip(abscisses, ordonnees+i, ship);
+                        //ship.setCoordonneesShip(abscisses, ordonnees+i, ship);
+                        listCoordonneesShipApparition.add(new Coordonnees(abscisses, ordonnees+i));
+                        ship.setArrayCoordonneesShip(listCoordonneesShipApparition);
                     }
                 }
             break;
