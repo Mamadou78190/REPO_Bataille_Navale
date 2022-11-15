@@ -61,7 +61,7 @@ public class View {
     }
 
     public void showIALog (String message) {
-        System.out.println("\n"+message);
+        System.out.println("\n\t"+message);
     }
 
     public void showGrilles() { 

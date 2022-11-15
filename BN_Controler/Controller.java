@@ -11,8 +11,6 @@ import java.util.Random;
 
 import java.io.*;
 
-import java.util.concurrent.TimeUnit;
-
 import BN_Model.*;
 import BN_View.View;
 
@@ -39,6 +37,13 @@ class InputCustoms {
             throw new BadInputException("Vous devez selectionner une coordonnee X entre 0 et "+ grille.getTailleAbscisse());
         } else if (y < 0 || y > grille.getTailleOrdonnees()) {
             throw new BadInputException("Vous devez selectionner une coordonnee Y entre 0 et "+ grille.getTailleAbscisse());
+        }
+    }
+     public void moveInputCustoms (int shipIndex, String direction, Flotte flotte) throws BadInputException {
+        if (shipIndex < 0 || shipIndex > flotte.getFlotteSize()) {
+            throw new BadInputException("Vous devez selectionner un de vos navires par son Numero ! ");
+        } else if (!direction.equals("haut") && !direction.equals("bas") && !direction.equals("gauche") && !direction.equals("droite")) {
+            throw new BadInputException("La direction choisie n'est pas interpretable, veuillez ecrire soit 'haut' ou 'bas' ou 'gauche' ou 'droite'");
         }
     }
 }
@@ -154,27 +159,28 @@ public class Controller implements Serializable{
     }
 
     public void actionInput (int userChoice) throws BadInputException, InterruptedException {
+        Random randomChoiceIA = new Random();
         if (gameState==GameState.TourJoueur) {
-        switch (userChoice) {
-            case 0:
-            System.out.println("call askForMoveBoatInput");
-            view.askInputForMove();
-            break;
-            case 1:
-            System.out.println("call askForShootInput");
-            view.askInputForShoot();
-            break;
-            case 2:
-            System.out.println("call saveMethod");
-            sauvegarder();
-            System.out.println("Partie sauvegardé !");
-            break;
-            case -1:
-            gameState=GameState.MenuGame;
-            default:
-            try { inputCustoms.actionInputCustoms(userChoice); } 
-            catch (BadInputException e) { System.out.println(e.getMessage());}
-        }
+            switch (userChoice) {
+                case 0:
+                System.out.println("call askForMoveBoatInput");
+                view.askInputForMove();
+                break;
+                case 1:
+                System.out.println("call askForShootInput");
+                view.askInputForShoot();
+                break;
+                case 2:
+                System.out.println("call saveMethod");
+                sauvegarder();
+                System.out.println("Partie sauvegardé !");
+                break;
+                case -1:
+                gameState=GameState.MenuGame;
+                default:
+                try { inputCustoms.actionInputCustoms(userChoice); } 
+                catch (BadInputException e) { System.out.println(e.getMessage());}
+            }
         } else if (gameState==GameState.TourIA) {
             int choiceIA = randomChoiceIA.nextInt(2);
             switch (choiceIA) {
@@ -687,8 +693,10 @@ public class Controller implements Serializable{
 
 
     public void moveInput (int boat, String direction) throws BadInputException, InterruptedException {
-        
-        createMove(boat, direction);
+        try {
+            inputCustoms.moveInputCustoms(boat, direction, flotteJoueur);
+            createMove(boat, direction);
+        } catch (BadInputException e) {System.out.println(e.getMessage()); }
     }
 
     public void createMove (int boat, String direction){
