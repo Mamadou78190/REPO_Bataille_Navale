@@ -11,7 +11,7 @@ public class Damaged {
 
             Coordonnees coordonnes = navire.getCaseShip(i);
 
-            if (grille.tableauJeu[coordonnes.getX()][coordonnes.getY()]==" ## "){
+            if (grille.tableauJeu[coordonnes.getX()][coordonnes.getY()]==" ## " || grille.tableauJeu[coordonnes.getX()][coordonnes.getY()]=="DEAD"){
                 status = true;
             }
         }

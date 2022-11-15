@@ -43,8 +43,8 @@ class InputCustoms {
     }
 }
 
-public class Controller {
-    enum GameState implements Serializable {
+public class Controller implements Serializable{
+    enum GameState {
         MenuGame, TourJoueur, TourIA, EndGame
     }
 
@@ -166,6 +166,7 @@ public class Controller {
             case 2:
             System.out.println("call saveMethod");
             sauvegarder();
+            System.out.println("Partie sauvegardé !");
             break;
             case -1:
             gameState=GameState.MenuGame;
@@ -192,7 +193,63 @@ public class Controller {
             setShootImpact(shoot,grilleIA);
         } else if (gameState==GameState.TourIA) {
             setShootImpact(shoot,grilleJoueur);
-        }    
+        }
+        // switchingTurn();
+        }
+
+    
+
+    public void sauvegarder (){
+        try {
+            FileOutputStream fos = new FileOutputStream("Save/Sauvegarde.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(grilleJoueur);
+            oos.writeObject(grilleIA);
+            oos.writeObject(flotteIA);
+            oos.writeObject(flotteJoueur);
+            oos.writeObject(gameState);
+            oos.close();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void chargement(){
+        try {
+            FileInputStream fis = new FileInputStream("Save/Sauvegarde.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            grilleJoueur = (Grille) ois.readObject();
+            grilleIA = (Grille) ois.readObject();
+            view.showGrilles();
+            flotteIA = (Flotte) ois.readObject();
+            flotteJoueur = (Flotte) ois.readObject();
+            gameState = (GameState) ois.readObject();
+            ois.close();
+            fis.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    
+
+
+    
+    // les deux grilles dont la même taille que ce soit en abscisse ou en ordonnee, donc autant les généraliser à une grille
+    public int getGrilleTailleAbscisse()
+    {
+        return grilleJoueur.getTailleAbscisse();
+    }
+    public int getGrilleTailleOrdonnees()
+    {
+        return grilleJoueur.getTailleOrdonnees();
     }
     
     public void setShootImpact(Shoot shoot, Grille grille) throws InterruptedException {
@@ -603,15 +660,6 @@ public class Controller {
         ship.setOrientation(position);
     }
 
-    // les deux grilles dont la même taille que ce soit en abscisse ou en ordonnee, donc autant les généraliser à une grille
-    public int getGrilleTailleAbscisse()
-    {
-        return grilleJoueur.getTailleAbscisse();
-    }
-    public int getGrilleTailleOrdonnees()
-    {
-        return grilleJoueur.getTailleOrdonnees();
-    }
     /////////////////////////////////////////////////
     
     // ce qui n'est pas le cas ici car le contenu de chaque grille n'est pas la même
@@ -623,50 +671,6 @@ public class Controller {
     }
     /////////////////////////////////////////////////
 
-
-    public void sauvegarder (){
-        try {
-            FileOutputStream fos = new FileOutputStream("Save/Sauvegarde.txt");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(grilleJoueur);
-            oos.writeObject(grilleIA);
-            oos.writeObject(flotteIA);
-            oos.writeObject(flotteJoueur);
-            oos.writeObject(gameState);
-            oos.close();
-            fos.close();
-            view.showSaveComplete();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void chargement(){
-        try {
-            FileInputStream fis = new FileInputStream("Save/Sauvegarde.txt");
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            grilleJoueur = (Grille) ois.readObject();
-            grilleIA = (Grille) ois.readObject();
-            view.showGrilles();
-            //o = ois.readObject();
-            //System.out.println(o);
-            //o = ois.readObject();
-            //System.out.println(o);
-            //o = ois.readObject();
-            //System.out.println(o);
-            ois.close();
-            fis.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public void moveInput (int boat, String direction) throws BadInputException, InterruptedException {
         
