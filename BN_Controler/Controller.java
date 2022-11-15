@@ -242,8 +242,6 @@ public class Controller implements Serializable{
 
 
     
-
-    
     // les deux grilles dont la même taille que ce soit en abscisse ou en ordonnee, donc autant les généraliser à une grille
     public int getGrilleTailleAbscisse()
     {
