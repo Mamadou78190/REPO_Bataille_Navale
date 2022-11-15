@@ -87,6 +87,7 @@ public class Controller implements Serializable{
             // view.showGrilles();
             break;
             case EndGame:
+            System.out.println("NOUS AVONS UN VAINQUEUR !");
             System.out.println("Go back to main menu");
             break;
         }
@@ -138,18 +139,21 @@ public class Controller implements Serializable{
         Random randomShootX = new Random();
         Random randomShootY = new Random();
         Random randomShootShipIndex = new Random();
+        boolean endGame = false;
         
         if (gameState==GameState.TourJoueur) {
             createShoot (flotteJoueur.getShipFromFlotte(shipIndex), x, y);
-            checkIfAShipIsDead(flotteIA, grilleIA);
+            endGame = checkIfAShipIsDead(flotteIA, grilleIA);
         } else if (gameState==GameState.TourIA) {
             int xIA = randomShootX.nextInt(grilleIA.getTailleAbscisse());
             int yIA = randomShootY.nextInt(grilleIA.getTailleOrdonnees());
             int indexShipFromFlotteIA = randomShootShipIndex.nextInt(flotteIA.getFlotteSize());
             createShoot (flotteIA.getShipFromFlotte(indexShipFromFlotteIA), xIA, yIA);
-            checkIfAShipIsDead(flotteJoueur, grilleJoueur);
+            endGame = checkIfAShipIsDead(flotteJoueur, grilleJoueur);
         }
+        if (endGame == false){
         switchingTurn(); //toggle comment when on dbg
+        }
     }
 
     public void actionInput (int userChoice) throws BadInputException, InterruptedException {
@@ -428,14 +432,23 @@ public class Controller implements Serializable{
         }
     }
 
-    public void checkIfAShipIsDead (Flotte flotte, Grille grille) {
+
+    public boolean checkIfAShipIsDead (Flotte flotte, Grille grille) {
         boolean status = false;
+        int cmpt = 0;
         for (int i = 0 ; i < flotte.getFlotteSize() ; i++) {
             status = isShipDead(flotte.getShipFromFlotte(i), grille);
             if (status) {
                 setDeadShipOnGrille(flotte.getShipFromFlotte(i), grille);
+                cmpt ++;
             }
         }
+        if (cmpt == flotte.getFlotteSize()-1){
+            gameState = GameState.EndGame;
+            return true;
+        }
+
+        return false;
     }
     public boolean isShipDead(Ship ship, Grille grille){
 
