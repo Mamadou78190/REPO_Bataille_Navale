@@ -28,6 +28,11 @@ public class Ship extends Coordonnees implements Serializable {
         return bateau.getVisuel();
     }
 
+    public String getName (){
+        return bateau.getName();
+
+    }
+
     // public int getAbscisse() {
     //     return abscisse;
     // }
