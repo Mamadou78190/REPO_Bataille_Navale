@@ -197,14 +197,7 @@ public class Controller implements Serializable{
         // switchingTurn();
         }
 
-    public void switchingTurn() {
-        if (gameState==GameState.TourJoueur) {
-            gameState=GameState.TourIA;
-        }
-        else if (gameState==GameState.TourIA) {
-            gameState=GameState.TourJoueur;
-        }
-    }
+    
 
     public void sauvegarder (){
         try {
@@ -669,15 +662,6 @@ public class Controller implements Serializable{
         ship.setOrientation(position);
     }
 
-    // les deux grilles dont la même taille que ce soit en abscisse ou en ordonnee, donc autant les généraliser à une grille
-    public int getGrilleTailleAbscisse()
-    {
-        return grilleJoueur.getTailleAbscisse();
-    }
-    public int getGrilleTailleOrdonnees()
-    {
-        return grilleJoueur.getTailleOrdonnees();
-    }
     /////////////////////////////////////////////////
     
     // ce qui n'est pas le cas ici car le contenu de chaque grille n'est pas la même
@@ -689,50 +673,6 @@ public class Controller implements Serializable{
     }
     /////////////////////////////////////////////////
 
-
-    public void sauvegarder (){
-        try {
-            FileOutputStream fos = new FileOutputStream("Save/Sauvegarde.txt");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(grilleJoueur);
-            oos.writeObject(grilleIA);
-            oos.writeObject(flotteIA);
-            oos.writeObject(flotteJoueur);
-            oos.writeObject(gameState);
-            oos.close();
-            fos.close();
-            view.showSaveComplete();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void chargement(){
-        try {
-            FileInputStream fis = new FileInputStream("Save/Sauvegarde.txt");
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            grilleJoueur = (Grille) ois.readObject();
-            grilleIA = (Grille) ois.readObject();
-            view.showGrilles();
-            //o = ois.readObject();
-            //System.out.println(o);
-            //o = ois.readObject();
-            //System.out.println(o);
-            //o = ois.readObject();
-            //System.out.println(o);
-            ois.close();
-            fis.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public void moveInput (int boat, String direction) throws BadInputException, InterruptedException {
         

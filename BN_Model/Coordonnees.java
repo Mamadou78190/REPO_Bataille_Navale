@@ -1,7 +1,8 @@
 package BN_Model;
 
+import java.io.Serializable;
 
-public class Coordonnees {
+public class Coordonnees implements Serializable{
     protected int x;
     protected int y;
 
